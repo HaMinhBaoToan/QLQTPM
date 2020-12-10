@@ -69,10 +69,11 @@ INSERT INTO `categories` VALUES (11, 'Trà sữa', NULL, NULL, b'1');
 DROP TABLE IF EXISTS `goods`;
 CREATE TABLE `goods`  (
   `Goods_ID` int(0) NOT NULL AUTO_INCREMENT,
+  `Goods_Name` varchar(200) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   `Goods_ImportDate` datetime(0) NOT NULL,
-  `Goods_Quantity` int(0) NOT NULL,
+  `Goods_Quantity` decimal(10) NOT NULL,
+  `Goods_Unit` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   `Goods_SupplierID` int(0) NOT NULL,
-  `Goods_Total` decimal(10, 0) NOT NULL,
   `Goods_UnitCost` decimal(10, 0) NOT NULL,
   `Goods_Description` varchar(200) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   `Goods_FromDate` datetime(0) NULL DEFAULT NULL,
@@ -81,6 +82,36 @@ CREATE TABLE `goods`  (
   INDEX `fk_goods_suppliers_idx`(`Goods_SupplierID`) USING BTREE,
   CONSTRAINT `fk_goods_suppliers` FOREIGN KEY (`Goods_SupplierID`) REFERENCES `suppliers` (`Supplier_ID`) ON DELETE RESTRICT ON UPDATE RESTRICT
 ) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+
+
+-- ----------------------------
+-- Records of goods
+-- ----------------------------
+INSERT INTO `goods` VALUES (1, 'Hạt cà phê Espresso', '2020-12-09 10:36:04', 3, 'kg', 1004, 95000);
+INSERT INTO `goods` VALUES (2, 'Hạt cà phê Arabica', '2020-12-09 10:36:04', 3, 'kg', 1004, 180000);
+INSERT INTO `goods` VALUES (3, 'Hạt cà phê Robusta', '2020-12-09 10:36:04', 3, 'kg', 1004, 100000);
+INSERT INTO `goods` VALUES (4, 'Đường trắng', '2020-12-09 10:36:04', 6, 'kg', 1004, 12000);
+INSERT INTO `goods` VALUES (5, 'Đường nâu', '2020-12-09 10:36:04', 2, 'kg', 1004, 27000);
+INSERT INTO `goods` VALUES (6, 'Sữa đặc', '2020-12-09 10:36:04', 12, 'Hộp', 1004, 56000);
+INSERT INTO `goods` VALUES (7, 'Sữa tươi', '2020-12-09 10:36:04', 15, 'Hộp', 1004, 35000,,'01/11/2020', '01/12/2021');
+INSERT INTO `goods` VALUES (8, 'Trà túi lọc Cozy', '2020-12-09 10:36:04', 4, 'Hộp', 1004, 30000);
+INSERT INTO `goods` VALUES (9, 'Trà túi lọc Lipton', '2020-12-09 10:36:04', 4, 'Hộp', 1005, 33000);
+INSERT INTO `goods` VALUES (10, 'Trà Đen', '2020-12-09 10:36:04', 3, 'kg', 1005, 135000);
+INSERT INTO `goods` VALUES (11, 'Trà Ô Long', '2020-12-09 10:36:04', 3, 'kg', 1005, 300000);
+INSERT INTO `goods` VALUES (12, 'Hồng Trà', '2020-12-09 10:36:04', 3, 'kg', 1005, 135000);
+INSERT INTO `goods` VALUES (13, 'Bột pudding socola', '2020-12-09 10:36:04', 7, 'kg', 1005, 145000);
+INSERT INTO `goods` VALUES (14, 'Bột cacao', '2020-12-09 10:36:04', 4, 'kg', 1005, 16000,,'11/10/2020', '01/12/2021');
+INSERT INTO `goods` VALUES (15, 'Bột trà matcha', '2020-12-09 10:36:04', 2, 'kg', 1005, 300000,,'11/10/2020', '01/12/2021');
+INSERT INTO `goods` VALUES (16, 'Bột kem sữa', '2020-12-09 10:36:04', 3, 'kg', 1005, 215000,,'11/10/2020', '01/12/2021');
+INSERT INTO `goods` VALUES (17, 'Trân châu đen', '2020-12-09 10:36:04', 5, 'Hộp', 1005, 40000);
+INSERT INTO `goods` VALUES (18, 'Hạt chia Đen', '2020-12-09 10:36:04', 1, 'kg', 1005, 200000);
+INSERT INTO `goods` VALUES (19, 'Thạch đào', '2020-12-09 10:36:04', 5, 'Hộp', 1006, 60000,,'01/12/2020', '01/06/2021');
+INSERT INTO `goods` VALUES (20, 'Thạch trái cây', '2020-12-09 10:36:04', 5, 'Hộp', 1006, 60000,,'01/12/2020', '01/06/2021');
+INSERT INTO `goods` VALUES (21, 'Đào ngâm Alcurnia', '2020-12-09 10:36:04', 4, 'Hộp', 1006, 60000);
+INSERT INTO `goods` VALUES (22, 'Vải đóng hộp EL GRECO', '2020-12-09 10:36:04', 4, 'Hộp', 1006, 33000);
+INSERT INTO `goods` VALUES (23, 'Siro hương dâu Heston', '2020-12-09 10:36:04', 2, 'Chai', 1006, 160000);
+INSERT INTO `goods` VALUES (24, 'Socola', '2020-12-09 10:36:04', 2, 'Chai', 1006, 75000);
+
 
 -- ----------------------------
 -- Table structure for languages
