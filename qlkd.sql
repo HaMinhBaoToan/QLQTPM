@@ -87,30 +87,30 @@ CREATE TABLE `goods`  (
 -- ----------------------------
 -- Records of goods
 -- ----------------------------
-INSERT INTO `goods` VALUES (1, 'Hạt cà phê Espresso', '2020-12-09 10:36:04', 3, 'kg', 1004, 95000);
-INSERT INTO `goods` VALUES (2, 'Hạt cà phê Arabica', '2020-12-09 10:36:04', 3, 'kg', 1004, 180000);
-INSERT INTO `goods` VALUES (3, 'Hạt cà phê Robusta', '2020-12-09 10:36:04', 3, 'kg', 1004, 100000);
-INSERT INTO `goods` VALUES (4, 'Đường trắng', '2020-12-09 10:36:04', 6, 'kg', 1004, 12000);
-INSERT INTO `goods` VALUES (5, 'Đường nâu', '2020-12-09 10:36:04', 2, 'kg', 1004, 27000);
-INSERT INTO `goods` VALUES (6, 'Sữa đặc', '2020-12-09 10:36:04', 12, 'Hộp', 1004, 56000);
-INSERT INTO `goods` VALUES (7, 'Sữa tươi', '2020-12-09 10:36:04', 15, 'Hộp', 1004, 35000,,'01/11/2020', '01/12/2021');
-INSERT INTO `goods` VALUES (8, 'Trà túi lọc Cozy', '2020-12-09 10:36:04', 4, 'Hộp', 1004, 30000);
-INSERT INTO `goods` VALUES (9, 'Trà túi lọc Lipton', '2020-12-09 10:36:04', 4, 'Hộp', 1005, 33000);
-INSERT INTO `goods` VALUES (10, 'Trà Đen', '2020-12-09 10:36:04', 3, 'kg', 1005, 135000);
-INSERT INTO `goods` VALUES (11, 'Trà Ô Long', '2020-12-09 10:36:04', 3, 'kg', 1005, 300000);
-INSERT INTO `goods` VALUES (12, 'Hồng Trà', '2020-12-09 10:36:04', 3, 'kg', 1005, 135000);
-INSERT INTO `goods` VALUES (13, 'Bột pudding socola', '2020-12-09 10:36:04', 7, 'kg', 1005, 145000);
-INSERT INTO `goods` VALUES (14, 'Bột cacao', '2020-12-09 10:36:04', 4, 'kg', 1005, 16000,,'11/10/2020', '01/12/2021');
-INSERT INTO `goods` VALUES (15, 'Bột trà matcha', '2020-12-09 10:36:04', 2, 'kg', 1005, 300000,,'11/10/2020', '01/12/2021');
-INSERT INTO `goods` VALUES (16, 'Bột kem sữa', '2020-12-09 10:36:04', 3, 'kg', 1005, 215000,,'11/10/2020', '01/12/2021');
-INSERT INTO `goods` VALUES (17, 'Trân châu đen', '2020-12-09 10:36:04', 5, 'Hộp', 1005, 40000);
-INSERT INTO `goods` VALUES (18, 'Hạt chia Đen', '2020-12-09 10:36:04', 1, 'kg', 1005, 200000);
-INSERT INTO `goods` VALUES (19, 'Thạch đào', '2020-12-09 10:36:04', 5, 'Hộp', 1006, 60000,,'01/12/2020', '01/06/2021');
-INSERT INTO `goods` VALUES (20, 'Thạch trái cây', '2020-12-09 10:36:04', 5, 'Hộp', 1006, 60000,,'01/12/2020', '01/06/2021');
-INSERT INTO `goods` VALUES (21, 'Đào ngâm Alcurnia', '2020-12-09 10:36:04', 4, 'Hộp', 1006, 60000);
-INSERT INTO `goods` VALUES (22, 'Vải đóng hộp EL GRECO', '2020-12-09 10:36:04', 4, 'Hộp', 1006, 33000);
-INSERT INTO `goods` VALUES (23, 'Siro hương dâu Heston', '2020-12-09 10:36:04', 2, 'Chai', 1006, 160000);
-INSERT INTO `goods` VALUES (24, 'Socola', '2020-12-09 10:36:04', 2, 'Chai', 1006, 75000);
+INSERT INTO `goods` VALUES (1, 'Hạt cà phê Espresso', '2020-12-09 10:36:04', 3, 'kg', 1004, 95000, NULL, NULL, NULL);
+INSERT INTO `goods` VALUES (2, 'Hạt cà phê Arabica', '2020-12-09 10:36:04', 3, 'kg', 1004, 180000, NULL, NULL, NULL);
+INSERT INTO `goods` VALUES (3, 'Hạt cà phê Robusta', '2020-12-09 10:36:04', 3, 'kg', 1004, 100000, NULL, NULL, NULL);
+INSERT INTO `goods` VALUES (4, 'Đường trắng', '2020-12-09 10:36:04', 6, 'kg', 1004, 12000, NULL, NULL, NULL);
+INSERT INTO `goods` VALUES (5, 'Đường nâu', '2020-12-09 10:36:04', 2, 'kg', 1004, 27000, NULL, NULL, NULL);
+INSERT INTO `goods` VALUES (6, 'Sữa đặc', '2020-12-09 10:36:04', 12, 'Hộp', 1004, 56000, NULL, NULL, NULL);
+INSERT INTO `goods` VALUES (7, 'Sữa tươi', '2020-12-09 10:36:04', 15, 'Hộp', 1004, 35000, NULL,'2020-11-01 10:36:04', '2021-12-01 10:36:04');
+INSERT INTO `goods` VALUES (8, 'Trà túi lọc Cozy', '2020-12-09 10:36:04', 4, 'Hộp', 1004, 30000, NULL, NULL, NULL);
+INSERT INTO `goods` VALUES (9, 'Trà túi lọc Lipton', '2020-12-09 10:36:04', 4, 'Hộp', 1005, 33000, NULL, NULL, NULL);
+INSERT INTO `goods` VALUES (10, 'Trà Đen', '2020-12-09 10:36:04', 3, 'kg', 1005, 135000, NULL, NULL, NULL);
+INSERT INTO `goods` VALUES (11, 'Trà Ô Long', '2020-12-09 10:36:04', 3, 'kg', 1005, 300000, NULL, NULL, NULL);
+INSERT INTO `goods` VALUES (12, 'Hồng Trà', '2020-12-09 10:36:04', 3, 'kg', 1005, 135000, NULL, NULL, NULL);
+INSERT INTO `goods` VALUES (13, 'Bột pudding socola', '2020-12-09 10:36:04', 7, 'kg', 1005, 145000, NULL, NULL, NULL);
+INSERT INTO `goods` VALUES (14, 'Bột cacao', '2020-12-09 10:36:04', 4, 'kg', 1005, 16000, NULL,'2020-11-10 10:36:04', '2021-12-01 10:36:04');
+INSERT INTO `goods` VALUES (15, 'Bột trà matcha', '2020-12-09 10:36:04', 2, 'kg', 1005, 300000, NULL,'2020-11-10 10:36:04', '2021-12-01 10:36:04');
+INSERT INTO `goods` VALUES (16, 'Bột kem sữa', '2020-12-09 10:36:04', 3, 'kg', 1005, 215000, NULL,'2020-11-10 10:36:04', '2021-12-01 10:36:04');
+INSERT INTO `goods` VALUES (17, 'Trân châu đen', '2020-12-09 10:36:04', 5, 'Hộp', 1005, 40000, NULL, NULL, NULL);
+INSERT INTO `goods` VALUES (18, 'Hạt chia Đen', '2020-12-09 10:36:04', 1, 'kg', 1005, 200000, NULL, NULL, NULL);
+INSERT INTO `goods` VALUES (19, 'Thạch đào', '2020-12-09 10:36:04', 5, 'Hộp', 1006, 60000, NULL,'2020-12-01 10:36:04', '2021-06-01 10:36:04');
+INSERT INTO `goods` VALUES (20, 'Thạch trái cây', '2020-12-09 10:36:04', 5, 'Hộp', 1006, 60000, NULL,'2020-12-01 10:36:04', '2021-06-01 10:36:04');
+INSERT INTO `goods` VALUES (21, 'Đào ngâm Alcurnia', '2020-12-09 10:36:04', 4, 'Hộp', 1006, 60000, NULL, NULL, NULL);
+INSERT INTO `goods` VALUES (22, 'Vải đóng hộp EL GRECO', '2020-12-09 10:36:04', 4, 'Hộp', 1006, 33000, NULL, NULL, NULL);
+INSERT INTO `goods` VALUES (23, 'Siro hương dâu Heston', '2020-12-09 10:36:04', 2, 'Chai', 1006, 160000, NULL, NULL, NULL);
+INSERT INTO `goods` VALUES (24, 'Socola', '2020-12-09 10:36:04', 2, 'Chai', 1006, 75000, NULL, NULL, NULL);
 
 
 -- ----------------------------
@@ -140,38 +140,55 @@ CREATE TABLE `orders`  (
   `Order_CustomerID` int(0) NULL DEFAULT NULL,
   `Order_EmployeesID` int(0) NULL DEFAULT NULL,
   `Order_Description` varchar(200) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
-  `Order_Email` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   `Order_Name` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
-  `Order_Phone` varchar(45) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
-  `Order_Address` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   `Order_Status` varchar(200) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   `Order_OrderDate` datetime(0) NULL DEFAULT NULL,
+  `Order_Discount` decimal(10, 0) NULL DEFAULT NULL,
+  `Order_BranchID` int(0) NULL DEFAULT NULL,
   PRIMARY KEY (`Order_ID`) USING BTREE,
   INDEX `fk_orders_users_idx`(`Order_CustomerID`) USING BTREE,
   INDEX `fk_orders_users_idx1`(`Order_EmployeesID`) USING BTREE,
+  INDEX `fk_orders_branch_idx`(`Order_BranchID`) USING BTREE,
   CONSTRAINT `fk_orders_users_C` FOREIGN KEY (`Order_CustomerID`) REFERENCES `users` (`User_ID`) ON DELETE RESTRICT ON UPDATE RESTRICT,
-  CONSTRAINT `fk_orders_users_E` FOREIGN KEY (`Order_EmployeesID`) REFERENCES `users` (`User_ID`) ON DELETE RESTRICT ON UPDATE RESTRICT
+  CONSTRAINT `fk_orders_users_E` FOREIGN KEY (`Order_EmployeesID`) REFERENCES `users` (`User_ID`) ON DELETE RESTRICT ON UPDATE RESTRICT,
+  CONSTRAINT `fk_orders_branchs` FOREIGN KEY (`Order_BranchID`) REFERENCES `branchs` (`Branch_ID`) ON DELETE RESTRICT ON UPDATE RESTRICT
 ) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of orders
+-- ----------------------------
+INSERT INTO `orders` VALUES (1, NULL, 1, NULL, 'Order 1', 'Done', '2020-12-09 09:36:04',20000, 1);
+INSERT INTO `orders` VALUES (2, NULL, 1, NULL, 'Order 2', 'Done', '2020-12-09 10:36:04',0, 1);
+INSERT INTO `orders` VALUES (3, NULL, 1, NULL, 'Order 3', 'Done', '2020-12-09 11:36:04',10000, 1);
+INSERT INTO `orders` VALUES (4, NULL, 1, NULL, 'Order 4', 'Done', '2020-12-10 10:36:04',10000, 2);
+INSERT INTO `orders` VALUES (5, NULL, 1, NULL, 'Order 5', 'Canel', '2020-12-10 12:36:04',10000, 1);
+INSERT INTO `orders` VALUES (6, NULL, 1, NULL, 'Order 6', 'Canel', '2020-12-10 15:36:04',20000, 2);
 
 -- ----------------------------
 -- Table structure for orders.details
 -- ----------------------------
-DROP TABLE IF EXISTS `orders.details`;
-CREATE TABLE `orders.details`  (
+DROP TABLE IF EXISTS `ordersDetails`;
+CREATE TABLE `ordersDetails`  (
   `Orders.Details_ID` int(0) NULL DEFAULT NULL,
   `Orders.Details_OrderID` int(0) NOT NULL,
   `Orders.Details_ProductID` int(0) NOT NULL,
-  `Orders.Details_Amount` decimal(10, 0) NULL DEFAULT NULL,
-  `Orders.Details_Discount` decimal(10, 0) NULL DEFAULT NULL,
-  `Orders.Details_BranchID` int(0) NULL DEFAULT NULL,
   `Orders.Details_Quantity` int(0) NULL DEFAULT NULL,
   PRIMARY KEY (`Orders.Details_OrderID`, `Orders.Details_ProductID`) USING BTREE,
-  INDEX `fk_orders.details_branch_idx`(`Orders.Details_BranchID`) USING BTREE,
   INDEX `fk_orders.details_products_idx`(`Orders.Details_ProductID`) USING BTREE,
-  CONSTRAINT `fk_orders.details_branchs` FOREIGN KEY (`Orders.Details_BranchID`) REFERENCES `branchs` (`Branch_ID`) ON DELETE RESTRICT ON UPDATE RESTRICT,
   CONSTRAINT `fk_orders.details_orders` FOREIGN KEY (`Orders.Details_OrderID`) REFERENCES `orders` (`Order_ID`) ON DELETE RESTRICT ON UPDATE RESTRICT,
   CONSTRAINT `fk_orders.details_products` FOREIGN KEY (`Orders.Details_ProductID`) REFERENCES `products` (`Product_ID`) ON DELETE RESTRICT ON UPDATE RESTRICT
 ) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of orders.details
+-- ----------------------------
+INSERT INTO `ordersDetails` VALUES (1, 1, 12, 1);
+INSERT INTO `ordersDetails` VALUES (2, 1, 34, 1);
+INSERT INTO `ordersDetails` VALUES (3, 2, 1 , 1);
+INSERT INTO `ordersDetails` VALUES (4, 3, 36, 2);
+INSERT INTO `ordersDetails` VALUES (5, 4, 26, 3);
+INSERT INTO `ordersDetails` VALUES (6, 5, 17, 2);
+INSERT INTO `ordersDetails` VALUES (7, 6, 22, 4);
 
 -- ----------------------------
 -- Table structure for products
@@ -311,21 +328,26 @@ INSERT INTO `suppliers` VALUES (1006, 'Nhà Cung Cấp Tạp hóa Mười', 'Lê
 DROP TABLE IF EXISTS `users`;
 CREATE TABLE `users`  (
   `User_ID` int(0) NOT NULL AUTO_INCREMENT,
-  `User_Name` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `User_Name` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   `User_Password` varchar(200) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   `User_FullName` varchar(200) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   `User_Email` varchar(200) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   `User_IsLock` bit(1) NULL DEFAULT NULL,
-  `User_Mobile` varchar(200) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `User_Mobile` varchar(200) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   `User_Avatar` varchar(200) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   `User_CreatedDate` datetime(0) NULL DEFAULT NULL,
   `User_LoginLastesDate` datetime(0) NULL DEFAULT NULL,
   `User_DoB` date NULL DEFAULT NULL,
   `User_Address` varchar(200) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
-  `User_Role` int(0) NULL DEFAULT NULL,
+  `User_Role` int(0) NOT NULL,
   PRIMARY KEY (`User_ID`) USING BTREE,
   INDEX `fk_Users_Roles_idx`(`User_Role`) USING BTREE,
   CONSTRAINT `fk_Users_Roles` FOREIGN KEY (`User_Role`) REFERENCES `roles` (`Role_ID`) ON DELETE RESTRICT ON UPDATE RESTRICT
 ) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '				' ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of users
+-- ----------------------------
+INSERT INTO `users` VALUES (1, 'thanhthuy', '123456', NULL, NULL, NULL, '0123456789', NULL, NULL, NULL, NULL, NULL, 3);
 
 SET FOREIGN_KEY_CHECKS = 1;
