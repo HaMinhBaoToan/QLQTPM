@@ -17,7 +17,10 @@
 SET NAMES utf8mb4;
 SET FOREIGN_KEY_CHECKS = 0;
 
--- ----------------------------
+-- CREATE SCHEMA QLKD;
+-- USE QLKD;
+
+----------------------------
 -- Table structure for branchs
 -- ----------------------------
 DROP TABLE IF EXISTS `branchs`;
@@ -167,8 +170,8 @@ INSERT INTO `orders` VALUES (6, NULL, 1, NULL, 'Order 6', 'Canel', '2020-12-10 1
 -- ----------------------------
 -- Table structure for orders.details
 -- ----------------------------
-DROP TABLE IF EXISTS `ordersDetails`;
-CREATE TABLE `ordersDetails`  (
+DROP TABLE IF EXISTS `orders.details`;
+CREATE TABLE `orders.details`  (
   `Orders.Details_ID` int(0) NULL DEFAULT NULL,
   `Orders.Details_OrderID` int(0) NOT NULL,
   `Orders.Details_ProductID` int(0) NOT NULL,
@@ -182,13 +185,13 @@ CREATE TABLE `ordersDetails`  (
 -- ----------------------------
 -- Records of orders.details
 -- ----------------------------
-INSERT INTO `ordersDetails` VALUES (1, 1, 12, 1);
-INSERT INTO `ordersDetails` VALUES (2, 1, 34, 1);
-INSERT INTO `ordersDetails` VALUES (3, 2, 1 , 1);
-INSERT INTO `ordersDetails` VALUES (4, 3, 36, 2);
-INSERT INTO `ordersDetails` VALUES (5, 4, 26, 3);
-INSERT INTO `ordersDetails` VALUES (6, 5, 17, 2);
-INSERT INTO `ordersDetails` VALUES (7, 6, 22, 4);
+INSERT INTO `orders.details` VALUES (1, 1, 12, 1);
+INSERT INTO `orders.details` VALUES (2, 1, 34, 1);
+INSERT INTO `orders.details` VALUES (3, 2, 1 , 1);
+INSERT INTO `orders.details` VALUES (4, 3, 36, 2);
+INSERT INTO `orders.details` VALUES (5, 4, 26, 3);
+INSERT INTO `orders.details` VALUES (6, 5, 17, 2);
+INSERT INTO `orders.details` VALUES (7, 6, 22, 4);
 
 -- ----------------------------
 -- Table structure for products
