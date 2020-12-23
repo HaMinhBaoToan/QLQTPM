@@ -20,12 +20,6 @@ app.get("/", (request, respond) => {
 
 app.use('/api/products',require('./server/router/products.route') );
 
-
-
-
-
-
-
 app.get('/err', function (req, res) {
   throw new Error('Error!');
 });
@@ -48,3 +42,5 @@ app.use(function (err, req, res, next) {
 app.listen(PORT, function () {
   console.log(`Server is running on Port: http://localhost:${PORT}`);
 });
+
+module.exports = app;
