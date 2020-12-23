@@ -1,3 +1,8 @@
 language: node_js
-node_js:
-  - 7
+node_js: 
+  - 15
+script:
+  - cd backend
+  - npm install
+  - echo 'Running test'
+  - npm test
