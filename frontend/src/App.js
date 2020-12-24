@@ -7,20 +7,18 @@ import {
   Switch,
   Route,
 } from "react-router-dom";
+import Sidebar from "./components/Sidebar/index";
 import Dashboard from "./containers/DashBoard";
 import Orders from "./containers/Orders";
 
 function App() {
   return (
-    <div className="App">
+    <div className="App">    
       <Router>
+        <Sidebar />   
         <Switch>
-          <Route path="/orders">
-            <Orders />
-          </Route>
-          <Route path="/">
-            <Dashboard />
-          </Route>
+          <Route exact path="/" component={Dashboard} />
+          <Route exact path="/orders" component={Orders} />
         </Switch>
       </Router>
     </div>
