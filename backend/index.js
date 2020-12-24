@@ -7,6 +7,12 @@ const morgan = require("morgan");
 
 const PRODUCTS = require('./server/router/products.route');
 
+if(process.env.NODE_ENV !== 'test') {
+  //use morgan to log at command line
+  app.use(morgan('combined')); //'combined' outputs the Apache style LOGs
+}
+
+
 app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -18,7 +24,7 @@ app.get("/", (request, respond) => {
   });
 });
 
-app.use('/api/products',require('./server/router/products.route') );
+app.use('/api/products',PRODUCTS );
 
 app.get('/err', function (req, res) {
   throw new Error('Error!');

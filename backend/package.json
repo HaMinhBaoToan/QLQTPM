@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "mocha --timeout 3000",
+    "test": "mocha ./test/* --exit",
     "start": "nodemon app"
   },
   "keywords": [],
@@ -12,12 +12,14 @@
   "license": "ISC",
   "dependencies": {
     "body-parser": "^1.19.0",
+    "chai-http": "^4.3.0",
     "cors": "^2.8.5",
     "express": "^4.17.1",
     "knex": "^0.21.12",
     "mocha": "^8.2.1",
     "morgan": "^1.10.0",
-    "mysql2": "^2.2.5"
+    "mysql2": "^2.2.5",
+    "supertest": "^6.0.1"
   },
   "devDependencies": {
     "chai": "^4.2.0",
