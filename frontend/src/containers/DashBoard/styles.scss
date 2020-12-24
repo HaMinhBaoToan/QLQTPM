@@ -1,5 +1,7 @@
 .dashboard {
+  text-align: left;
   background-color: #DCD6F7;
-  height: inherit;
-  margin-left: 98px;
+  padding: 2rem;
+  height: 100%;
+  overflow-y: auto;
 }
