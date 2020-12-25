@@ -1,11 +1,11 @@
 const express = require("express");
-const app = express();
 const bodyParser = require("body-parser");
 const cors = require("cors");
-const PORT = 4000;
 const morgan = require("morgan");
+const app = express();
 
 const PRODUCTS = require('./server/router/products.route');
+const PORT = process.env.PORT || 3000;
 
 if(process.env.NODE_ENV !== 'test') {
   //use morgan to log at command line
