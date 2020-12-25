@@ -1,0 +1,155 @@
+.navbar {
+  background-color: #394867;
+  width: 98px;
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  float: left;
+}
+
+.menu-bars-hide {
+  margin-left: 1rem;
+  font-size: 2rem;
+  background: none;
+}
+
+.menu-bars-show {
+  margin-left: 12rem;
+  font-size: 26px;
+  background: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.navbar-exit {
+  position: fixed;
+  text-align: center;
+  bottom: 0;
+  cursor: pointer;
+  height: 48px;
+  width: 200px;
+  line-height: 48px;
+  color: #fff;
+  background: #394867;
+  z-index: 1;
+  transition: all 0.2s;
+  border-top: 1px solid #fff; 
+  margin: 0;
+  display: flex;
+  justify-content: start;
+  align-items: center;
+}
+
+.navbar-exit .menu-bars-exit {
+  font-size: 18px;
+}
+
+.navbar-toggle .menu-exit {
+  font-size: 2rem;
+  background: none;
+}
+
+.nav-menu {
+  background-color: #394867;
+  width: 200px;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  position: fixed;
+  top: 0;
+  left: -100%;
+  // transition: 850ms;
+}
+
+.nav-menu.active {
+  left: 0;
+  // transition: 350ms;
+}
+
+.nav-text {
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  padding: 0;
+  margin: 0;
+  list-style: none;
+  height: 50px;
+  border-bottom: 1px solid #fff;
+}
+
+.nav-text-exit {
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  list-style: none;
+  color: #fff;
+  height: 50px;
+  width: 250px;
+  bottom: 0;
+  position: fixed;
+  border-top: 1px solid #fff;
+}
+
+.navbar-exit a {
+  text-decoration: none;
+  color: #f5f5f5;
+  font-size: 18px;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  padding: 0 16px;
+}
+
+.navbar-exit a:hover {
+  background-color: #A6B1E1;
+}
+
+.nav-text a {
+  text-decoration: none;
+  color: #f5f5f5;
+  font-size: 18px;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  padding: 0 16px;
+}
+
+.nav-text a:hover {
+  background-color: #A6B1E1;
+}
+
+.nav-menu-items {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+.navbar-toggle {
+  width: 100%;
+  height: 64px;
+  display: flex;
+  justify-content: start;
+  align-items: center;
+}
+
+span {
+  padding-left: 16px;
+}
+
+.icon{
+  font-size: 30px;
+  margin-bottom: 6px;
+}
+
+.nav-text-exit .icon {
+  font-size: 30px;
+  margin-left: 20px;
+}
+
+.exit {
+  font-size: 20px;
+}

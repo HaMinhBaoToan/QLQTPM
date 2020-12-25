@@ -1,0 +1,52 @@
+
+body {
+  height: 100vh;
+  width: 100vw;
+}
+
+#root {
+  height: 100%;
+  width: 100%;
+}
+
+.App {
+  text-align: center;
+  height: 100%;
+  width: 100%;
+}
+
+.ant-layout {
+  height: 100%;
+
+  // .ant-layout-sider-dark, .ant-layout-sider{
+  //   transition: 350ms;
+
+  // }
+
+  .ant-layout-sider-collapsed{
+    flex: unset !important;
+    width: unset !important;
+    max-width: unset !important;
+    min-width: unset !important;
+  }
+
+  .ant-layout-header{
+    padding: 0;
+    background: #394867;
+    display: flex;
+  }
+
+  .hambergurIcon {
+    width: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    svg {
+      width: 26px;
+      height: 26px;
+      color: white;
+    }
+  }
+}
+
