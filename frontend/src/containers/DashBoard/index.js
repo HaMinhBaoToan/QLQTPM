@@ -1,10 +1,4 @@
 import React from "react";
-<<<<<<< HEAD
-import {
-  Link,
-} from "react-router-dom";
-import { Button } from 'antd';
-=======
 import { DatePicker } from "antd";
 import { Row, Col } from "antd";
 import "./styles.scss";
@@ -17,7 +11,6 @@ const cards = [
   { title: "Tổng số tiền", content: "123,234", color: "#8BC34A" },
   { title: "Giá trị", content: "199,234", color: "#D32F2F" }
 ];
->>>>>>> 4f7e1377e9993ba6d74f550483726325214cd5ff
 
 const Dashboard = () => {
   return (
