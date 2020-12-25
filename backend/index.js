@@ -5,7 +5,7 @@ const morgan = require("morgan");
 const app = express();
 
 const PRODUCTS = require('./server/router/products.route');
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 4000;
 
 if(process.env.NODE_ENV !== 'test') {
   //use morgan to log at command line
