@@ -1,7 +1,8 @@
 import React, { Component } from "react";
 import CardProduct from "./CardProduct";
 import { Row } from "antd";
-import logo from "../../images/product/latte.png";
+import logo from "../../../assets/images/latte.png";
+
 class Products extends Component {
   render() {
     let productsData;
