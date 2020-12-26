@@ -139,7 +139,7 @@ INSERT INTO `languages` VALUES (2, 'EN', 'English', NULL);
 -- ----------------------------
 DROP TABLE IF EXISTS `orders`;
 CREATE TABLE `orders`  (
-  `Order_ID` int(0) NOT NULL,
+  `Order_ID` int(0) NOT NULL AUTO_INCREMENT,
   `Order_CustomerID` int(0) NULL DEFAULT NULL,
   `Order_EmployeesID` int(0) NULL DEFAULT NULL,
   `Order_Description` varchar(200) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,

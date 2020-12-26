@@ -1,0 +1,18 @@
+{
+    "required": ["Order_CustomerID", "Order_EmployeesID", "Order_Discount", "Order_BranchID"],
+    "additionalProperties": true,
+    "properties": {
+        "Order_CustomerID": {
+            "type": "integer"
+        },
+        "Order_EmployeesID": {
+            "type": "integer"
+        },
+        "Order_Discount": {
+            "type": "integer"
+        },
+        "Order_BranchID": {
+            "type": "integer"
+        }
+    }
+}
