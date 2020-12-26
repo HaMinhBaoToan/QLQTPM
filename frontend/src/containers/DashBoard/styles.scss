@@ -1,7 +1,102 @@
+@import '../../assets/css/colors';
+
 .dashboard {
   text-align: left;
-  background-color: #DCD6F7;
+  background-color: $purple-light;
   padding: 2rem;
   height: 100%;
   overflow-y: auto;
+
+  .ant-picker {
+    margin-top: 1rem;
+  }
+
+  .dashboard-card {
+    margin: 0 !important;
+    padding: 1rem 0rem 2rem;
+  }
+
+  .title-metric-infor {
+    font-size: 18px;
+    color: $gray-light;
+  }
+
+  .metricInfor {
+    margin: 0 !important;
+    background: $purple-light;
+
+    .chartItem,
+    .topItems {
+      height: 500px;
+      width: 100%;
+      margin-top: 16px;
+      background-color: #F4EEFF;
+    }
+
+    .chartItem {
+      .recharts-responsive-container{
+        background-color: white;
+      }
+    }
+
+    .topItems {
+      overflow-y: auto;
+
+      > div {
+        background-color: white;
+        padding: 1rem;
+        max-height: 484px;
+        overflow-y: auto;
+      }
+
+      .title-topItems {
+        color: $gray-light;
+        text-align: center;
+      }
+      .content {
+        display: flex;
+        flex-direction: column;
+
+        .info {
+          display: flex;
+          justify-content: space-between;
+        }
+
+        .totalOrders {
+          color: rgba(0,0,0,0.4);
+          padding-left: 16px;
+          font-size: 14px;
+        }
+      }
+    }
+
+  }
+
+  .custom-tooltip {
+    background: rgba(0, 0, 0, 0.6);
+    padding: 1rem;
+    color: white;
+    border-radius: 4px;
+
+    .label {
+      font-size: 18px;
+      font-weight: 500;
+    }
+
+    .profit,
+    .revenue {
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+
+      .dot {
+        padding: 0;
+        margin: 0 10px;
+        height: 8px;
+        width: 8px;
+        border-radius: 50%;
+        display: inline-block;
+      }
+    }
+  }
 }

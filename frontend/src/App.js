@@ -1,6 +1,6 @@
-import "./App.scss";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "antd/dist/antd.css";
+import "./App.scss";
 import "./assets/css/global.scss"
 import React, { useState } from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
@@ -8,7 +8,6 @@ import Sidebar from "./components/Sidebar/index";
 import Dashboard from "./containers/DashBoard";
 import Orders from "./containers/Orders";
 import { Layout } from "antd";
-import * as FaIcons from "react-icons/fa";
 import AntIcon, {
   MenuUnfoldOutlined,
   MenuFoldOutlined,
