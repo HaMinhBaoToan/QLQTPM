@@ -13,15 +13,15 @@ export const SidebarData = [
     cName: 'nav-text'
   },
   {
-    title: 'Kho',
-    path: '/warehouses',
-    icon: <MdIcons.MdStore />,
-    cName: 'nav-text'
-  },
-  {
     title: 'Đơn hàng',
     path: '/orders',
     icon: <AiIcons.AiOutlineFileText />,
+    cName: 'nav-text'
+  },
+  {
+    title: 'Kho',
+    path: '/warehouses',
+    icon: <MdIcons.MdStore />,
     cName: 'nav-text'
   },
   {
