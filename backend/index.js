@@ -6,6 +6,7 @@ const app = express();
 
 const PRODUCTS = require('./server/router/products.route');
 const ORDERS = require('./server/router/orders.route');
+const DASHBOARD = require('./server/router/dashboard.route');
 const PORT = process.env.PORT || 4000;
 
 if(process.env.NODE_ENV !== 'test') {
@@ -27,6 +28,7 @@ app.get("/", (request, respond) => {
 
 app.use('/api/products', PRODUCTS );
 app.use('/api/orders', ORDERS );
+app.use('/api/dashboard', DASHBOARD );
 
 app.get('/err', function (req, res) {
   throw new Error('Error!');
