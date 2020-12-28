@@ -1,9 +1,8 @@
-import React, { useEffect, useState } from "react";
-import Products from "./component/Products";
-import QuickView from "./component/QuickView";
+import React, { useEffect,useState } from 'react';
+import Products from './component/Products';
 
-import { Row, Col } from "antd";
-import "./orders.scss";
+import { Row, Col } from 'antd';
+import './orders.scss';
 
 const Orders = () => {
   // const [products, setProducts] = useState([]);
@@ -38,6 +37,7 @@ const Orders = () => {
     //   setAddtoCart(carttemp.push(addProductToCart));
     // }
   }, [addProductToCart]);
+
 
   return (
     <div className="products loading">
@@ -122,54 +122,8 @@ const Orders = () => {
                   <span class="delete-btn">X</span>
                 </div>
               </div>
-              <div class="item">
-                <div class="image">
-                  <img src={process.env.PUBLIC_URL + "product/1.jpg"} alt="" />
-                </div>
-
-                <div class="description">
-                  <span>Common Projects</span>
-                </div>
-
-                <div class="quantity">
-                  <button class="plus-btn" type="button" name="button">
-                    +
-                  </button>
-                  <input type="text" name="name" value="1" />
-                  <button class="minus-btn" type="button" name="button">
-                    -
-                  </button>
-                </div>
-
-                <div class="total-price">$549</div>
-                <div class="buttons">
-                  <span class="delete-btn">X</span>
-                </div>
-              </div>
-              <div class="item">
-                <div class="image">
-                  <img src={process.env.PUBLIC_URL + "product/1.jpg"} alt="" />
-                </div>
-
-                <div class="description">
-                  <span>Common Projects</span>
-                </div>
-
-                <div class="quantity">
-                  <button class="plus-btn" type="button" name="button">
-                    +
-                  </button>
-                  <input type="text" name="name" value="1" />
-                  <button class="minus-btn" type="button" name="button">
-                    -
-                  </button>
-                </div>
-
-                <div class="total-price">$549</div>
-                <div class="buttons">
-                  <span class="delete-btn">X</span>
-                </div>
-              </div>
+           
+           
             </div>
             <div className="action-block">
               <button type="button" className=" ">
@@ -178,6 +132,7 @@ const Orders = () => {
             </div>
           </div>
         </Col>
+        
       </Row>
     </div>
   );

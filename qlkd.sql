@@ -139,7 +139,7 @@ INSERT INTO `languages` VALUES (2, 'EN', 'English', NULL);
 -- ----------------------------
 DROP TABLE IF EXISTS `orders`;
 CREATE TABLE `orders`  (
-  `Order_ID` int(0) NOT NULL,
+  `Order_ID` int(0) NOT NULL AUTO_INCREMENT,
   `Order_CustomerID` int(0) NULL DEFAULT NULL,
   `Order_EmployeesID` int(0) NULL DEFAULT NULL,
   `Order_Description` varchar(200) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
@@ -160,38 +160,55 @@ CREATE TABLE `orders`  (
 -- ----------------------------
 -- Records of orders
 -- ----------------------------
-INSERT INTO `orders` VALUES (1, NULL, 1, NULL, 'Order 1', 'Done', '2020-12-09 09:36:04',20000, 1);
-INSERT INTO `orders` VALUES (2, NULL, 1, NULL, 'Order 2', 'Done', '2020-12-09 10:36:04',0, 1);
-INSERT INTO `orders` VALUES (3, NULL, 1, NULL, 'Order 3', 'Done', '2020-12-09 11:36:04',10000, 1);
-INSERT INTO `orders` VALUES (4, NULL, 1, NULL, 'Order 4', 'Done', '2020-12-10 10:36:04',10000, 2);
-INSERT INTO `orders` VALUES (5, NULL, 1, NULL, 'Order 5', 'Canel', '2020-12-10 12:36:04',10000, 1);
-INSERT INTO `orders` VALUES (6, NULL, 1, NULL, 'Order 6', 'Canel', '2020-12-10 15:36:04',20000, 2);
+INSERT INTO `orders` VALUES (1, NULL, 1, NULL, 'Order 1', 'Done', '2020-01-09 09:36:04',10000, 1);
+INSERT INTO `orders` VALUES (2, NULL, 1, NULL, 'Order 2', 'Done', '2020-02-09 10:36:04',0, 1);
+INSERT INTO `orders` VALUES (3, NULL, 1, NULL, 'Order 3', 'Done', '2020-03-09 11:36:04',10000, 1);
+INSERT INTO `orders` VALUES (4, NULL, 1, NULL, 'Order 4', 'Done', '2020-04-10 10:36:04',10000, 2);
+INSERT INTO `orders` VALUES (5, NULL, 1, NULL, 'Order 5', 'Canel', '2020-05-10 12:36:04',0, 1);
+INSERT INTO `orders` VALUES (6, NULL, 1, NULL, 'Order 6', 'Canel', '2020-06-10 15:36:04',10000, 2);
+INSERT INTO `orders` VALUES (7, NULL, 1, NULL, 'Order 7', 'Done', '2020-07-10 12:36:04',0, 1);
+INSERT INTO `orders` VALUES (8, NULL, 1, NULL, 'Order 8', 'Done', '2020-08-10 15:36:04',20000, 2);
+INSERT INTO `orders` VALUES (9, NULL, 1, NULL, 'Order 9', 'Done', '2020-08-10 15:36:04',0, 2);
+INSERT INTO `orders` VALUES (10, NULL, 1, NULL, 'Order 10', 'Done', '2020-09-10 15:36:04',10000, 2);
+INSERT INTO `orders` VALUES (11, NULL, 1, NULL, 'Order 11', 'Done', '2020-10-10 15:36:04',0, 2);
+INSERT INTO `orders` VALUES (12, NULL, 1, NULL, 'Order 12', 'Done', '2020-11-10 15:36:04',10000, 2);
+INSERT INTO `orders` VALUES (13, NULL, 1, NULL, 'Order 13', 'Done', '2020-12-10 15:36:04',20000, 2);
+INSERT INTO `orders` VALUES (14, NULL, 1, NULL, 'Order 14', 'Done', '2020-12-10 15:36:04',10000, 2);
 
 -- ----------------------------
--- Table structure for orders.details
+-- Table structure for orders_details
 -- ----------------------------
-DROP TABLE IF EXISTS `orders.details`;
-CREATE TABLE `orders.details`  (
-  `Orders.Details_ID` int(0) NULL DEFAULT NULL,
-  `Orders.Details_OrderID` int(0) NOT NULL,
-  `Orders.Details_ProductID` int(0) NOT NULL,
-  `Orders.Details_Quantity` int(0) NULL DEFAULT NULL,
-  PRIMARY KEY (`Orders.Details_OrderID`, `Orders.Details_ProductID`) USING BTREE,
-  INDEX `fk_orders.details_products_idx`(`Orders.Details_ProductID`) USING BTREE,
-  CONSTRAINT `fk_orders.details_orders` FOREIGN KEY (`Orders.Details_OrderID`) REFERENCES `orders` (`Order_ID`) ON DELETE RESTRICT ON UPDATE RESTRICT,
-  CONSTRAINT `fk_orders.details_products` FOREIGN KEY (`Orders.Details_ProductID`) REFERENCES `products` (`Product_ID`) ON DELETE RESTRICT ON UPDATE RESTRICT
+DROP TABLE IF EXISTS `orders_details`;
+CREATE TABLE `orders_details`  (
+  `ID` int(0) NULL DEFAULT NULL,
+  `OrderID` int(0) NOT NULL,
+  `ProductID` int(0) NOT NULL,
+  `Quantity` int(0) NULL DEFAULT NULL,
+  PRIMARY KEY (`OrderID`, `ProductID`) USING BTREE,
+  INDEX `fk_orders_details_products_idx`(`ProductID`) USING BTREE,
+  CONSTRAINT `fk_orders_details_orders` FOREIGN KEY (`OrderID`) REFERENCES `orders` (`Order_ID`) ON DELETE RESTRICT ON UPDATE RESTRICT,
+  CONSTRAINT `fk_orders_details_products` FOREIGN KEY (`ProductID`) REFERENCES `products` (`Product_ID`) ON DELETE RESTRICT ON UPDATE RESTRICT
 ) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
--- Records of orders.details
+-- Records of orders_details
 -- ----------------------------
-INSERT INTO `orders.details` VALUES (1, 1, 12, 1);
-INSERT INTO `orders.details` VALUES (2, 1, 34, 1);
-INSERT INTO `orders.details` VALUES (3, 2, 1 , 1);
-INSERT INTO `orders.details` VALUES (4, 3, 36, 2);
-INSERT INTO `orders.details` VALUES (5, 4, 26, 3);
-INSERT INTO `orders.details` VALUES (6, 5, 17, 2);
-INSERT INTO `orders.details` VALUES (7, 6, 22, 4);
+INSERT INTO `orders_details` VALUES (1, 1, 12, 1);
+INSERT INTO `orders_details` VALUES (2, 1, 34, 1);
+INSERT INTO `orders_details` VALUES (3, 2, 1 , 1);
+INSERT INTO `orders_details` VALUES (4, 3, 36, 2);
+INSERT INTO `orders_details` VALUES (5, 4, 26, 3);
+INSERT INTO `orders_details` VALUES (6, 5, 17, 2);
+INSERT INTO `orders_details` VALUES (7, 6, 22, 4);
+INSERT INTO `orders_details` VALUES (8, 7, 17, 9);
+INSERT INTO `orders_details` VALUES (9, 8, 22, 5);
+INSERT INTO `orders_details` VALUES (10, 9, 1, 4);
+INSERT INTO `orders_details` VALUES (11, 10, 3, 6);
+INSERT INTO `orders_details` VALUES (12, 11, 22, 6);
+INSERT INTO `orders_details` VALUES (13, 12, 34, 5);
+INSERT INTO `orders_details` VALUES (14, 13, 23, 2);
+INSERT INTO `orders_details` VALUES (15, 14, 2, 5);
+INSERT INTO `orders_details` VALUES (16, 14, 22, 5);
 
 -- ----------------------------
 -- Table structure for products

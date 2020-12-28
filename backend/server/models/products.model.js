@@ -7,7 +7,7 @@ module.exports = {
 
   async single(id) {
     const product = await db('products')
-      .where('product_id', id);
+      .where('Product_ID', id);
     if (product.length === 0) {
       return null;
     }
@@ -21,7 +21,11 @@ module.exports = {
 
   del(id) {
     return db('products')
-      .where('product_id', id)
+      .where('Product_ID', id)
       .del();
-  }
+  },
+
+  update(id, product){
+    return db('products').where('Product_ID', id).update(product)
+  },
 };
