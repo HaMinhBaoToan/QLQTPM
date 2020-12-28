@@ -8,7 +8,7 @@
   .product-image {
     overflow: hidden;
     border-radius: 2px 2px 0 0;
-    max-height: 200px;
+    max-height: 500px;
     img {
       cursor: zoom-in;
       width: 100%;
@@ -24,24 +24,28 @@
     }
   }
   .product-name {
-    font-weight: normal;
-    font-size: 16px;
-    line-height: 20px;
+    // font-weight: normal;
+    font-size: 25px;
+    font-weight: bold;
+    margin-top: 20px;
     margin-bottom: 8px;
   }
   .product-price {
+    color: $red;
     font-size: 22px;
     font-weight: 700;
-    line-height: 22px;
-    margin-bottom: 16px;
-    &:before {
-      content: '₹ ';
+    &::after {
+      content: ' vnđ';
+    }
+  }
+  .product-price-old{
+    text-decoration-line:line-through;
+    &::after {
+      content: ' vnđ';
     }
   }
   .product-name,
   .product-price {
-    color: $gray-medium;
-    padding: 0 16px;
     text-align: center;
   }
   .product-action {
@@ -269,5 +273,71 @@
   }
   p {
     color: #999;
+  }
+}
+.modal-wrapper {
+  display: none;
+  background: rgba(0, 0, 0, 0.66);
+  position: fixed;
+  top: 0;
+  z-index: 100;
+  height: 100%;
+  width: 100%;
+  overflow-y: hidden;
+  &.active {
+    display: flex;
+    display: -webkit-flex;
+    align-items: center;
+    justify-content: center;
+    -webkit-align-items: center;
+    -webkit-justify-content: center;
+  }
+  .modal {
+    width: 100%;
+    max-width: 532px;
+    margin: 16px;
+    background: #fff;
+    position: relative;
+    border-radius: 4px;
+  }
+  .close {
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    font-size: 24px;
+    line-height: 36px;
+    border-radius: 0 4px 0 0;
+    background: transparent;
+    color: $gray-medium;
+    &:hover {
+      background: $gray-dark-bg;
+    }
+  }
+}
+.quick-view-details {
+  padding: 24px;
+  background: $gray-medium-bg;
+  border-radius: 0 0 4px 4px;
+  .product-name {
+    font-size: 25px;
+    font-weight: bold;
+  }
+  .product-price {
+    color: $primary-green;
+    font-weight: bold;
+    font-size: 24px;
+    float: right;
+    &::after {
+      content: " vnđ";
+    }
+  }
+}
+.quick-view-image {
+  img {
+    width: 100%;
+    max-width: 500px;
+    margin: 0 auto;
+    display: block;
+    border-radius: 4px 4px 0 0;
   }
 }

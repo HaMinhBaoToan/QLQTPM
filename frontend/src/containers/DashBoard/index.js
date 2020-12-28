@@ -20,11 +20,13 @@ const Dashboard = () => {
         defaultValue={[moment("2015/01/01"), moment("2015/01/01")]}
       />
       <Row>
-        {cards.map(item => (
+        {
+        cards.map(item => (
           <Col xs={24} md={12}>
             <CardComponent {...item}></CardComponent>
           </Col>
-        ))}
+        ))
+        }
       </Row>
       <div>Tình hình tăng trưởng và kinh doanh toàn của hàng</div>
       <div style={{ display: "flex", justifyContent: "space-between", padding: '1rem 0' }}>
