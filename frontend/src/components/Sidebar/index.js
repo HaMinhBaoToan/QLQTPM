@@ -14,7 +14,7 @@ function Sidebar({sidebar, showSidebar}) {
         <nav className={!sidebar ? 'nav-menu active' : 'nav-menu'}>
           <ul className='nav-menu-items'>
             <li className='navbar-toggle'>
-              <span>name</span>
+              <div className="project-name">Project SmartMan</div>
             </li>
             {SidebarData.map((item, index) => {
               return (
