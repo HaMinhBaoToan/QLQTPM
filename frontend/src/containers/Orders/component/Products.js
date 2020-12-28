@@ -4,7 +4,7 @@ import { Row } from "antd";
 import axios from "axios";
 
 
-const Products = ({ setQuickViewProduct}) => {
+const Products = ({ setAddProductToCart}) => {
   const [products, setProducts] = useState([]);
   
   useEffect(() => {
@@ -29,7 +29,7 @@ const Products = ({ setQuickViewProduct}) => {
           <CardProduct
           key={product.Product_ID}
           product={product} 
-          setQuickViewProduct={setQuickViewProduct}/>
+          setAddProductToCart={setAddProductToCart}/>
         ))
       }
       </Row>

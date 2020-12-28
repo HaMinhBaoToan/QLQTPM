@@ -1,18 +1,16 @@
 import React, { useEffect, useState } from "react";
 import { Modal, Button, Space } from "antd";
-const Product = ({ product, openModal, setQuickViewProduct }) => {
+const Product = ({ product, openModal, setAddProductToCart }) => {
   const numberWithCommas = (x) => {
     return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
   };
-  // const [added, setIsAdded] = useState([
-  //   { selectedProduct: {}, quickViewProduct: {} }
-  // ]);
+ 
 
-  const quickView = (product) => {
-    setQuickViewProduct({
+  const addCart = (product) => {
+    setAddProductToCart({
       image: product.Product_Image,
       name: product.Product_Name,
-      price: product.Product_NewPrice,
+      price: product.Product_NewPrice,  
       id: product.Product_ID,
     });
   };
@@ -22,14 +20,13 @@ const Product = ({ product, openModal, setQuickViewProduct }) => {
     setIsModalVisible(true);
   };
 
-  const handleOk = () => {
-    setIsModalVisible(false);
-  };
-
+  // const handleOk = () => {
+  //   setIsModalVisible(false);
+  // };
+// console.log(product);
   const handleCancel = () => {
     setIsModalVisible(false);
   };
-  // console.log(Added);
   return (
     <div className="product">
       <div>
@@ -42,7 +39,7 @@ const Product = ({ product, openModal, setQuickViewProduct }) => {
               ".jpg"
             }
             alt={product.Product_Name}
-            //  onClick={() => quickView(product)}
+           
             onClick={showModal}
           />
         </div>
@@ -53,8 +50,13 @@ const Product = ({ product, openModal, setQuickViewProduct }) => {
         <p className="product-price">
           {numberWithCommas(parseInt(product.Product_NewPrice))}
         </p>
+        {/* <Counter
+          productQuantity={quantity}
+          updateQuantity={this.props.updateQuantity}
+          resetQuantity={this.resetQuantity}
+        /> */}
         <div className="product-action">
-          <button className="add-to-cart" type="button">
+          <button className="add-to-cart" type="button"    onClick={() => addCart(product)}>
             Add to cart
           </button>
         </div>
@@ -70,16 +72,18 @@ const Product = ({ product, openModal, setQuickViewProduct }) => {
         <div className="quick-view">
           <div className="quick-view-image">
             <img
-              src={process.env.PUBLIC_URL + "product/" + product.Product_Image}
+              src={process.env.PUBLIC_URL + "product/" + product.Product_Image + ".jpg"}
               alt={product.Product_Name}
             />
           </div>
           <div className="quick-view-details">
             <span className="product-name">{product.Product_Name}</span>
             <span className="product-price">
-              {" "}
               {numberWithCommas(parseInt(product.Product_NewPrice))}
             </span>
+            <p className="product-description">
+              {product.Product_Description ?product.Product_Description : "Không có mô tả"}
+            </p>
           </div>
         </div>
       </Modal>
