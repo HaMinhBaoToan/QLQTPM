@@ -1,40 +1,39 @@
-import React, { Component } from "react";
+import React, { useEffect, useState } from "react";
 import CardProduct from "./CardProduct";
 import { Row } from "antd";
-import logo from "../../../assets/images/latte.png";
+import axios from "axios";
 
-class Products extends Component {
-  render() {
-    let productsData;
 
-    function sortByKey(array, key) {
-      return array.sort(function (a, b) {
-        var x = a[key];
-        var y = b[key];
-        return x < y ? -1 : x > y ? 1 : 0;
-      });
-    }
-    productsData= sortByKey(this.props.productsList, "Product_Name");
-    productsData = productsData.map((product) => {
-      return (
-        <CardProduct
-          key={product.Product_ID}
-          price={product.Product_NewPrice}
-          name={product.Product_Name}
-          image={logo}
-          id={product.Product_ID}
-          addToCart={this.props.addToCart}
-          productQuantity={this.props.productQuantity}
-          updateQuantity={this.props.updateQuantity}
-          openModal={this.props.openModal}
-        />
-      );
+const Products = ({ setAddProductToCart}) => {
+  const [products, setProducts] = useState([]);
+  
+  useEffect(() => {
+    let url = "http://localhost:4000/api/products";
+    axios.get(url).then((response) => {
+      setProducts(response.data);
+      // sortByKey(response.data, "Product_Name");
     });
-
-    // Empty and Loading States
-    let view = <Row gutter={16}>{productsData}</Row>;
-    return <div className="site-card-wrapper">{view}</div>;
+  }, []);
+  const sortByKey = (array, key) => {
+    return array.sort(function (a, b) {
+      var x = a[key];
+      var y = b[key];
+      return x < y ? -1 : x > y ? 1 : 0;
+    });
   }
-}
+
+  return (
+      <Row>
+      {
+      products.map((product) => (
+          <CardProduct
+          key={product.Product_ID}
+          product={product} 
+          setAddProductToCart={setAddProductToCart}/>
+        ))
+      }
+      </Row>
+  );
+};
 
 export default Products;

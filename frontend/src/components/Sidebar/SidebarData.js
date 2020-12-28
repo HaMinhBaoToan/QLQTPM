@@ -44,7 +44,7 @@ export const SidebarData = [
   },
   {
     titleExit: 'Thoát',
-    pathExit: '/exit',
+    path: '/exit',
     iconExit: <IoIcons.IoMdExit/>,
     cNameExit: 'nav-text-exit'
   }

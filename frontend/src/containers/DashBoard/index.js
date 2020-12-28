@@ -48,7 +48,8 @@ const Dashboard = () => {
           <Col sm={24} md={24} lg={12} key={idx}>
             <CardComponent index={idx} {...item}></CardComponent>
           </Col>
-        ))}
+        ))
+        }
       </Row>
       <div className="title-metric-infor">
         Tình hình tăng trưởng và kinh doanh toàn của hàng

@@ -1,16 +1,4 @@
-html,
-body,
-ul,
-ol {
-  margin: 0;
-  padding: 0;
-}
-body {
-  font-family: Roboto;
-  font-size: 16px;
-  color: $gray-dark;
-  background: $gray-light-bg;
-}
+
 * {
   box-sizing: border-box;
 }
@@ -40,9 +28,7 @@ input[type="search"]::-webkit-search-results-button,
 input[type="search"]::-webkit-search-results-decoration {
   -webkit-appearance: none;
 }
-strong {
-  font-weight: 700;
-}
+
 a {
   text-decoration: none;
 }
@@ -58,7 +44,7 @@ p {
 ul {
   list-style: none;
 }
-button {
+.add-to-cart {
   height: 36px;
   border-radius: 2px;
   text-align: center;
@@ -81,12 +67,3 @@ button {
   }
 }
 
-input,
-select {
-  font-size: inherit;
-  font-family: inherit;
-}
-
-form {
-  margin: 0;
-}

@@ -11,16 +11,13 @@
  Target Server Version : 80022
  File Encoding         : 65001
 
- Date: 09/12/2020 15:26:37
+ Date: 28/12/2020 13:41:59
 */
 
 SET NAMES utf8mb4;
 SET FOREIGN_KEY_CHECKS = 0;
 
--- CREATE SCHEMA QLKD;
--- USE QLKD;
-
-----------------------------
+-- ----------------------------
 -- Table structure for branchs
 -- ----------------------------
 DROP TABLE IF EXISTS `branchs`;
@@ -74,7 +71,7 @@ CREATE TABLE `goods`  (
   `Goods_ID` int(0) NOT NULL AUTO_INCREMENT,
   `Goods_Name` varchar(200) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   `Goods_ImportDate` datetime(0) NOT NULL,
-  `Goods_Quantity` decimal(10) NOT NULL,
+  `Goods_Quantity` decimal(10, 0) NOT NULL,
   `Goods_Unit` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   `Goods_SupplierID` int(0) NOT NULL,
   `Goods_UnitCost` decimal(10, 0) NOT NULL,
@@ -84,8 +81,7 @@ CREATE TABLE `goods`  (
   PRIMARY KEY (`Goods_ID`) USING BTREE,
   INDEX `fk_goods_suppliers_idx`(`Goods_SupplierID`) USING BTREE,
   CONSTRAINT `fk_goods_suppliers` FOREIGN KEY (`Goods_SupplierID`) REFERENCES `suppliers` (`Supplier_ID`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
-
+) ENGINE = InnoDB AUTO_INCREMENT = 24 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of goods
@@ -96,25 +92,24 @@ INSERT INTO `goods` VALUES (3, 'Hạt cà phê Robusta', '2020-12-09 10:36:04', 
 INSERT INTO `goods` VALUES (4, 'Đường trắng', '2020-12-09 10:36:04', 6, 'kg', 1004, 12000, NULL, NULL, NULL);
 INSERT INTO `goods` VALUES (5, 'Đường nâu', '2020-12-09 10:36:04', 2, 'kg', 1004, 27000, NULL, NULL, NULL);
 INSERT INTO `goods` VALUES (6, 'Sữa đặc', '2020-12-09 10:36:04', 12, 'Hộp', 1004, 56000, NULL, NULL, NULL);
-INSERT INTO `goods` VALUES (7, 'Sữa tươi', '2020-12-09 10:36:04', 15, 'Hộp', 1004, 35000, NULL,'2020-11-01 10:36:04', '2021-12-01 10:36:04');
+INSERT INTO `goods` VALUES (7, 'Sữa tươi', '2020-12-09 10:36:04', 15, 'Hộp', 1004, 35000, NULL, '2020-11-01 10:36:04', '2021-12-01 10:36:04');
 INSERT INTO `goods` VALUES (8, 'Trà túi lọc Cozy', '2020-12-09 10:36:04', 4, 'Hộp', 1004, 30000, NULL, NULL, NULL);
 INSERT INTO `goods` VALUES (9, 'Trà túi lọc Lipton', '2020-12-09 10:36:04', 4, 'Hộp', 1005, 33000, NULL, NULL, NULL);
 INSERT INTO `goods` VALUES (10, 'Trà Đen', '2020-12-09 10:36:04', 3, 'kg', 1005, 135000, NULL, NULL, NULL);
 INSERT INTO `goods` VALUES (11, 'Trà Ô Long', '2020-12-09 10:36:04', 3, 'kg', 1005, 300000, NULL, NULL, NULL);
 INSERT INTO `goods` VALUES (12, 'Hồng Trà', '2020-12-09 10:36:04', 3, 'kg', 1005, 135000, NULL, NULL, NULL);
 INSERT INTO `goods` VALUES (13, 'Bột pudding socola', '2020-12-09 10:36:04', 7, 'kg', 1005, 145000, NULL, NULL, NULL);
-INSERT INTO `goods` VALUES (14, 'Bột cacao', '2020-12-09 10:36:04', 4, 'kg', 1005, 16000, NULL,'2020-11-10 10:36:04', '2021-12-01 10:36:04');
-INSERT INTO `goods` VALUES (15, 'Bột trà matcha', '2020-12-09 10:36:04', 2, 'kg', 1005, 300000, NULL,'2020-11-10 10:36:04', '2021-12-01 10:36:04');
-INSERT INTO `goods` VALUES (16, 'Bột kem sữa', '2020-12-09 10:36:04', 3, 'kg', 1005, 215000, NULL,'2020-11-10 10:36:04', '2021-12-01 10:36:04');
+INSERT INTO `goods` VALUES (14, 'Bột cacao', '2020-12-09 10:36:04', 4, 'kg', 1005, 16000, NULL, '2020-11-10 10:36:04', '2021-12-01 10:36:04');
+INSERT INTO `goods` VALUES (15, 'Bột trà matcha', '2020-12-09 10:36:04', 2, 'kg', 1005, 300000, NULL, '2020-11-10 10:36:04', '2021-12-01 10:36:04');
+INSERT INTO `goods` VALUES (16, 'Bột kem sữa', '2020-12-09 10:36:04', 3, 'kg', 1005, 215000, NULL, '2020-11-10 10:36:04', '2021-12-01 10:36:04');
 INSERT INTO `goods` VALUES (17, 'Trân châu đen', '2020-12-09 10:36:04', 5, 'Hộp', 1005, 40000, NULL, NULL, NULL);
 INSERT INTO `goods` VALUES (18, 'Hạt chia Đen', '2020-12-09 10:36:04', 1, 'kg', 1005, 200000, NULL, NULL, NULL);
-INSERT INTO `goods` VALUES (19, 'Thạch đào', '2020-12-09 10:36:04', 5, 'Hộp', 1006, 60000, NULL,'2020-12-01 10:36:04', '2021-06-01 10:36:04');
-INSERT INTO `goods` VALUES (20, 'Thạch trái cây', '2020-12-09 10:36:04', 5, 'Hộp', 1006, 60000, NULL,'2020-12-01 10:36:04', '2021-06-01 10:36:04');
+INSERT INTO `goods` VALUES (19, 'Thạch đào', '2020-12-09 10:36:04', 5, 'Hộp', 1006, 60000, NULL, '2020-12-01 10:36:04', '2021-06-01 10:36:04');
+INSERT INTO `goods` VALUES (20, 'Thạch trái cây', '2020-12-09 10:36:04', 5, 'Hộp', 1006, 60000, NULL, '2020-12-01 10:36:04', '2021-06-01 10:36:04');
 INSERT INTO `goods` VALUES (21, 'Đào ngâm Alcurnia', '2020-12-09 10:36:04', 4, 'Hộp', 1006, 60000, NULL, NULL, NULL);
 INSERT INTO `goods` VALUES (22, 'Vải đóng hộp EL GRECO', '2020-12-09 10:36:04', 4, 'Hộp', 1006, 33000, NULL, NULL, NULL);
 INSERT INTO `goods` VALUES (23, 'Siro hương dâu Heston', '2020-12-09 10:36:04', 2, 'Chai', 1006, 160000, NULL, NULL, NULL);
 INSERT INTO `goods` VALUES (24, 'Socola', '2020-12-09 10:36:04', 2, 'Chai', 1006, 75000, NULL, NULL, NULL);
-
 
 -- ----------------------------
 -- Table structure for languages
@@ -126,7 +121,7 @@ CREATE TABLE `languages`  (
   `Language_Description` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   `Language_Flag` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   PRIMARY KEY (`Language_ID`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 2 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of languages
@@ -139,7 +134,7 @@ INSERT INTO `languages` VALUES (2, 'EN', 'English', NULL);
 -- ----------------------------
 DROP TABLE IF EXISTS `orders`;
 CREATE TABLE `orders`  (
-  `Order_ID` int(0) NOT NULL AUTO_INCREMENT,
+  `Order_ID` int(0) NOT NULL,
   `Order_CustomerID` int(0) NULL DEFAULT NULL,
   `Order_EmployeesID` int(0) NULL DEFAULT NULL,
   `Order_Description` varchar(200) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
@@ -152,28 +147,28 @@ CREATE TABLE `orders`  (
   INDEX `fk_orders_users_idx`(`Order_CustomerID`) USING BTREE,
   INDEX `fk_orders_users_idx1`(`Order_EmployeesID`) USING BTREE,
   INDEX `fk_orders_branch_idx`(`Order_BranchID`) USING BTREE,
+  CONSTRAINT `fk_orders_branchs` FOREIGN KEY (`Order_BranchID`) REFERENCES `branchs` (`Branch_ID`) ON DELETE RESTRICT ON UPDATE RESTRICT,
   CONSTRAINT `fk_orders_users_C` FOREIGN KEY (`Order_CustomerID`) REFERENCES `users` (`User_ID`) ON DELETE RESTRICT ON UPDATE RESTRICT,
-  CONSTRAINT `fk_orders_users_E` FOREIGN KEY (`Order_EmployeesID`) REFERENCES `users` (`User_ID`) ON DELETE RESTRICT ON UPDATE RESTRICT,
-  CONSTRAINT `fk_orders_branchs` FOREIGN KEY (`Order_BranchID`) REFERENCES `branchs` (`Branch_ID`) ON DELETE RESTRICT ON UPDATE RESTRICT
+  CONSTRAINT `fk_orders_users_E` FOREIGN KEY (`Order_EmployeesID`) REFERENCES `users` (`User_ID`) ON DELETE RESTRICT ON UPDATE RESTRICT
 ) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of orders
 -- ----------------------------
-INSERT INTO `orders` VALUES (1, NULL, 1, NULL, 'Order 1', 'Done', '2020-01-09 09:36:04',10000, 1);
-INSERT INTO `orders` VALUES (2, NULL, 1, NULL, 'Order 2', 'Done', '2020-02-09 10:36:04',0, 1);
-INSERT INTO `orders` VALUES (3, NULL, 1, NULL, 'Order 3', 'Done', '2020-03-09 11:36:04',10000, 1);
-INSERT INTO `orders` VALUES (4, NULL, 1, NULL, 'Order 4', 'Done', '2020-04-10 10:36:04',10000, 2);
-INSERT INTO `orders` VALUES (5, NULL, 1, NULL, 'Order 5', 'Canel', '2020-05-10 12:36:04',0, 1);
-INSERT INTO `orders` VALUES (6, NULL, 1, NULL, 'Order 6', 'Canel', '2020-06-10 15:36:04',10000, 2);
-INSERT INTO `orders` VALUES (7, NULL, 1, NULL, 'Order 7', 'Done', '2020-07-10 12:36:04',0, 1);
-INSERT INTO `orders` VALUES (8, NULL, 1, NULL, 'Order 8', 'Done', '2020-08-10 15:36:04',20000, 2);
-INSERT INTO `orders` VALUES (9, NULL, 1, NULL, 'Order 9', 'Done', '2020-08-10 15:36:04',0, 2);
-INSERT INTO `orders` VALUES (10, NULL, 1, NULL, 'Order 10', 'Done', '2020-09-10 15:36:04',10000, 2);
-INSERT INTO `orders` VALUES (11, NULL, 1, NULL, 'Order 11', 'Done', '2020-10-10 15:36:04',0, 2);
-INSERT INTO `orders` VALUES (12, NULL, 1, NULL, 'Order 12', 'Done', '2020-11-10 15:36:04',10000, 2);
-INSERT INTO `orders` VALUES (13, NULL, 1, NULL, 'Order 13', 'Done', '2020-12-10 15:36:04',20000, 2);
-INSERT INTO `orders` VALUES (14, NULL, 1, NULL, 'Order 14', 'Done', '2020-12-10 15:36:04',10000, 2);
+INSERT INTO `orders` VALUES (1, NULL, 1, NULL, 'Order 1', 'Done', '2020-01-09 09:36:04', 20000, 1);
+INSERT INTO `orders` VALUES (2, NULL, 1, NULL, 'Order 2', 'Done', '2020-02-09 10:36:04', 0, 1);
+INSERT INTO `orders` VALUES (3, NULL, 1, NULL, 'Order 3', 'Done', '2020-03-09 11:36:04', 10000, 1);
+INSERT INTO `orders` VALUES (4, NULL, 1, NULL, 'Order 4', 'Done', '2020-04-10 10:36:04', 10000, 2);
+INSERT INTO `orders` VALUES (5, NULL, 1, NULL, 'Order 5', 'Canel', '2020-05-10 12:36:04', 10000, 1);
+INSERT INTO `orders` VALUES (6, NULL, 1, NULL, 'Order 6', 'Canel', '2020-06-10 15:36:04', 20000, 2);
+INSERT INTO `orders` VALUES (7, NULL, 1, NULL, 'Order 7', 'Done', '2020-07-10 12:36:04', 0, 1);
+INSERT INTO `orders` VALUES (8, NULL, 1, NULL, 'Order 8', 'Done', '2020-08-10 15:36:04', 20000, 2);
+INSERT INTO `orders` VALUES (9, NULL, 1, NULL, 'Order 9', 'Done', '2020-08-10 15:36:04', 0, 2);
+INSERT INTO `orders` VALUES (10, NULL, 1, NULL, 'Order 10', 'Done', '2020-09-10 15:36:04', 10000, 2);
+INSERT INTO `orders` VALUES (11, NULL, 1, NULL, 'Order 11', 'Done', '2020-10-10 15:36:04', 0, 2);
+INSERT INTO `orders` VALUES (12, NULL, 1, NULL, 'Order 12', 'Done', '2020-11-10 15:36:04', 10000, 2);
+INSERT INTO `orders` VALUES (13, NULL, 1, NULL, 'Order 13', 'Done', '2020-12-10 15:36:04', 20000, 2);
+INSERT INTO `orders` VALUES (14, NULL, 1, NULL, 'Order 14', 'Done', '2020-12-10 15:36:04', 10000, 2);
 
 -- ----------------------------
 -- Table structure for orders_details
@@ -195,7 +190,7 @@ CREATE TABLE `orders_details`  (
 -- ----------------------------
 INSERT INTO `orders_details` VALUES (1, 1, 12, 1);
 INSERT INTO `orders_details` VALUES (2, 1, 34, 1);
-INSERT INTO `orders_details` VALUES (3, 2, 1 , 1);
+INSERT INTO `orders_details` VALUES (3, 2, 1, 1);
 INSERT INTO `orders_details` VALUES (4, 3, 36, 2);
 INSERT INTO `orders_details` VALUES (5, 4, 26, 3);
 INSERT INTO `orders_details` VALUES (6, 5, 17, 2);
@@ -225,82 +220,83 @@ CREATE TABLE `products`  (
   `Product_Description` varchar(200) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   `Product_IsActive` bit(1) NULL DEFAULT b'1',
   `Product_CategorieID` int(0) NULL DEFAULT NULL,
+  `Product_Image` varchar(200) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   PRIMARY KEY (`Product_ID`) USING BTREE,
   INDEX `fk_products_categories_idx`(`Product_CategorieID`) USING BTREE,
   CONSTRAINT `fk_products_categories` FOREIGN KEY (`Product_CategorieID`) REFERENCES `categories` (`Categorie_ID`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE = InnoDB AUTO_INCREMENT = 3 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 69 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of products
 -- ----------------------------
-INSERT INTO `products` VALUES (1, 'Latte', 37000, 37000, 37000, '2020-12-09 10:36:04', NULL, NULL, b'1', 1);
-INSERT INTO `products` VALUES (2, 'Cappuccino', 37000, 37000, 37000, '2020-12-09 11:29:18', NULL, NULL, b'1', 1);
-INSERT INTO `products` VALUES (3, 'Machiato Caramel', 40000, 40000, 40000, '2020-12-09 11:30:27', NULL, NULL, b'1', 1);
-INSERT INTO `products` VALUES (4, 'Americano', 27000, 27000, 27000, '2020-12-09 11:30:58', NULL, NULL, b'1', 1);
-INSERT INTO `products` VALUES (5, 'Cà phê đen', 18000, 18000, 18000, '2020-12-09 11:30:57', NULL, NULL, b'1', 1);
-INSERT INTO `products` VALUES (6, 'Cà phê nâu', 23000, 23000, 23000, '2020-12-09 11:31:28', NULL, NULL, b'1', 1);
-INSERT INTO `products` VALUES (7, 'Cà phê bạc xỉu', 32000, 32000, 32000, '2020-12-09 11:32:01', NULL, NULL, b'1', 1);
-INSERT INTO `products` VALUES (8, 'Nước chanh tươi', 32000, 32000, 32000, '2020-12-09 11:32:24', NULL, NULL, b'1', 10);
-INSERT INTO `products` VALUES (9, 'Nước ép dừa', 40000, 40000, 40000, '2020-12-09 11:32:58', NULL, NULL, b'1', 10);
-INSERT INTO `products` VALUES (10, 'Nước ép ổi tươi', 40000, 40000, 40000, '2020-12-09 11:33:25', NULL, NULL, b'1', 10);
-INSERT INTO `products` VALUES (11, 'Nước ép cóc tươi', 40000, 40000, 40000, '2020-12-09 11:34:04', NULL, NULL, b'1', 10);
-INSERT INTO `products` VALUES (12, 'Dâu tầm nha đam', 35000, 35000, 35000, '2020-12-09 11:34:23', NULL, NULL, b'1', 10);
-INSERT INTO `products` VALUES (13, 'Nước ép mận', 37000, 37000, 37000, '2020-12-09 11:34:46', NULL, NULL, b'1', 10);
-INSERT INTO `products` VALUES (14, 'Trà sữa trân châu trắng', 40000, 40000, 40000, '2020-12-09 14:42:29', NULL, NULL, b'1', 11);
-INSERT INTO `products` VALUES (15, 'Trà sữa kem cheese', 43000, 43000, 43000, '2020-12-09 14:43:48', NULL, NULL, b'1', 11);
-INSERT INTO `products` VALUES (16, 'Trà sữa Olong', 40000, 40000, 40000, '2020-12-09 14:44:40', NULL, NULL, b'1', 11);
-INSERT INTO `products` VALUES (17, 'Trà sữa trân châu đường đen', 45000, 45000, 45000, '2020-12-09 14:46:54', NULL, NULL, b'1', 11);
-INSERT INTO `products` VALUES (18, 'Hồng trà sữa', 37000, 37000, 37000, '2020-12-09 14:47:26', NULL, NULL, b'1', 11);
-INSERT INTO `products` VALUES (19, 'Trà sữa khoai môn', 35000, 35000, 35000, '2020-12-09 14:47:53', NULL, NULL, b'1', 11);
-INSERT INTO `products` VALUES (20, 'Trà sữa matcha', 35000, 35000, 35000, '2020-12-09 14:48:33', NULL, NULL, b'1', 11);
-INSERT INTO `products` VALUES (21, 'Trà sữa Chocolate', 35000, 35000, 35000, '2020-12-09 14:48:44', NULL, NULL, b'1', 11);
-INSERT INTO `products` VALUES (22, 'Trà hoa quả tươi', 42000, 42000, 42000, '2020-12-09 14:51:54', NULL, NULL, b'1', 3);
-INSERT INTO `products` VALUES (23, 'Trà Olong hoa hồng', 25000, 25000, 25000, '2020-12-09 14:52:33', NULL, NULL, b'1', 3);
-INSERT INTO `products` VALUES (24, 'Trà đào miếng', 31000, 31000, 31000, '2020-12-09 14:58:09', NULL, NULL, b'1', 3);
-INSERT INTO `products` VALUES (25, 'Trà quất mật ong', 32000, 32000, 32000, '2020-12-09 14:58:12', NULL, NULL, b'1', 3);
-INSERT INTO `products` VALUES (26, 'Trà táo', 25000, 25000, 25000, '2020-12-09 14:58:15', NULL, NULL, b'1', 3);
-INSERT INTO `products` VALUES (27, 'Trà dâu', 25000, 25000, 25000, '2020-12-09 14:58:35', NULL, NULL, b'1', 3);
-INSERT INTO `products` VALUES (28, 'Trà bạc hà', 25000, 25000, 25000, '2020-12-09 14:58:35', NULL, NULL, b'1', 3);
-INSERT INTO `products` VALUES (29, 'Trà chanh đào', 27000, 27000, 27000, '2020-12-09 14:58:33', NULL, NULL, b'1', 3);
-INSERT INTO `products` VALUES (30, 'Trà bá tước mật ong', 30000, 30000, 30000, '2020-12-09 14:58:35', NULL, NULL, b'1', 3);
-INSERT INTO `products` VALUES (31, 'Trà hoa cúc mật ong', 32000, 32000, 32000, '2020-12-09 14:58:35', NULL, NULL, b'1', 3);
-INSERT INTO `products` VALUES (32, 'Trà thái xanh', 30000, 30000, 30000, '2020-12-09 14:58:35', NULL, NULL, b'1', 3);
-INSERT INTO `products` VALUES (33, 'Trà thạch lựu', 30000, 30000, 30000, '2020-12-09 14:58:35', NULL, NULL, b'1', 3);
-INSERT INTO `products` VALUES (34, 'Sữa chua chanh dây', 42000, 42000, 42000, '2020-12-09 14:58:33', NULL, NULL, b'1', 4);
-INSERT INTO `products` VALUES (35, 'Sữa chua xoài', 42000, 42000, 42000, '2020-12-09 14:58:35', NULL, NULL, b'1', 4);
-INSERT INTO `products` VALUES (36, 'Sữa chua việt quất', 42000, 42000, 42000, '2020-12-09 14:58:35', NULL, NULL, b'1', 4);
-INSERT INTO `products` VALUES (37, 'Sữa chua kiwi', 45000, 45000, 45000, '2020-12-09 14:58:35', NULL, NULL, b'1', 4);
-INSERT INTO `products` VALUES (38, 'Sữa chua phúc bồn tử', 45000, 45000, 45000, '2020-12-09 14:58:35', NULL, NULL, b'1', 4);
-INSERT INTO `products` VALUES (39, 'Sữa chua sầu riêng', 45000, 45000, 45000, '2020-12-09 14:58:35', NULL, NULL, b'1', 4);
-INSERT INTO `products` VALUES (40, 'Sinh tố chay  leo', 42000, 42000, 42000, '2020-12-09 15:04:28', NULL, NULL, b'1', 6);
-INSERT INTO `products` VALUES (41, 'Sinh tố viết quất', 45000, 45000, 45000, '2020-12-09 15:04:28', NULL, NULL, b'1', 6);
-INSERT INTO `products` VALUES (42, 'Sinh tố kiwi', 45000, 45000, 45000, '2020-12-09 15:04:28', NULL, NULL, b'1', 6);
-INSERT INTO `products` VALUES (43, 'Sinh tố dâu', 42000, 42000, 42000, '2020-12-09 15:04:28', NULL, NULL, b'1', 6);
-INSERT INTO `products` VALUES (44, 'Sinh tố xoài', 42000, 42000, 42000, '2020-12-09 15:04:28', NULL, NULL, b'1', 6);
-INSERT INTO `products` VALUES (45, 'Sinh tố bơ', 45000, 45000, 45000, '2020-12-09 15:04:28', NULL, NULL, b'1', 6);
-INSERT INTO `products` VALUES (46, 'Sinh tố dưa hấu', 42000, 42000, 42000, '2020-12-09 15:04:28', NULL, NULL, b'1', 6);
-INSERT INTO `products` VALUES (47, 'Sinh tố chuối', 42000, 42000, 42000, '2020-12-09 15:04:28', NULL, NULL, b'1', 6);
-INSERT INTO `products` VALUES (48, 'Soda chanh bạc hà', 25000, 25000, 25000, '2020-12-09 15:13:13', NULL, NULL, b'1', 9);
-INSERT INTO `products` VALUES (49, 'Soda táo bạc hà', 25000, 25000, 25000, '2020-12-09 15:13:14', NULL, NULL, b'1', 9);
-INSERT INTO `products` VALUES (50, 'Soda việt quất bạc hà', 25000, 25000, 25000, '2020-12-09 15:13:14', NULL, NULL, b'1', 9);
-INSERT INTO `products` VALUES (51, 'Soda chanh leo', 25000, 25000, 25000, '2020-12-09 15:13:14', NULL, NULL, b'1', 9);
-INSERT INTO `products` VALUES (52, 'Soda dâu', 25000, 25000, 25000, '2020-12-09 15:13:14', NULL, NULL, b'1', 9);
-INSERT INTO `products` VALUES (53, 'Soda cam', 25000, 25000, 25000, '2020-12-09 15:13:14', NULL, NULL, b'1', 9);
-INSERT INTO `products` VALUES (54, 'Soda xoài', 25000, 25000, 25000, '2020-12-09 15:13:14', NULL, NULL, b'1', 9);
-INSERT INTO `products` VALUES (55, 'Soda đào', NULL, NULL, NULL, NULL, NULL, NULL, b'1', NULL);
-INSERT INTO `products` VALUES (56, 'Soda đào', 25000, 25000, 25000, '2020-12-09 15:13:14', NULL, NULL, b'1', 9);
-INSERT INTO `products` VALUES (57, 'Bánh mì thịt nướng ', 25000, 25000, 25000, '2020-12-09 15:22:30', NULL, NULL, b'1', 2);
-INSERT INTO `products` VALUES (58, 'Bánh mì xìu mại', 25000, 25000, 25000, '2020-12-09 15:22:30', NULL, NULL, b'1', 2);
-INSERT INTO `products` VALUES (59, 'Bánh mì gà xé', 19000, 19000, 19000, '2020-12-09 15:22:34', NULL, NULL, b'1', 2);
-INSERT INTO `products` VALUES (60, 'Bánh mì cá ngừ', 19000, 19000, 19000, '2020-12-09 15:22:37', NULL, NULL, b'1', 2);
-INSERT INTO `products` VALUES (61, 'Bánh chuối', 29000, 29000, 29000, '2020-12-09 15:22:54', NULL, NULL, b'1', 7);
-INSERT INTO `products` VALUES (62, 'Tiramisu', 29000, 29000, 29000, '2020-12-09 15:22:54', NULL, NULL, b'1', 7);
-INSERT INTO `products` VALUES (63, 'Mousse Đào', 29000, 29000, 29000, '2020-12-09 15:22:54', NULL, NULL, b'1', 7);
-INSERT INTO `products` VALUES (64, 'Mousse cacao', 29000, 29000, 29000, '2020-12-09 15:22:54', NULL, NULL, b'1', 7);
-INSERT INTO `products` VALUES (65, 'Phô mai trà xanh', 29000, 29000, 29000, '2020-12-09 15:22:54', NULL, NULL, b'1', 7);
-INSERT INTO `products` VALUES (66, 'Phô mai chanh dây', 29000, 29000, 29000, '2020-12-09 15:22:54', NULL, NULL, b'1', 7);
-INSERT INTO `products` VALUES (67, 'Phô mai cà phê', 29000, 29000, 29000, '2020-12-09 15:22:54', NULL, NULL, b'1', 7);
-INSERT INTO `products` VALUES (68, 'Phô mai caramel', 29000, 29000, 29000, '2020-12-09 15:22:54', NULL, NULL, b'1', 7);
+INSERT INTO `products` VALUES (1, 'Latte', 37000, 37000, 37000, '2020-12-27 17:43:05', NULL, NULL, b'1', 1, '1');
+INSERT INTO `products` VALUES (2, 'Cappuccino', 37000, 37000, 37000, '2020-12-27 17:43:09', NULL, NULL, b'1', 1, '2');
+INSERT INTO `products` VALUES (3, 'Machiato Caramel', 40000, 40000, 40000, '2020-12-27 17:43:26', NULL, NULL, b'1', 1, '3');
+INSERT INTO `products` VALUES (4, 'Americano', 27000, 27000, 27000, '2020-12-27 17:43:26', NULL, NULL, b'1', 1, '4');
+INSERT INTO `products` VALUES (5, 'Cà phê đen', 18000, 18000, 18000, '2020-12-27 17:43:26', NULL, NULL, b'1', 1, '5');
+INSERT INTO `products` VALUES (6, 'Cà phê nâu', 23000, 23000, 23000, '2020-12-27 17:43:26', NULL, NULL, b'1', 1, '6');
+INSERT INTO `products` VALUES (7, 'Cà phê bạc xỉu', 32000, 32000, 32000, '2020-12-27 17:43:26', NULL, NULL, b'1', 1, '7');
+INSERT INTO `products` VALUES (8, 'Nước chanh tươi', 32000, 32000, 32000, '2020-12-27 17:43:26', NULL, NULL, b'1', 10, '8');
+INSERT INTO `products` VALUES (9, 'Nước ép dừa', 40000, 40000, 40000, '2020-12-27 17:43:26', NULL, NULL, b'1', 10, '9');
+INSERT INTO `products` VALUES (10, 'Nước ép ổi tươi', 40000, 40000, 40000, '2020-12-27 17:43:37', NULL, NULL, b'1', 10, '10');
+INSERT INTO `products` VALUES (11, 'Nước ép cóc tươi', 40000, 40000, 40000, '2020-12-27 17:43:38', NULL, NULL, b'1', 10, '11');
+INSERT INTO `products` VALUES (12, 'Dâu tầm nha đam', 35000, 35000, 35000, '2020-12-27 17:43:40', NULL, NULL, b'1', 10, '12');
+INSERT INTO `products` VALUES (13, 'Nước ép mận', 37000, 37000, 37000, '2020-12-27 17:43:41', NULL, NULL, b'1', 10, '13');
+INSERT INTO `products` VALUES (14, 'Trà sữa trân châu trắng', 40000, 40000, 40000, '2020-12-27 17:43:42', NULL, NULL, b'1', 11, '14');
+INSERT INTO `products` VALUES (15, 'Trà sữa kem cheese', 43000, 43000, 43000, '2020-12-27 17:43:48', NULL, NULL, b'1', 11, '15');
+INSERT INTO `products` VALUES (16, 'Trà sữa Olong', 40000, 40000, 40000, '2020-12-27 17:43:51', NULL, NULL, b'1', 11, '16');
+INSERT INTO `products` VALUES (17, 'Trà sữa trân châu đường đen', 45000, 45000, 45000, '2020-12-27 17:43:54', NULL, NULL, b'1', 11, '17');
+INSERT INTO `products` VALUES (18, 'Hồng trà sữa', 37000, 37000, 37000, '2020-12-27 17:43:55', NULL, NULL, b'1', 11, '18');
+INSERT INTO `products` VALUES (19, 'Trà sữa khoai môn', 35000, 35000, 35000, '2020-12-28 07:12:10', NULL, 'Hương vị tươi nguyên nhất của những lá trà hảo hạng, thích hợp để pha chế những ly trà đậm vị, thơm ngon và đem lại nhiều lợi ích cho sức khỏe khi cùng thưởng thức bên gia đình và người thân.', b'1', 11, '19');
+INSERT INTO `products` VALUES (20, 'Trà sữa matcha', 35000, 35000, 35000, '2020-12-28 07:12:13', NULL, 'Hương vị tươi nguyên nhất của những lá trà hảo hạng, thích hợp để pha chế những ly trà đậm vị, thơm ngon và đem lại nhiều lợi ích cho sức khỏe khi cùng thưởng thức bên gia đình và người thân.', b'1', 11, '20');
+INSERT INTO `products` VALUES (21, 'Trà sữa Chocolate', 35000, 35000, 35000, '2020-12-28 07:12:13', NULL, 'Hương vị tươi nguyên nhất của những lá trà hảo hạng, thích hợp để pha chế những ly trà đậm vị, thơm ngon và đem lại nhiều lợi ích cho sức khỏe khi cùng thưởng thức bên gia đình và người thân.', b'1', 11, '21');
+INSERT INTO `products` VALUES (22, 'Trà hoa quả tươi', 42000, 42000, 42000, '2020-12-28 07:12:13', NULL, 'Hương vị tươi nguyên nhất của những lá trà hảo hạng, thích hợp để pha chế những ly trà đậm vị, thơm ngon và đem lại nhiều lợi ích cho sức khỏe khi cùng thưởng thức bên gia đình và người thân.', b'1', 3, '22');
+INSERT INTO `products` VALUES (23, 'Trà Olong hoa hồng', 25000, 25000, 25000, '2020-12-28 07:12:13', NULL, 'Hương vị tươi nguyên nhất của những lá trà hảo hạng, thích hợp để pha chế những ly trà đậm vị, thơm ngon và đem lại nhiều lợi ích cho sức khỏe khi cùng thưởng thức bên gia đình và người thân.', b'1', 3, '23');
+INSERT INTO `products` VALUES (24, 'Trà đào miếng', 31000, 31000, 31000, '2020-12-28 07:12:13', NULL, 'Hương vị tươi nguyên nhất của những lá trà hảo hạng, thích hợp để pha chế những ly trà đậm vị, thơm ngon và đem lại nhiều lợi ích cho sức khỏe khi cùng thưởng thức bên gia đình và người thân.', b'1', 3, '24');
+INSERT INTO `products` VALUES (25, 'Trà quất mật ong', 32000, 32000, 32000, '2020-12-28 07:12:13', NULL, 'Hương vị tươi nguyên nhất của những lá trà hảo hạng, thích hợp để pha chế những ly trà đậm vị, thơm ngon và đem lại nhiều lợi ích cho sức khỏe khi cùng thưởng thức bên gia đình và người thân.', b'1', 3, '25');
+INSERT INTO `products` VALUES (26, 'Trà táo', 25000, 25000, 25000, '2020-12-28 07:12:13', NULL, 'Hương vị tươi nguyên nhất của những lá trà hảo hạng, thích hợp để pha chế những ly trà đậm vị, thơm ngon và đem lại nhiều lợi ích cho sức khỏe khi cùng thưởng thức bên gia đình và người thân.', b'1', 3, '26');
+INSERT INTO `products` VALUES (27, 'Trà dâu', 25000, 25000, 25000, '2020-12-28 07:12:13', NULL, 'Hương vị tươi nguyên nhất của những lá trà hảo hạng, thích hợp để pha chế những ly trà đậm vị, thơm ngon và đem lại nhiều lợi ích cho sức khỏe khi cùng thưởng thức bên gia đình và người thân.', b'1', 3, '27');
+INSERT INTO `products` VALUES (28, 'Trà bạc hà', 25000, 25000, 25000, '2020-12-28 07:12:13', NULL, 'Hương vị tươi nguyên nhất của những lá trà hảo hạng, thích hợp để pha chế những ly trà đậm vị, thơm ngon và đem lại nhiều lợi ích cho sức khỏe khi cùng thưởng thức bên gia đình và người thân.', b'1', 3, '28');
+INSERT INTO `products` VALUES (29, 'Trà chanh đào', 27000, 27000, 27000, '2020-12-28 07:12:13', NULL, 'Hương vị tươi nguyên nhất của những lá trà hảo hạng, thích hợp để pha chế những ly trà đậm vị, thơm ngon và đem lại nhiều lợi ích cho sức khỏe khi cùng thưởng thức bên gia đình và người thân.', b'1', 3, '29');
+INSERT INTO `products` VALUES (30, 'Trà bá tước mật ong', 30000, 30000, 30000, '2020-12-28 07:12:13', NULL, 'Hương vị tươi nguyên nhất của những lá trà hảo hạng, thích hợp để pha chế những ly trà đậm vị, thơm ngon và đem lại nhiều lợi ích cho sức khỏe khi cùng thưởng thức bên gia đình và người thân.', b'1', 3, '30');
+INSERT INTO `products` VALUES (31, 'Trà hoa cúc mật ong', 32000, 32000, 32000, '2020-12-28 07:12:13', NULL, 'Hương vị tươi nguyên nhất của những lá trà hảo hạng, thích hợp để pha chế những ly trà đậm vị, thơm ngon và đem lại nhiều lợi ích cho sức khỏe khi cùng thưởng thức bên gia đình và người thân.', b'1', 3, '31');
+INSERT INTO `products` VALUES (32, 'Trà thái xanh', 30000, 30000, 30000, '2020-12-28 07:12:13', NULL, 'Hương vị tươi nguyên nhất của những lá trà hảo hạng, thích hợp để pha chế những ly trà đậm vị, thơm ngon và đem lại nhiều lợi ích cho sức khỏe khi cùng thưởng thức bên gia đình và người thân.', b'1', 3, '32');
+INSERT INTO `products` VALUES (33, 'Trà thạch lựu', 30000, 30000, 30000, '2020-12-28 07:12:13', NULL, 'Hương vị tươi nguyên nhất của những lá trà hảo hạng, thích hợp để pha chế những ly trà đậm vị, thơm ngon và đem lại nhiều lợi ích cho sức khỏe khi cùng thưởng thức bên gia đình và người thân.', b'1', 3, '33');
+INSERT INTO `products` VALUES (34, 'Sữa chua chanh dây', 42000, 42000, 42000, '2020-12-27 17:44:15', NULL, NULL, b'1', 4, '34');
+INSERT INTO `products` VALUES (35, 'Sữa chua xoài', 42000, 42000, 42000, '2020-12-27 17:44:36', NULL, NULL, b'1', 4, '35');
+INSERT INTO `products` VALUES (36, 'Sữa chua việt quất', 42000, 42000, 42000, '2020-12-27 17:44:36', NULL, NULL, b'1', 4, '36');
+INSERT INTO `products` VALUES (37, 'Sữa chua kiwi', 45000, 45000, 45000, '2020-12-27 17:44:36', NULL, NULL, b'1', 4, '37');
+INSERT INTO `products` VALUES (38, 'Sữa chua phúc bồn tử', 45000, 45000, 45000, '2020-12-27 17:44:36', NULL, NULL, b'1', 4, '38');
+INSERT INTO `products` VALUES (39, 'Sữa chua sầu riêng', 45000, 45000, 45000, '2020-12-27 17:44:36', NULL, NULL, b'1', 4, '39');
+INSERT INTO `products` VALUES (40, 'Sinh tố chay  leo', 42000, 42000, 42000, '2020-12-27 17:44:36', NULL, NULL, b'1', 6, '40');
+INSERT INTO `products` VALUES (41, 'Sinh tố viết quất', 45000, 45000, 45000, '2020-12-27 17:44:36', NULL, NULL, b'1', 6, '41');
+INSERT INTO `products` VALUES (42, 'Sinh tố kiwi', 45000, 45000, 45000, '2020-12-27 17:44:36', NULL, NULL, b'1', 6, '42');
+INSERT INTO `products` VALUES (43, 'Sinh tố dâu', 42000, 42000, 42000, '2020-12-27 17:44:36', NULL, NULL, b'1', 6, '43');
+INSERT INTO `products` VALUES (44, 'Sinh tố xoài', 42000, 42000, 42000, '2020-12-27 17:44:36', NULL, NULL, b'1', 6, '44');
+INSERT INTO `products` VALUES (45, 'Sinh tố bơ', 45000, 45000, 45000, '2020-12-27 17:44:36', NULL, NULL, b'1', 6, '45');
+INSERT INTO `products` VALUES (46, 'Sinh tố dưa hấu', 42000, 42000, 42000, '2020-12-27 17:44:36', NULL, NULL, b'1', 6, '46');
+INSERT INTO `products` VALUES (47, 'Sinh tố chuối', 42000, 42000, 42000, '2020-12-27 17:44:36', NULL, NULL, b'1', 6, '47');
+INSERT INTO `products` VALUES (48, 'Soda chanh bạc hà', 25000, 25000, 25000, '2020-12-27 17:44:36', NULL, NULL, b'1', 9, '48');
+INSERT INTO `products` VALUES (49, 'Soda táo bạc hà', 25000, 25000, 25000, '2020-12-27 17:44:36', NULL, NULL, b'1', 9, '49');
+INSERT INTO `products` VALUES (50, 'Soda việt quất bạc hà', 25000, 25000, 25000, '2020-12-27 17:44:36', NULL, NULL, b'1', 9, '50');
+INSERT INTO `products` VALUES (51, 'Soda chanh leo', 25000, 25000, 25000, '2020-12-27 17:44:36', NULL, NULL, b'1', 9, '51');
+INSERT INTO `products` VALUES (52, 'Soda dâu', 25000, 25000, 25000, '2020-12-27 17:44:36', NULL, NULL, b'1', 9, '52');
+INSERT INTO `products` VALUES (53, 'Soda cam', 25000, 25000, 25000, '2020-12-27 17:44:36', NULL, NULL, b'1', 9, '53');
+INSERT INTO `products` VALUES (54, 'Soda xoài', 25000, 25000, 25000, '2020-12-27 17:44:36', NULL, NULL, b'1', 9, '54');
+INSERT INTO `products` VALUES (55, 'Soda đào', NULL, NULL, NULL, '2020-12-27 17:44:36', NULL, NULL, b'1', NULL, '55');
+INSERT INTO `products` VALUES (56, 'Soda đào', 25000, 25000, 25000, '2020-12-27 17:44:37', NULL, NULL, b'1', 9, '56');
+INSERT INTO `products` VALUES (57, 'Bánh mì thịt nướng ', 25000, 25000, 25000, '2020-12-27 17:44:37', NULL, NULL, b'1', 2, '57');
+INSERT INTO `products` VALUES (58, 'Bánh mì xìu mại', 25000, 25000, 25000, '2020-12-27 17:44:37', NULL, NULL, b'1', 2, '58');
+INSERT INTO `products` VALUES (59, 'Bánh mì gà xé', 19000, 19000, 19000, '2020-12-27 17:44:37', NULL, NULL, b'1', 2, '59');
+INSERT INTO `products` VALUES (60, 'Bánh mì cá ngừ', 19000, 19000, 19000, '2020-12-27 17:44:37', NULL, NULL, b'1', 2, '60');
+INSERT INTO `products` VALUES (61, 'Bánh chuối', 29000, 29000, 29000, '2020-12-27 17:44:37', NULL, NULL, b'1', 7, '61');
+INSERT INTO `products` VALUES (62, 'Tiramisu', 29000, 29000, 29000, '2020-12-27 17:44:37', NULL, NULL, b'1', 7, '62');
+INSERT INTO `products` VALUES (63, 'Mousse Đào', 29000, 29000, 29000, '2020-12-27 17:44:37', NULL, NULL, b'1', 7, '63');
+INSERT INTO `products` VALUES (64, 'Mousse cacao', 29000, 29000, 29000, '2020-12-27 17:44:37', NULL, NULL, b'1', 7, '64');
+INSERT INTO `products` VALUES (65, 'Phô mai trà xanh', 29000, 29000, 29000, '2020-12-27 17:44:37', NULL, NULL, b'1', 7, '65');
+INSERT INTO `products` VALUES (66, 'Phô mai chanh dây', 29000, 29000, 29000, '2020-12-27 17:44:37', NULL, NULL, b'1', 7, '66');
+INSERT INTO `products` VALUES (67, 'Phô mai cà phê', 29000, 29000, 29000, '2020-12-27 17:44:37', NULL, NULL, b'1', 7, '67');
+INSERT INTO `products` VALUES (68, 'Phô mai caramel', 29000, 29000, 29000, '2020-12-27 17:44:37', NULL, NULL, b'1', 7, '68');
 
 -- ----------------------------
 -- Table structure for roles
