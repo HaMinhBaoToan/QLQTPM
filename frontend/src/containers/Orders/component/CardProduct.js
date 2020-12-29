@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { Modal, Button, Space } from "antd";
-const Product = ({ product, openModal, setAddProductToCart }) => {
+const Product = ({ product, openModal, handleAddCard }) => {
   const numberWithCommas = (x) => {
     return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
   };
  
 
   const addCart = (product) => {
-    setAddProductToCart({
+    handleAddCard({
       image: product.Product_Image,
       name: product.Product_Name,
       price: product.Product_NewPrice,  

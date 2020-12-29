@@ -4,8 +4,9 @@ import { Row } from "antd";
 import axios from "axios";
 
 
-const Products = ({ setAddProductToCart}) => {
+const Products = ({setAddProductToCart}) => {
   const [products, setProducts] = useState([]);
+  // const [addProductToCart, setAddProductToCart] = useState([]);
   
   useEffect(() => {
     let url = "http://localhost:4000/api/products";
@@ -22,6 +23,10 @@ const Products = ({ setAddProductToCart}) => {
     });
   }
 
+  const handleAddCard = (product) => {
+    setAddProductToCart(product);
+  }
+
   return (
       <Row>
       {
@@ -29,7 +34,7 @@ const Products = ({ setAddProductToCart}) => {
           <CardProduct
           key={product.Product_ID}
           product={product} 
-          setAddProductToCart={setAddProductToCart}/>
+          handleAddCard={handleAddCard}/>
         ))
       }
       </Row>
