@@ -4,15 +4,15 @@ import { Row } from "antd";
 import axios from "axios";
 
 
-const Products = ({setAddProductToCart}) => {
+const Products = ({handleAdd}) => {
   const [products, setProducts] = useState([]);
   // const [addProductToCart, setAddProductToCart] = useState([]);
   
   useEffect(() => {
     let url = "http://localhost:4000/api/products";
     axios.get(url).then((response) => {
-      setProducts(response.data);
-      // sortByKey(response.data, "Product_Name");
+      // setProducts(response.data);
+      setProducts(sortByKey(response.data, "Product_Name"));
     });
   }, []);
   const sortByKey = (array, key) => {
@@ -23,10 +23,6 @@ const Products = ({setAddProductToCart}) => {
     });
   }
 
-  const handleAddCard = (product) => {
-    setAddProductToCart(product);
-  }
-
   return (
       <Row>
       {
@@ -34,7 +30,7 @@ const Products = ({setAddProductToCart}) => {
           <CardProduct
           key={product.Product_ID}
           product={product} 
-          handleAddCard={handleAddCard}/>
+          handleAdd={handleAdd}/>
         ))
       }
       </Row>

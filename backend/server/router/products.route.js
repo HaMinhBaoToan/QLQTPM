@@ -4,7 +4,7 @@ const productsModel = require('../models/products.model');
 const router = express.Router();
 
 router.get('/', async function (req, res) {
-  console.log("0");
+  
   const list = await productsModel.all();
   res.json(list);
 })
