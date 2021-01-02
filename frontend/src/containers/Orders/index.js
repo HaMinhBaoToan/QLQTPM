@@ -8,7 +8,7 @@ import _ from "lodash";
 var dateFormat = require("dateformat");
 const Orders = () => {
   const [products, setProducts] = useState({});
-  const [soHD, SetSoHD] = useState({});
+  const [soHD, SetSoHD] = useState();
   const [Name, setName] = useState("");
   const [Phone, setPhone] = useState("");
   const clearState = () => {
@@ -17,13 +17,15 @@ const Orders = () => {
     setProducts({});
     let url = "http://localhost:4000/api/orders";
     axios.get(url).then((response) => {
-      SetSoHD(response.data.length + 1);
+      SetSoHD(response.data[response.data.length-1].Order_ID + 1);
+
     });
   };
   useEffect(() => {
     let url = "http://localhost:4000/api/orders";
     axios.get(url).then((response) => {
-      SetSoHD(response.data.length + 1);
+
+      SetSoHD(response.data[response.data.length-1].Order_ID + 1);
     });
   }, []);
 
