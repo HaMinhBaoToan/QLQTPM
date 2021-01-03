@@ -1,18 +1,13 @@
-import React, { useEffect, useState } from "react";
-import { Modal, Button, Space } from "antd";
-const Product = ({ product, openModal, setAddProductToCart }) => {
+import React, {  useState } from "react";
+import { Modal } from "antd";
+const Product = ({ product, openModal, handleAdd }) => {
   const numberWithCommas = (x) => {
     return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
   };
  
 
   const addCart = (product) => {
-    setAddProductToCart({
-      image: product.Product_Image,
-      name: product.Product_Name,
-      price: product.Product_NewPrice,  
-      id: product.Product_ID,
-    });
+    handleAdd(product);
   };
   const [isModalVisible, setIsModalVisible] = useState(false);
 
@@ -23,7 +18,7 @@ const Product = ({ product, openModal, setAddProductToCart }) => {
   // const handleOk = () => {
   //   setIsModalVisible(false);
   // };
-// console.log(product);
+
   const handleCancel = () => {
     setIsModalVisible(false);
   };

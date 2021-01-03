@@ -7,6 +7,7 @@ import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import Sidebar from './components/Sidebar/index';
 import Dashboard from './containers/DashBoard';
 import Orders from './containers/Orders';
+import Warehouse from './containers/Warehouse'
 import { Layout } from 'antd';
 import AntIcon, {
   MenuUnfoldOutlined,
@@ -44,7 +45,7 @@ function App() {
                   <Orders />
                 </Route>
                 <Route path="/warehouses">
-                  <h3>This page is updating !</h3>
+                  <Warehouse/>
                 </Route>
                 <Route path="/customers">
                   <h3>This page is updating !</h3>
