@@ -27,8 +27,4 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
     - run: npm install
-    - run: sudo service mysql start
-    - run: mysql --host 127.0.0.1 --port ${{ job.services.mysql.ports['3366'] }} root 123456 < qlkd.sql
-    - run: mysql --host 127.0.0.1 --port ${{ job.services.mysql.ports['3366'] }} root 123456 -e "SHOW DATABASES"
-    - run: node scripts/ci ${{ job.services.mysql.ports['3366'] }}
     - run: npm test
