@@ -9,6 +9,8 @@ const ORDERS = require('./server/router/orders.route');
 const DASHBOARD = require('./server/router/dashboard.route');
 const ORDER_DETAIL = require('./server/router/order-detail.route');
 
+const GOODS = require('./server/router/goods.route');
+
 const PORT = process.env.PORT || 4000;
 
 if(process.env.NODE_ENV !== 'test') {
@@ -32,6 +34,7 @@ app.use('/api/products', PRODUCTS );
 app.use('/api/orders', ORDERS );
 app.use('/api/dashboard', DASHBOARD );
 app.use('/api/order-detail', ORDER_DETAIL );
+app.use('/api/goods', GOODS );
 
 app.get('/err', function (req, res) {
   throw new Error('Error!');

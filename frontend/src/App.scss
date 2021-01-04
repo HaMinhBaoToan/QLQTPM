@@ -1,8 +1,19 @@
-
 body {
   background-color: #f0f2f5 !important;
 }
-*{font-family: Arial, sans-serif;}
+* {
+  font-family: Arial, sans-serif;
+  /* If you want to implement it in very old browser-versions */
+-webkit-user-select: none; /* Chrome/Safari */ 
+-moz-user-select: none; /* Firefox */
+-ms-user-select: none; /* IE10+ */
+
+/* The rule below is not implemented in browsers yet */
+-o-user-select: none;
+
+/* The rule below is implemented in most browsers by now */
+user-select: none;
+}
 #root {
   height: 100%;
   width: 100%;
@@ -22,14 +33,14 @@ body {
 
   // }
 
-  .ant-layout-sider-collapsed{
+  .ant-layout-sider-collapsed {
     flex: unset !important;
     width: unset !important;
     max-width: unset !important;
     min-width: unset !important;
   }
 
-  .ant-layout-header{
+  .ant-layout-header {
     padding: 0;
     background: #394867;
     display: flex;
@@ -48,4 +59,3 @@ body {
     }
   }
 }
-
