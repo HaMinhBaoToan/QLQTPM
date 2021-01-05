@@ -27,7 +27,7 @@ jobs:
           MYSQL_PASSWORD: 123456
           DB_HOST: 127.0.0.1
         ports:
-          - 3366:3366
+          - 3366
         options: >-
           --health-cmd="mysqladmin ping" 
           --health-interval=10s 
@@ -48,7 +48,7 @@ jobs:
         MYSQL_DATABASE: qlkd
         DB_USERNAME: root
         DB_PASSWORD: 123456
-        DB_PORT: ${{ job.services.mysql.ports[3366] }}
+        DB_PORT: ${{ job.services.mysql.ports['3366'] }}
 
     - name: Migrate MySQL DB
       env: 
