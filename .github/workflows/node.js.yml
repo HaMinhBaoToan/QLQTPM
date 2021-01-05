@@ -59,8 +59,8 @@ jobs:
 #         DB_PASSWORD: 123456
 #       run: php artisan migrate:fresh --seed
     - run: npm install
-    - run: sudo service mysql start
-    - run: mysql --host 127.0.0.1 --port ${{ job.services.mysql.ports['3366'] }} -uroot -p123456 < qlkd.sql
-    - run: mysql --host 127.0.0.1 --port ${{ job.services.mysql.ports['3366'] }} -uroot -p123456 -e "SHOW DATABASES"
-    - run: node scripts/ci ${{ job.services.mysql.ports['3366'] }}
+#     - run: sudo service mysql start
+#     - run: mysql --host 127.0.0.1 --port ${{ job.services.mysql.ports['3366'] }} -uroot -p123456 < qlkd.sql
+#     - run: mysql --host 127.0.0.1 --port ${{ job.services.mysql.ports['3366'] }} -uroot -p123456 -e "SHOW DATABASES"
+#     - run: node scripts/ci ${{ job.services.mysql.ports['3366'] }}
     - run: npm test
