@@ -32,29 +32,6 @@ describe("Details", () => {
   });
 });
 
-describe("Error", () => {
-  beforeEach((done) => {
-    done();
-  });
-  describe("GET /error", () => {
-    it("respond with list Product", (done) => {
-      // const list = await productsModel.single(1);
-      // chai.request(app).get("/api/order-detail/1").expect(list[0], done);
-      chai
-        .request(server)
-        .get("/asdf")
-        .end((err, res) => {
-          res.should.have.status(200);
-          res.body.should.be.a("Object");
-          res.body.should.be.eql({
-            error_message: "Endpoint not found!",
-          }); // fixme :)
-          done();
-        });
-    });
-  });
-});
-
 
 describe("Error", () => {
   beforeEach((done) => {
