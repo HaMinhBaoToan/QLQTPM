@@ -28,7 +28,7 @@ jobs:
           MYSQL_ROOT_PASSWORD: 123456
         ports:
           - 3366
-        options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=10
+        options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=10s --health-retries=10
     defaults:
       run:
         working-directory: ./backend
