@@ -25,7 +25,6 @@ jobs:
           MYSQL_DATABASE: qlkd
           MYSQL_USER: root
           MYSQL_PASSWORD: 123456
-          MYSQL_ROOT_PASSWORD: 123456
           DB_HOST: 127.0.0.1
         ports:
           - 3366:3366
