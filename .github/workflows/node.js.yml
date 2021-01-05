@@ -18,21 +18,21 @@ jobs:
       matrix:
         node-version: [10.x, 12.x, 14.x]
         
-    services:
-      mysql:
-        image: mysql:5.7
-        env:
-          MYSQL_DATABASE: qlkd
-          MYSQL_USER: root
-          MYSQL_PASSWORD: 123456
-          DB_HOST: 127.0.0.1
-        ports:
-          - 3366
-        options: >-
-          --health-cmd="mysqladmin ping" 
-          --health-interval=10s 
-          --health-timeout=10s 
-          --health-retries=10
+#     services:
+#       mysql:
+#         image: mysql:5.7
+#         env:
+#           MYSQL_DATABASE: qlkd
+#           MYSQL_USER: root
+#           MYSQL_PASSWORD: 123456
+#           DB_HOST: 127.0.0.1
+#         ports:
+#           - 3366
+#         options: >-
+#           --health-cmd="mysqladmin ping" 
+#           --health-interval=10s 
+#           --health-timeout=10s 
+#           --health-retries=10
     defaults:
       run:
         working-directory: ./backend
