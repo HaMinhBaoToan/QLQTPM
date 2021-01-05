@@ -38,7 +38,7 @@ describe("Error", () => {
     done();
   });
   describe("GET /error", () => {
-    it("respond with list Product", (done) => {
+    it("respond with error", (done) => {
       // const list = await productsModel.single(1);
       // chai.request(app).get("/api/order-detail/1").expect(list[0], done);
       chai
