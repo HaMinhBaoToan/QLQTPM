@@ -42,22 +42,22 @@ jobs:
       uses: actions/setup-node@v1
       with:
         node-version: ${{ matrix.node-version }}
-    - name: Execute unit tests via PHPUnit
-      run: vendor/bin/phpunit
-      env: 
-        MYSQL_DATABASE: qlkd
-        DB_USERNAME: root
-        DB_PASSWORD: 123456
-        DB_PORT: ${{ job.services.mysql.ports['3366'] }}
+#     - name: Execute unit tests via PHPUnit
+#       run: vendor/bin/phpunit
+#       env: 
+#         MYSQL_DATABASE: qlkd
+#         DB_USERNAME: root
+#         DB_PASSWORD: 123456
+#         DB_PORT: ${{ job.services.mysql.ports['3366'] }}
 
-    - name: Migrate MySQL DB
-      env: 
-        DB_CONNECTION: mysql
-        DB_DATABASE: qlkd
-        DB_PORT: 3366
-        DB_USER: root
-        DB_PASSWORD: 123456
-      run: php artisan migrate:fresh --seed
+#     - name: Migrate MySQL DB
+#       env: 
+#         DB_CONNECTION: mysql
+#         DB_DATABASE: qlkd
+#         DB_PORT: 3366
+#         DB_USER: root
+#         DB_PASSWORD: 123456
+#       run: php artisan migrate:fresh --seed
     - run: npm install
     - run: sudo service mysql start
     - run: mysql --host 127.0.0.1 --port ${{ job.services.mysql.ports['3366'] }} -uroot -p123456 < qlkd.sql
