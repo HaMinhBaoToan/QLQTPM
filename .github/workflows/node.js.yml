@@ -22,6 +22,9 @@ jobs:
       mysql:
         image: mysql:5.7
         env:
+          MYSQL_DATABASE: qlkd
+          MYSQL_USER: root
+          MYSQL_PASSWORD: 123456
           MYSQL_ROOT_PASSWORD: 123456
         ports:
           - 3366
@@ -37,7 +40,7 @@ jobs:
         node-version: ${{ matrix.node-version }}
     - run: npm install
     - run: sudo service mysql start
-    - run: mysql --host 127.0.0.1 --port ${{ job.services.mysql.ports['3366'] }} -u root -p "123456" < qlkd.sql
-    - run: mysql --host 127.0.0.1 --port ${{ job.services.mysql.ports['3366'] }} -u root -p "123456" -e "SHOW DATABASES"
+    - run: mysql --host 127.0.0.1 --port ${{ job.services.mysql.ports['3366'] }} -uroot -p123456 < qlkd.sql
+    - run: mysql --host 127.0.0.1 --port ${{ job.services.mysql.ports['3366'] }} -uroot -p123456 -e "SHOW DATABASES"
     - run: node scripts/ci ${{ job.services.mysql.ports['3366'] }}
     - run: npm test
