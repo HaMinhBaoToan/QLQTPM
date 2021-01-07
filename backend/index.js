@@ -8,7 +8,7 @@ const PRODUCTS = require('./server/router/products.route');
 const ORDERS = require('./server/router/orders.route');
 const DASHBOARD = require('./server/router/dashboard.route');
 const ORDER_DETAIL = require('./server/router/order-detail.route');
-
+const USEDS = require('./server/router/useds.route');
 const GOODS = require('./server/router/goods.route');
 
 const PORT = process.env.PORT || 4000;
@@ -35,6 +35,8 @@ app.use('/api/orders', ORDERS );
 app.use('/api/dashboard', DASHBOARD );
 app.use('/api/order-detail', ORDER_DETAIL );
 app.use('/api/goods', GOODS );
+app.use('/api/useds', USEDS );
+
 
 app.get('/err', function (req, res) {
   throw new Error('Error!');

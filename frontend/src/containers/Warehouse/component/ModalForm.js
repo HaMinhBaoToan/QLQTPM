@@ -1,29 +1,58 @@
-import React from "react";
-import { Modal, Form, Input, Radio } from "antd";
+import React from 'react';
+import {  Modal, Form, Input, Radio } from 'antd';
 
-const ModalForm = ({ visible, onCancel, onCreate, form }) => {
+const ModalForm = ({ visible, onCreate, onCancel }) => {
+  const [form] = Form.useForm();
   return (
     <Modal
       visible={visible}
-      title="Form within a Modal"
-      okText="Submit"
+      title="Create a new collection"
+      okText="Create"
+      cancelText="Cancel"
       onCancel={onCancel}
-      onOk={onCreate}
+      onOk={() => {
+        form
+          .validateFields()
+          .then((values) => {
+            form.resetFields();
+            onCreate(values);
+          })
+          .catch((info) => {
+            console.log('Validate Failed:', info);
+          });
+      }}
     >
-      <Form layout="vertical">
-        <Form.Item label="Title">
-    
+      <Form
+        form={form}
+        layout="vertical"
+        name="form_in_modal"
+        initialValues={{
+          modifier: 'public',
+        }}
+      >
+        <Form.Item
+          name="title"
+          label="Title"
+          rules={[
+            {
+              required: true,
+              message: 'Please input the title of collection!',
+            },
+          ]}
+        >
+          <Input />
         </Form.Item>
-        <Form.Item label="Description">
+        <Form.Item name="description" label="Description">
+          <Input type="textarea" />
         </Form.Item>
-        <Form.Item className="collection-create-form_last-form-item">
-         
+        <Form.Item name="modifier" className="collection-create-form_last-form-item">
+          <Radio.Group>
+            <Radio value="public">Public</Radio>
+            <Radio value="private">Private</Radio>
+          </Radio.Group>
         </Form.Item>
       </Form>
     </Modal>
   );
 };
-
-
-
 export default ModalForm;

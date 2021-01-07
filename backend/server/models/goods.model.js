@@ -12,6 +12,8 @@ module.exports = {
     );
   },
   all() {
-    return db("goods");
+    return db("goods").select('*').leftJoin('useds', function() {
+      this.on('goods.Goods_ID', '=', 'useds.Used_Goods_ID');
+    })
   },
 };
