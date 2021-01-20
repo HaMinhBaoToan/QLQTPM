@@ -1,12 +1,13 @@
-import React, { useEffect, useState } from "react";
-import { Row, Col, Table, Tag, Button } from "antd";
+import React, { useEffect, useState, useContext } from "react";
+import { Row, Col, Table, Button } from "antd";
 import axios from "axios";
-import _ from "lodash";
+import ModalForm from "./Modal_Output_Warehouse";
+
 var dateFormat = require("dateformat");
 
 const columns = [
   {
-    title: "Mã Phiếu Nhập Kho",
+    title: "Mã",
     dataIndex: "Used_ID",
     width: 250,
     align: "center",
@@ -25,11 +26,11 @@ const columns = [
       multiple: 3,
     },
   },
-  
+
   {
     title: "Số lượng",
     dataIndex: "Used_Quantity",
-    width: 200,
+    width: 0,
     align: "center",
     sorter: {
       compare: (a, b) => a.Used_Quantity - b.Used_Quantity,
@@ -52,20 +53,11 @@ const columns = [
   },
 ];
 
-function onChange(pagination, filters, sorter, extra) {
-  // console.log('params', pagination, filters, sorter, extra);
-}
-const InputWarehouse = () => {
-  const [datatable, setDatatable] = useState([]);
-//   const [listgoods, setListgoods] = useState({});
+const OutputWarehouse = () => {
 
-const [visible, setVisible] = useState(false);
-
-  const onCreate = (values) => {
-    console.log('Received values of form: ', values);
-    setVisible(false);
-  };
-  useEffect(() => {
+  const [datatableOut, setDatatableOut] = useState([]);
+  const [visible, setVisible] = useState(false);
+  const APIgetAllUsed = () => {
     let url = "http://localhost:4000/api/useds";
     axios.get(url).then((response) => {
       const data = [];
@@ -78,27 +70,41 @@ const [visible, setVisible] = useState(false);
           Goods_Unit: response.data[i].Goods_Unit,
           Used_Date: dateFormat(
             response.data[i].Used_Date,
-            "dd-mm-yyyy"
+            "dd-mm-yyyy   ( HH:MM:ss ) "
           ),
         });
       }
-      setDatatable(data);
-    //   setListgoods(response.data);
+      setDatatableOut(data);
     });
-  }, []);
+  };
 
- 
-console.log(datatable);
- 
+  useEffect(() => {
+    APIgetAllUsed();
+  }, []);
+  const onCreate = (values) => {};
+
   return (
     <div>
-
+      <Button
+        type="primary"
+        onClick={() => {
+          setVisible(true);
+        }}
+      >
+        + Lập phiếu xuất kho
+      </Button>
+      <ModalForm
+        visible={visible}
+        onCreate={onCreate}
+        onCancel={() => {
+          setVisible(false);
+        }}
+      />
       <Row style={{ paddingTop: "30px" }}>
         <Col>
           <Table
             columns={columns}
-            dataSource={datatable}
-            onChange={onChange}
+            dataSource={datatableOut}
             scroll={{ x: 1700 }}
           />
         </Col>
@@ -106,4 +112,4 @@ console.log(datatable);
     </div>
   );
 };
-export default InputWarehouse;
+export default OutputWarehouse;

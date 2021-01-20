@@ -13,6 +13,7 @@ import AntIcon, {
   MenuUnfoldOutlined,
   MenuFoldOutlined,
 } from '@ant-design/icons';
+import {AppContext} from "./utils/AppContext";
 
 const { Header, Sider, Content } = Layout;
 
@@ -22,6 +23,7 @@ function App() {
   const handleCollapsed = () => setCollapsed(!collapsed);
 
   return (
+    <AppContext.Provider value={""}>
     <div className="App">
       <Router>
         <Layout>
@@ -65,6 +67,8 @@ function App() {
         </Layout>
       </Router>
     </div>
+    </AppContext.Provider>
+
   );
 }
 
