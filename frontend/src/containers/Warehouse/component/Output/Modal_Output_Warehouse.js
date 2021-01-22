@@ -1,4 +1,4 @@
-import React, { useContext ,useState} from "react";
+import React, { useContext, useState } from "react";
 import { Modal, Form, Input, InputNumber, DatePicker, Select } from "antd";
 import { WarehouseContext } from "../../../../utils/AppContext";
 
@@ -8,18 +8,27 @@ const { Option } = Select;
 const ModalForm = ({ visible, onCreate, onCancel }) => {
   const { datatable } = useContext(WarehouseContext);
   // console.log(datatable);
-  const [goods, setgoods] = useState({})
+  const [goods, setgoods] = useState({});
   const [form] = Form.useForm();
 
-  function onChange(value) {
-    console.log("changed", value);
-    const temp = datatable.find( function( idx ) {
+  const onChange = (value) => {
+    // console.log("changed", value);
+    const temp = datatable.find(function (idx) {
       return idx.Goods_ID === value;
-  });
-    setgoods(temp)
-    console.log(temp)
-  }
+    });
+    setgoods(temp);
+    form.setFieldsValue({
+      Goods_ID: temp.Goods_ID,
+      Goods_Inventory: temp.Goods_Inventory,
+      Goods_Unit: temp.Goods_Unit,
+    });
+  };
+  // const onChangeQuantity = (value) => {
+  //   console.log("changed", value);
+  //   if(value <= )
+  // };
 
+  // console.log(goods);
 
   return (
     <Modal
@@ -48,7 +57,11 @@ const ModalForm = ({ visible, onCreate, onCancel }) => {
           modifier: "public",
         }}
       >
-        <Form.Item name="Goods_Name" label="Tên Sản Phẩm: ">
+        <Form.Item
+          name="Goods_Name"
+          label="Tên Sản Phẩm: "
+          rules={[{ required: true, message: "Vui lòng nhập trường này!" }]}
+        >
           <Select
             showSearch
             // style={{ width: 200 }}
@@ -60,37 +73,40 @@ const ModalForm = ({ visible, onCreate, onCancel }) => {
             }
           >
             {datatable.map((item, index) => {
-              return <Option key={index} value={item.Goods_ID}>{item.Goods_Name}</Option>;
+              return (
+                <Option key={index} value={item.Goods_ID}>
+                  {item.Goods_Name}
+                </Option>
+              );
             })}
           </Select>
         </Form.Item>
 
         <Form.Item name="Goods_ID" label="Mã hàng: ">
-          <Input type="text" disabled={true} value={goods.Goods_ID}/>
-         
+          <Input type="text" disabled={true} />
         </Form.Item>
 
-        <Form.Item name="" label="Số lượng tồn: ">
+        <Form.Item name="Goods_Inventory" label="Số lượng tồn: ">
           <InputNumber
             style={{ width: "-webkit-fill-available" }}
             disabled={true}
           />
         </Form.Item>
-        <Form.Item name="Goods_Quantity" label="Số lượng xuất: ">
+        <Form.Item
+          name="Used_Quantity"
+          label="Số lượng xuất: "
+          rules={[{ required: true, message: "Vui lòng nhập trường này!" }]}
+        >
           <InputNumber
             min={1}
-            max={100000}
-            // defaultValue={1}
+            max={goods.Goods_Inventory}
             style={{ width: "-webkit-fill-available" }}
-            onChange={onChange}
-          />
+            />
         </Form.Item>
 
         <Form.Item name="Goods_Unit" label="Đơn vị: ">
           <Input disabled={true} />
         </Form.Item>
-
-        
       </Form>
     </Modal>
   );

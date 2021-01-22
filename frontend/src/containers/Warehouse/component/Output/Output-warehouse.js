@@ -1,13 +1,14 @@
 import React, { useEffect, useState, useContext } from "react";
-import { Row, Col, Table, Button } from "antd";
+import { Row, Col, Table, Button, notification } from "antd";
 import axios from "axios";
 import ModalForm from "./Modal_Output_Warehouse";
+import { WarehouseContext } from "../../../../utils/AppContext";
 
 var dateFormat = require("dateformat");
 
 const columns = [
   {
-    title: "Mã",
+    title: "Mã Xuất",
     dataIndex: "Used_ID",
     width: 250,
     align: "center",
@@ -54,6 +55,7 @@ const columns = [
 ];
 
 const OutputWarehouse = () => {
+  const { APIgetAllProduct } = useContext(WarehouseContext);
 
   const [datatableOut, setDatatableOut] = useState([]);
   const [visible, setVisible] = useState(false);
@@ -61,11 +63,11 @@ const OutputWarehouse = () => {
     let url = "http://localhost:4000/api/useds";
     axios.get(url).then((response) => {
       const data = [];
-      for (let i = 0; i < response.data.length; i++) {
+      for (let i = response.data.length - 1; i >= 0; i--) {
         data.push({
           key: i,
           Used_ID: response.data[i].Used_ID,
-          Goods_Name: response.data[i].Goods_Name,
+          Goods_Name: `${response.data[i].Goods_Name}`,
           Used_Quantity: response.data[i].Used_Quantity,
           Goods_Unit: response.data[i].Goods_Unit,
           Used_Date: dateFormat(
@@ -81,7 +83,46 @@ const OutputWarehouse = () => {
   useEffect(() => {
     APIgetAllUsed();
   }, []);
-  const onCreate = (values) => {};
+  const openNotificationWithIcon = (type) => {
+    notification[type]({
+      message: "Hoàn Tất",
+      description: `Bạn vừa xuất kho thành công đơn hàng`,
+    });
+  };
+  const onCreate = (values) => {
+    // console.log(values);
+    const used = {
+      Used_Goods_ID: values.Goods_ID,
+      Used_Quantity: values.Used_Quantity,
+      Used_Date: dateFormat(new Date(), "yyyy-mm-dd HH:MM:ss"),
+    };
+    const goods_subtract = {
+      Goods_ID: values.Goods_ID,
+      Used_Quantity: values.Used_Quantity,
+    };
+    axios
+      .post(`http://localhost:4000/api/useds/`, used)
+      .then((response) => {
+        APIgetAllProduct();
+        openNotificationWithIcon("success");
+        APIgetAllUsed();
+      })
+      .catch(function (error) {
+        console.log("ERROR from server:", error);
+      });
+    setVisible(false);
+
+    // axios
+    //   .put(`http://localhost:4000/api/goods/${values.Goods_ID}`, goods_subtract)
+    //   .then((response1) => {
+    //     APIgetAllProduct();
+    //     // openNotificationWithIcon("success");
+    //     // APIgetAllUsed();
+    //   })
+    //   .catch(function (error) {
+    //     console.log("ERROR from server:", error);
+    //   });
+  };
 
   return (
     <div>
@@ -103,6 +144,7 @@ const OutputWarehouse = () => {
       <Row style={{ paddingTop: "30px" }}>
         <Col>
           <Table
+            size="small"
             columns={columns}
             dataSource={datatableOut}
             scroll={{ x: 1700 }}

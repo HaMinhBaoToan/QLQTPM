@@ -40,6 +40,18 @@ const columns = [
     dataIndex: "Goods_Inventory",
     width: 200,
     align: "center",
+    render(text) {
+      return {
+        props: {
+          style: { color: parseInt(text) ===0 ? "red" :""}
+        },
+        children: <div>{text}</div>
+      };
+    },
+    // sorter: {
+    //   compare: (a, b) => a.Goods_Inventory - b.Goods_Inventory,
+    //   multiple: 3,
+    // },
   },
   {
     title: "Đơn vị",
@@ -50,6 +62,7 @@ const columns = [
       compare: (a, b) => a.Goods_Unit.length - b.Goods_Unit.length,
       multiple: 3,
     },
+    
   },
   {
     title: "Hạn dùng từ ngày",
@@ -107,9 +120,12 @@ const WarehouseHome = () => {
       <Row style={{ paddingTop: "30px" }}>
         <Col>
           <Table
+           size="small"
             columns={columns}
             dataSource={datatableTemp}
-            scroll={{ x: 1700 }}
+            scroll={{ x: 1680}}
+            
+          
           />
         </Col>
       </Row>

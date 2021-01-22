@@ -61,7 +61,7 @@ const ModalForm = ({ visible, onCreate, onCancel, idNextGoods }) => {
         <Form.Item name="Goods_Quantity" label="Số lượng: ">
           <InputNumber
             min={1}
-            style={{width:"-webkit-fill-available"}}
+            style={{ width: "-webkit-fill-available" }}
             max={100000}
             // defaultValue={1}
             onChange={onChange}
@@ -91,7 +91,7 @@ const ModalForm = ({ visible, onCreate, onCancel, idNextGoods }) => {
         </Form.Item>
         <Form.Item name="Goods_UnitCost" label="Giá 1 đơn vị: ">
           <InputNumber
-          style={{width:"-webkit-fill-available"}}
+            style={{ width: "-webkit-fill-available" }}
             // defaultValue={1000}
             formatter={(value) =>
               `$ ${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ",")
@@ -99,8 +99,8 @@ const ModalForm = ({ visible, onCreate, onCancel, idNextGoods }) => {
             parser={(value) => value.replace(/\$\s?|(,*)/g, "")}
           />
         </Form.Item>
-        <Form.Item name="Goods_Date" label="RangePicker" {...rangeConfig} >
-          <RangePicker  style={{width:"-webkit-fill-available"}}/>
+        <Form.Item name="Goods_Date" label="RangePicker" {...rangeConfig}>
+          <RangePicker style={{ width: "-webkit-fill-available" }} />
         </Form.Item>
       </Form>
     </Modal>

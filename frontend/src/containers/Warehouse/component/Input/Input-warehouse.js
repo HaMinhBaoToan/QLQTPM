@@ -136,8 +136,8 @@ const InputWarehouse = () => {
 
   const openNotificationWithIcon = (type, idDonHang) => {
     notification[type]({
-      message: "Hoàn Tất Thanh Toán",
-      description: `Bạn vừa thanh toán thành công đơn hàng ${idDonHang}`,
+      message: "Hoàn Tất",
+      description: `Bạn vừa nhập kho thành công đơn hàng ${idDonHang}`,
     });
   };
   const onCreate = (values) => {
@@ -163,45 +163,7 @@ const InputWarehouse = () => {
       });
   };
 
-  // useEffect(() => {
-  //   APIgetAllProduct();
-  // }, []);
 
-  // const APIgetAllProduct = () => {
-  //   let url = "http://localhost:4000/api/goods";
-  //   axios.get(url).then((response) => {
-  //     const data = [];
-  //     for (let i = response.data.length - 1; i >= 0; i--) {
-  //       data.push({
-  //         key: i,
-  //         Goods_ID: response.data[i].Goods_ID,
-  //         Goods_Name: response.data[i].Goods_Name,
-  //         Goods_Quantity: response.data[i].Goods_Quantity,
-  //         Goods_Unit: response.data[i].Goods_Unit,
-  //         Goods_ImportDate: dateFormat(
-  //           response.data[i].Goods_ImportDate,
-  //           "dd-mm-yyyy  ( HH:MM:ss ) "
-  //         ),
-  //         Goods_FromDate: dateFormat(
-  //           response.data[i].Goods_FromDate,
-  //           "dd-mm-yyyy"
-  //         ),
-  //         Goods_ToDate: [
-  //           dateFormat(response.data[i].Goods_ToDate, "dd-mm-yyyy"),
-  //         ],
-  //         Goods_Inventory:response.data[i].Goods_Quantity - response.data[i].Used_Quantity,
-  //         Supplier_CompanyName: response.data[i].Supplier_CompanyName,
-  //         Goods_UnitCost: response.data[i].Goods_UnitCost,
-  //         Goods_Amount:  response.data[i].Goods_UnitCost*response.data[i].Goods_Quantity,
-
-  //       });
-  //     }
-  //     setListgoods(data[0].Goods_ID +1);
-  //     setDatatable(data);
-  //     console.log(data);
-
-  //   });
-  // };
   return (
     <div>
       <Button
@@ -223,6 +185,7 @@ const InputWarehouse = () => {
       <Row style={{ paddingTop: "30px" }}>
         <Col>
           <Table
+           size="small"
             columns={columns}
             dataSource={datatableTemp}
             // onChange={onChange}

@@ -25,7 +25,7 @@ router.post("/", async function (req, res) {
 router.put("/:id", async function (req, res) {
   const goods = req.body;
   await goodsModel
-    .update(goods[0].Goods_ID, goods[1])
+    .update(goods.Goods_ID, goods.Used_Quantity)
     .then(function (response) {
       res.json({
         message: response,

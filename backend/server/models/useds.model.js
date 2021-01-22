@@ -7,4 +7,7 @@ module.exports = {
       this.on('goods.Goods_ID', '=', 'useds.Used_Goods_ID');
     })
   },
+  add(useds) {
+    return db("useds").insert(useds);
+  },
 };
