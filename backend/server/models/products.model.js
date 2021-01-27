@@ -16,6 +16,7 @@ module.exports = {
   },
 
   add(product) {
+    
     return db('products').insert(product);
   },
 

@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { Tabs, Input } from "antd";
 import axios from "axios";
-import InputWarehouse from "./component/Input/Input-warehouse";
-import OutputWarehouse from "./component/Output/Output-warehouse";
-import WarehouseHome from "./component/WarehouseHome";
+import InputWarehouse from "./components/Input/Input-warehouse";
+import OutputWarehouse from "./components/Output/Output-warehouse";
+import WarehouseHome from "./components/WarehouseHome";
 import { WarehouseContext } from "../../utils/AppContext";
 import { formatNumber } from "../../utils/index";
 
@@ -17,7 +17,7 @@ const Warehouse = () => {
   const [datatableTemp, setDatatableTemp] = useState([]);
 
   const APIgetAllProduct = () => {
-    console.log("runnnn index")
+    console.log("runnnn index");
     let url = "http://localhost:4000/api/goods";
     axios.get(url).then((response) => {
       const data = [];
@@ -53,7 +53,7 @@ const Warehouse = () => {
       setdataReponse(response.data);
     });
   };
- console.log(dataReponse)
+  console.log(dataReponse);
   useEffect(() => {
     APIgetAllProduct();
   }, []);
@@ -63,14 +63,18 @@ const Warehouse = () => {
   // };
   const txt_Changed = function (e) {
     console.log(e.target.value);
-    const temp = datatable.filter(item => item.Goods_Name.toLowerCase().includes(e.target.value.toLowerCase()));
-    setDatatableTemp(temp)
+    const temp = datatable.filter((item) =>
+      item.Goods_Name.toLowerCase().includes(e.target.value.toLowerCase())
+    );
+    setDatatableTemp(temp);
 
     // onQueryChanged(e.target.value);
-  }
+  };
 
   return (
-    <WarehouseContext.Provider value={{ datatableTemp, APIgetAllProduct ,datatable}}>
+    <WarehouseContext.Provider
+      value={{ datatableTemp, APIgetAllProduct, datatable }}
+    >
       <div className="products loading">
         <div className="w-100 ">
           <div className="w-50 m-auto">
@@ -78,7 +82,7 @@ const Warehouse = () => {
               placeholder="input search text"
               onChange={txt_Changed}
               enterButton
-              allowClear 
+              allowClear
             />
           </div>
         </div>
@@ -91,8 +95,9 @@ const Warehouse = () => {
           </TabPane>
 
           <TabPane tab="Xuất kho" key="3">
-          <OutputWarehouse />
-        </TabPane>
+            <OutputWarehouse />
+          </TabPane>
+
         </Tabs>
       </div>
     </WarehouseContext.Provider>

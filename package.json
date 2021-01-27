@@ -4,7 +4,6 @@
   "description": "nhom-05",
   "main": "index.js",
   "scripts": {
-   
     "start": "concurrently \"cd backend && npm start\" \"cd frontend && npm start\"",
     "test": "echo \"Error: no test specified\" && exit 1"
   },

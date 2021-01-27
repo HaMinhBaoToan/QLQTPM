@@ -79,6 +79,9 @@ const columns = [
 
     render: (Goods_ToDate) => (
       <>
+      {
+          console.log(Goods_ToDate)
+      }
         {Goods_ToDate.map((tag) => {
           var arr = _.split(tag, "-");
           var currentTime = new Date();

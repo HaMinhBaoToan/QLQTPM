@@ -112,16 +112,7 @@ const OutputWarehouse = () => {
       });
     setVisible(false);
 
-    // axios
-    //   .put(`http://localhost:4000/api/goods/${values.Goods_ID}`, goods_subtract)
-    //   .then((response1) => {
-    //     APIgetAllProduct();
-    //     // openNotificationWithIcon("success");
-    //     // APIgetAllUsed();
-    //   })
-    //   .catch(function (error) {
-    //     console.log("ERROR from server:", error);
-    //   });
+    
   };
 
   return (
