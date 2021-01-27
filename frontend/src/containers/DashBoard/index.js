@@ -4,7 +4,7 @@ import { DatePicker } from 'antd';
 import { Row, Col } from 'antd';
 import './styles.scss';
 import CardComponent from '../../components/Card';
-import LineChart from './component/Chart';
+import LineChart from './components/Chart';
 import axios from 'axios';
 import { formatDate, formatNumber } from '../../utils';
 

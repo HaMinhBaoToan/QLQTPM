@@ -1,82 +1,27 @@
-import React, { useEffect, useState,useRef } from "react";
-import { Row, Col, Table, Button } from "antd";
-import { PlusOutlined, DownloadOutlined } from "@ant-design/icons";
+import React, { useEffect, useState } from "react";
+import { Tabs, Input } from "antd";
 import axios from "axios";
-import _ from "lodash";
-import ModalForm from "./component/ModalForm";
+import InputWarehouse from "./components/Input/Input-warehouse";
+import OutputWarehouse from "./components/Output/Output-warehouse";
+import WarehouseHome from "./components/WarehouseHome";
+import { WarehouseContext } from "../../utils/AppContext";
+import { formatNumber } from "../../utils/index";
+
 import "./warehouse.scss";
 var dateFormat = require("dateformat");
-
-const columns = [
-  {
-    title: "Mã Phiếu Nhập Kho",
-    dataIndex: "Goods_ID",
-    width: 250,
-    align: "center",
-    sorter: {
-      compare: (a, b) => a.Goods_ID - b.Goods_ID,
-      multiple: 3,
-    },
-  },
-  {
-    title: "Tên Hàng",
-    dataIndex: "Goods_Name",
-    width: 250,
-    align: "center",
-    sorter: {
-      compare: (a, b) => a.Goods_Name.length - b.Goods_Name.length,
-      multiple: 3,
-    },
-  },
-  {
-    title: "Số lượng",
-    dataIndex: "Goods_Quantity",
-    width: 200,
-    align: "center",
-    sorter: {
-      compare: (a, b) => a.Goods_Quantity - b.Goods_Quantity,
-      multiple: 3,
-    },
-  },
-  {
-    title: "Đơn vị",
-    dataIndex: "Goods_Unit",
-    align: "center",
-    sorter: {
-      compare: (a, b) => a.Goods_Unit.length - b.Goods_Unit.length,
-      multiple: 3,
-    },
-  },
-  {
-    title: "Ngày lập",
-    dataIndex: "Goods_ImportDate",
-  },
-  {
-    title: "Hạn dùng từ ngày",
-    dataIndex: "Goods_FromDate",
-    align: "center",
-  },
-  {
-    title: "Hạn dùng đến ngày",
-    dataIndex: "Goods_ToDate",
-    align: "center",
-  },
-];
-
-function onChange(pagination, filters, sorter, extra) {
-  // console.log('params', pagination, filters, sorter, extra);
-}
-
+const { TabPane } = Tabs;
+const { Search } = Input;
 const Warehouse = () => {
-  const refContainer = useRef(null);
-  const [listgoods, setListgoods] = useState({});
+  const [dataReponse, setdataReponse] = useState([]);
   const [datatable, setDatatable] = useState([]);
-  const [visible, setVisible] = useState(false);
-  useEffect(() => {
+  const [datatableTemp, setDatatableTemp] = useState([]);
+
+  const APIgetAllProduct = () => {
+    console.log("runnnn index");
     let url = "http://localhost:4000/api/goods";
     axios.get(url).then((response) => {
       const data = [];
-      for (let i = 0; i < response.data.length; i++) {
+      for (let i = response.data.length - 1; i >= 0; i--) {
         data.push({
           key: i,
           Goods_ID: response.data[i].Goods_ID,
@@ -89,74 +34,73 @@ const Warehouse = () => {
           ),
           Goods_FromDate: dateFormat(
             response.data[i].Goods_FromDate,
-            "dd-mm-yyyy  ( HH:MM:ss ) "
+            "dd-mm-yyyy"
           ),
-          Goods_ToDate: dateFormat(
-            response.data[i].Goods_ToDate,
-            "dd-mm-yyyy  ( HH:MM:ss ) "
-          ),
+          Goods_ToDate: [
+            dateFormat(response.data[i].Goods_ToDate, "dd-mm-yyyy"),
+          ],
+          Goods_Inventory:
+            response.data[i].Goods_Quantity - response.data[i].Used_Quantity,
+          Supplier_CompanyName: response.data[i].Supplier_CompanyName,
+          Goods_UnitCost: `${formatNumber(response.data[i].Goods_UnitCost)} đ`,
+          Goods_Amount: `${formatNumber(
+            response.data[i].Goods_UnitCost * response.data[i].Goods_Quantity
+          )} đ`,
         });
       }
       setDatatable(data);
-      // setListgoods(response.data);
+      setDatatableTemp(data);
+      setdataReponse(response.data);
     });
+  };
+  console.log(dataReponse);
+  useEffect(() => {
+    APIgetAllProduct();
   }, []);
-  console.log(listgoods);
-  console.log(datatable);
+  // const onSearch = (value) => {
+  //   console.log(value)
+  //   // setDatatable(datatable.filter(item => item.Goods_Name.toLowerCase().includes(value.toLowerCase())))
+  // };
+  const txt_Changed = function (e) {
+    console.log(e.target.value);
+    const temp = datatable.filter((item) =>
+      item.Goods_Name.toLowerCase().includes(e.target.value.toLowerCase())
+    );
+    setDatatableTemp(temp);
 
-  const handleCreate = () => {
-    console.log("It won't work");
-    const { form } = refContainer.current;
-    form.validateFields((err, values) => {
-      if (err) {
-        return;
-      }
-
-      console.log("Received values of form: ", values);
-      form.resetFields();
-      setVisible(false);
-    });
+    // onQueryChanged(e.target.value);
   };
 
-  const saveFormRef = formRef => {
-    refContainer.current = formRef;
-  };
   return (
-    <div className="products loading">
-      <Col>
-        <Button type="primary" icon={<PlusOutlined />} size="large"   onClick={() => setVisible(true)}>
-          Lập phiếu nhập kho
-        </Button>
+    <WarehouseContext.Provider
+      value={{ datatableTemp, APIgetAllProduct, datatable }}
+    >
+      <div className="products loading">
+        <div className="w-100 ">
+          <div className="w-50 m-auto">
+            <Search
+              placeholder="input search text"
+              onChange={txt_Changed}
+              enterButton
+              allowClear
+            />
+          </div>
+        </div>
+        <Tabs type="card">
+          <TabPane tab="Kho" key="1">
+            <WarehouseHome />
+          </TabPane>
+          <TabPane tab="Nhập kho" key="2">
+            <InputWarehouse />
+          </TabPane>
 
-    
-      </Col>
-      <ModalForm
-        visible={visible}
-        onCancel={() => setVisible(false)}
-        onCreate={() => handleCreate()}
-      />
-      {/* <Col span={3}>
-        <Button type="primary" icon={<PlusOutlined />} size="large">
-          Primary Button
-        </Button>
-      </Col>
-      <Col >
-        <Button type="primary" icon={<PlusOutlined />} size="large">
-          Primary Button
-        </Button>
-      </Col> */}
-      
-      <Row style={{paddingTop: "30px"}}>
-        <Col>
-          <Table
-            columns={columns}
-            dataSource={datatable}
-            onChange={onChange}
-            scroll={{ x: 1500 }}
-          />
-        </Col>
-      </Row>
-    </div>
+          <TabPane tab="Xuất kho" key="3">
+            <OutputWarehouse />
+          </TabPane>
+
+        </Tabs>
+      </div>
+    </WarehouseContext.Provider>
   );
 };
 

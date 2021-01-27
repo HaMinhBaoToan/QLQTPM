@@ -1,0 +1,23 @@
+{
+  "name": "quan-ly-quy-trinh-pham-mem",
+  "version": "1.0.0",
+  "description": "nhom-05",
+  "main": "index.js",
+  "scripts": {
+    "start": "concurrently \"cd backend && npm start\" \"cd frontend && npm start\"",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/1660626/QLQTPM.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/1660626/QLQTPM/issues"
+  },
+  "homepage": "https://github.com/1660626/QLQTPM#readme",
+  "dependencies": {
+    "concurrently": "^5.3.0"
+  }
+}
