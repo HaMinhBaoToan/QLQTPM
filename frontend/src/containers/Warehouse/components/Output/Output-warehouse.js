@@ -96,10 +96,7 @@ const OutputWarehouse = () => {
       Used_Quantity: values.Used_Quantity,
       Used_Date: dateFormat(new Date(), "yyyy-mm-dd HH:MM:ss"),
     };
-    const goods_subtract = {
-      Goods_ID: values.Goods_ID,
-      Used_Quantity: values.Used_Quantity,
-    };
+   
     axios
       .post(`http://localhost:4000/api/useds/`, used)
       .then((response) => {

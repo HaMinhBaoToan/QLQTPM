@@ -10,7 +10,8 @@ const DASHBOARD = require('./server/router/dashboard.route');
 const ORDER_DETAIL = require('./server/router/order-detail.route');
 const USEDS = require('./server/router/useds.route');
 const GOODS = require('./server/router/goods.route');
-
+const BASE64IMAGE = require('./server/router/base64Image.route');
+const CATEGORIES = require('./server/router/categories.route');
 const PORT = process.env.PORT || 4000;
 
 if(process.env.NODE_ENV !== 'test') {
@@ -20,8 +21,10 @@ if(process.env.NODE_ENV !== 'test') {
 
 
 app.use(cors());
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
+// app.use(bodyParser.json());
+// app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json({limit: '50mb'}));
+app.use(bodyParser.urlencoded({limit: '50mb', extended: true}));
 app.use(morgan("dev"));
 
 app.get("/", (request, respond) => {
@@ -36,6 +39,9 @@ app.use('/api/dashboard', DASHBOARD );
 app.use('/api/order-detail', ORDER_DETAIL );
 app.use('/api/goods', GOODS );
 app.use('/api/useds', USEDS );
+app.use('/api/base64Image', BASE64IMAGE );
+app.use('/api/categories', CATEGORIES );
+
 
 
 app.get('/err', function (req, res) {
