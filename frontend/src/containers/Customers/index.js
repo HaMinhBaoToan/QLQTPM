@@ -126,6 +126,9 @@ const Cusomters = () => {
           placeholder="Mã khách hàng, tên khách hành"
           onChange={() => {}}
         />
+        <Button type="primary" onClick={() => {}}>
+          + Thêm khách hàng
+        </Button>
       </div>
       <Table
         style={{ paddingTop: '30px' }}

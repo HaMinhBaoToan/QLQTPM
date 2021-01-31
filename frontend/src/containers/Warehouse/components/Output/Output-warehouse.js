@@ -49,7 +49,7 @@ const columns = [
   },
   {
     title: "Ngày lập",
-    dataIndex: "Used_Date",
+    dataIndex: "Used_CreateDate",
     align: "center",
   },
 ];
@@ -70,8 +70,8 @@ const OutputWarehouse = () => {
           Goods_Name: `${response.data[i].Goods_Name}`,
           Used_Quantity: response.data[i].Used_Quantity,
           Goods_Unit: response.data[i].Goods_Unit,
-          Used_Date: dateFormat(
-            response.data[i].Used_Date,
+          Used_CreateDate: dateFormat(
+            response.data[i].Used_CreateDate,
             "dd-mm-yyyy   ( HH:MM:ss ) "
           ),
         });
@@ -94,12 +94,9 @@ const OutputWarehouse = () => {
     const used = {
       Used_Goods_ID: values.Goods_ID,
       Used_Quantity: values.Used_Quantity,
-      Used_Date: dateFormat(new Date(), "yyyy-mm-dd HH:MM:ss"),
+      Used_CreateDate: dateFormat(new Date(), "yyyy-mm-dd HH:MM:ss"),
     };
-    const goods_subtract = {
-      Goods_ID: values.Goods_ID,
-      Used_Quantity: values.Used_Quantity,
-    };
+   
     axios
       .post(`http://localhost:4000/api/useds/`, used)
       .then((response) => {

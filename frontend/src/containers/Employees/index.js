@@ -32,16 +32,16 @@ const columns = [
           let color = '';
           switch (tag) {
             case 'Chủ':
-              color = 'red'
+              color = 'red';
               break;
             case 'Quản lý':
-              color = 'geekblue'
+              color = 'geekblue';
               break;
             case 'Kế toán':
-              color = 'orange'
+              color = 'orange';
               break;
             default:
-              color = 'green'
+              color = 'green';
               break;
           }
           return (
@@ -145,6 +145,9 @@ const Employees = () => {
           placeholder="Mã nhân viên, tên nhân viên"
           onChange={() => {}}
         />
+        <Button type="primary" onClick={() => {}}>
+          + Thêm nhân viên
+        </Button>
       </div>
       <Table
         style={{ paddingTop: '30px' }}

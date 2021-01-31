@@ -1,6 +1,23 @@
 .search {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  & > span {
+    flex: 0 1 50%;
+  }
+}
+
+@media only screen and (max-width: 768px) {
+  .search {
     display: flex;
+    flex-direction: column;
+    align-items: start;
     & > span {
-        flex: 0 1 50%;
+      flex: 0 1 50%;
     }
+
+    button {
+        margin-top: 16px;
+    }
+  }
 }

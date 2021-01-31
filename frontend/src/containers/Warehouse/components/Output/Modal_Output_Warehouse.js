@@ -1,5 +1,5 @@
 import React, { useContext, useState } from "react";
-import { Modal, Form, Input, InputNumber, DatePicker, Select } from "antd";
+import { Modal, Form, Input, InputNumber,  Select } from "antd";
 import { WarehouseContext } from "../../../../utils/AppContext";
 
 // const { RangePicker } = DatePicker;

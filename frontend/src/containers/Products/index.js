@@ -1,21 +1,31 @@
 import React, { useEffect, useState } from 'react';
-import { Tabs, Table, Button, Popover } from 'antd';
+import { Tabs, Table, Button, notification, Modal, Popover } from 'antd';
 import {
   EyeInvisibleOutlined,
   EyeOutlined,
+  ExclamationCircleOutlined,
 } from '@ant-design/icons';
 import axios from 'axios';
 import { formatNumber } from '../../utils/index';
-import ModalForm from './components/modal';
-import { InputSearch } from '../../components/Input';
+import ModalEdit from './components/ModalEdit';
+import ModalAdd from './components/ModalAdd';
+import Categories from './components/Categories/Categories';
 import './styles.scss';
 import Icon, { IconCustom } from '../../components/Icon';
+import { InputSearch } from '../../components/Input';
+
+const dateFormat = require('dateformat');
 
 const { TabPane } = Tabs;
-
+const { confirm } = Modal;
 const Products = () => {
   const [datatable, setDatatable] = useState([]);
   const [datatableTemp, setDatatableTemp] = useState([]);
+  const [visibleModalEdit, setVisibleModalEdit] = useState(false);
+  const [visibleModalAdd, setVisibleModalAdd] = useState(false);
+
+  const [productModal, setProductModal] = useState({});
+  const [categories, setCategories] = useState([]);
 
   const columns = [
     {
@@ -36,11 +46,7 @@ const Products = () => {
 
       render: (Product_Image) => (
         <div key={Product_Image}>
-          <img
-            style={{ height: '49px' }}
-            src={`${process.env.PUBLIC_URL}product/${Product_Image}.jpg`}
-            alt={Product_Image}
-          />
+          <img style={{ height: '49px' }} src={Product_Image} alt={''} />
         </div>
       ),
     },
@@ -55,9 +61,31 @@ const Products = () => {
       },
     },
     {
+      title: 'Giá gốc',
+      dataIndex: 'Product_CostPriceString',
+      width: 100,
+      align: 'center',
+    },
+    {
+      title: 'Giá mới',
+      dataIndex: 'Product_NewPriceString',
+      width: 100,
+      align: 'center',
+    },
+    {
+      title: 'Danh mục',
+      dataIndex: 'Categorie_Name',
+      width: 100,
+      align: 'center',
+      sorter: {
+        compare: (a, b) => a.Categorie_Name.length - b.Categorie_Name.length,
+        multiple: 3,
+      },
+    },
+    {
       title: 'Ẩn/Hiện',
       dataIndex: 'Product_IsActive',
-      width: 200,
+      width: 100,
       align: 'center',
       key: 'Product_IsActive',
 
@@ -81,23 +109,13 @@ const Products = () => {
         </>
       ),
     },
-
-    {
-      title: 'Giá gốc',
-      dataIndex: 'Product_CostPriceString',
-      align: 'center',
-    },
-    {
-      title: 'Giá mới',
-      dataIndex: 'Product_NewPriceString',
-      align: 'center',
-    },
     {
       title: 'Action',
       dataIndex: 'Product_Edit',
       align: 'center',
       key: 'Product_Edit',
       className: 'actions',
+      width: 50,
       render: (Product_Edit, Product) => (
         <>
           <Popover
@@ -107,7 +125,7 @@ const Products = () => {
                 <Button
                   className="my-btn-no-style my-popover-item"
                   onClick={() => {
-                    setVisible(true);
+                    setVisibleModalEdit(true);
                     setProductModal(Product);
                   }}
                 >
@@ -116,14 +134,14 @@ const Products = () => {
                 </Button>
                 <Button
                   className="my-btn-no-style my-popover-item"
-                  onClick={() => {}}
+                  onClick={() => showDeleteConfirm(Product)}
                 >
                   <Icon component={IconCustom.Trash} className="my-icon-md" />
                   Remove
                 </Button>
               </div>
             }
-            trigger="click"
+            trigger="focus"
           >
             <Button className="my-btn-no-style btn-icon text-dark-gray">
               <Icon component={IconCustom.MoreHorizontal} />
@@ -163,17 +181,31 @@ const Products = () => {
         });
     }
     if (upDateProduct === true) {
-      // axios
-      //   .put(URL, {
-      //     ...Product,
-      //     Product_Name: 0,
-      //   })
-      //   .then((response) => {
-      //     APIgetAllProduct();
-      //   })
-      //   .catch(function (error) {
-      //     console.log("ERROR from server:", error);
-      //   });
+      // console.log(upDateProduct,Product.Product_CategorieID[0])
+      // Product_CategorieID: Product.Product_CategorieID[0],
+      var Product_CategorieID_temp = 0;
+      if (Product.Product_CategorieID[0]) {
+        Product_CategorieID_temp = Product.Product_CategorieID[0];
+      } else {
+        Product_CategorieID_temp = Product.Product_CategorieID;
+      }
+      axios
+        .put(URL, {
+          ...Product,
+          Product_Name: Product.Product_Name,
+          Product_Image: Product.Product_ImageBase,
+          Product_Description: Product.Product_Description,
+          Product_NewPrice: Product.Product_NewPrice,
+          Product_CategorieID: Product_CategorieID_temp,
+        })
+        .then((response) => {
+          APIgetAllProduct();
+          openNotificationWithIcon('success', `Bạn sửa thành công`);
+          console.log(response);
+        })
+        .catch(function (error) {
+          console.log('ERROR from server:', error);
+        });
     }
 
     // setDatatableTemp(
@@ -184,13 +216,20 @@ const Products = () => {
     //   )
     // );
   };
-
+  const openNotificationWithIcon = (type, message) => {
+    notification[type]({
+      message: 'Hoàn Tất',
+      description: message,
+    });
+  };
   useEffect(() => {
     APIgetAllProduct();
+    let url = 'http://localhost:4000/api/categories';
+    axios.get(url).then((response) => {
+      setCategories(response.data);
+    });
   }, []);
-  //  useEffect(() => {
 
-  //   }, [datatableTemp]);
   const APIgetAllProduct = () => {
     let url = 'http://localhost:4000/api/products';
     axios.get(url).then((response) => {
@@ -212,7 +251,8 @@ const Products = () => {
             response.data[i].Product_NewPrice
           )} đ`,
           Product_Description: response.data[i].Product_Description,
-          Product_CreatedDate: response.data[i].Product_CreatedDate,
+          Categorie_Name: response.data[i].Categorie_Name,
+          Categorie_ID: response.data[i].Categorie_ID,
         });
       }
       //   console.log(response.data);
@@ -220,10 +260,64 @@ const Products = () => {
       setDatatableTemp(data);
     });
   };
-  const [visible, setVisible] = useState(false);
-  const [productModal, setProductModal] = useState({});
+  function showDeleteConfirm(product) {
+    console.log(product);
+    confirm({
+      title: `Bạn có chắc muốn xoá món ${product.Product_Name} ?`,
+      icon: <ExclamationCircleOutlined />,
+      // content: 'Some descriptions',
+      okText: 'Delete',
+      okType: 'danger',
+      cancelText: 'Cancel',
+      onOk() {
+        const URL = `http://localhost:4000/api/products/${product.Product_ID}`;
+        axios
+          .delete(URL)
+          .then((response) => {
+            APIgetAllProduct();
+            openNotificationWithIcon('success', 'bạn đã xoá thành công');
+            console.log(response);
+          })
+          .catch(function (error) {
+            console.log('ERROR from server:', error);
+          });
+        console.log('OK');
+      },
+      onCancel() {},
+    });
+  }
 
-  const onCreate = (values) => {};
+  const onCreateEdit = (values) => {
+    handleProduct(values, false, false, true);
+    setVisibleModalEdit(false);
+  };
+  const onCreateAdd = (values) => {
+    values.Product_CreatedDate = dateFormat(new Date(), 'yyyy-mm-dd HH:MM:ss');
+    values.Product_CreatedByUserID = 1;
+    values.Product_NewPrice = values.Product_OldPrice =
+      values.Product_CostPrice;
+    values.Product_Image = values.Product_ImageBase;
+    delete values.Product_ImageBase;
+    console.log(values);
+    const URL = `http://localhost:4000/api/products/`;
+    axios
+      .post(URL, values)
+      .then((response) => {
+        APIgetAllProduct();
+        openNotificationWithIcon('success', 'bạn thêm thành công');
+        setVisibleModalAdd(false);
+        console.log(response);
+      })
+      .catch(function (error) {
+        console.log('ERROR from server:', error);
+      });
+  };
+  const txt_Changed = function (e) {
+    const temp = datatable.filter((item) =>
+      item.Product_Name.toLowerCase().includes(e.target.value.toLowerCase())
+    );
+    setDatatableTemp(temp);
+  };
   return (
     <div className="product-container">
       <Tabs type="card">
@@ -233,7 +327,23 @@ const Products = () => {
               placeholder="Mã sản phẩm, tên sản phẩm"
               onChange={() => {}}
             />
+            <Button
+              type="primary"
+              onClick={() => {
+                setVisibleModalAdd(true);
+              }}
+            >
+              + Thêm món ăn
+            </Button>
           </div>
+          <ModalAdd
+            visible={visibleModalAdd}
+            onCreateAdd={onCreateAdd}
+            onCancel={() => {
+              setVisibleModalAdd(false);
+            }}
+            categories={categories}
+          />
           <Table
             style={{ paddingTop: '30px' }}
             size="small"
@@ -242,17 +352,18 @@ const Products = () => {
             scroll={{ x: 768 }}
           />
         </TabPane>
-        <TabPane tab="Nhập kho" key="2">
-          qeqeewqqwe123123
+        <TabPane tab="Danh Mục" key="2">
+          <Categories />
         </TabPane>
       </Tabs>
-      <ModalForm
-        visible={visible}
-        onCreate={onCreate}
+      <ModalEdit
+        visibleModalEdit={visibleModalEdit}
+        onCreateEdit={onCreateEdit}
         onCancel={() => {
-          setVisible(false);
+          setVisibleModalEdit(false);
         }}
         productModal={productModal}
+        categories={categories}
       />
     </div>
   );

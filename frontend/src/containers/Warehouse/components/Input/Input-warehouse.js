@@ -167,6 +167,7 @@ const InputWarehouse = () => {
   return (
     <div>
       <Button
+   
         type="primary"
         onClick={() => {
           setVisible(true);

@@ -1,10 +1,9 @@
-import React, {  useState } from "react";
+import React, { useState } from "react";
 import { Modal } from "antd";
 const Product = ({ product, openModal, handleAdd }) => {
   const numberWithCommas = (x) => {
     return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
   };
- 
 
   const addCart = (product) => {
     handleAdd(product);
@@ -27,14 +26,8 @@ const Product = ({ product, openModal, handleAdd }) => {
       <div>
         <div className="product-image">
           <img
-            src={
-              process.env.PUBLIC_URL +
-              "product/" +
-              product.Product_Image +
-              ".jpg"
-            }
+            src={product.Product_Image}
             alt={product.Product_Name}
-           
             onClick={showModal}
           />
         </div>
@@ -51,7 +44,11 @@ const Product = ({ product, openModal, handleAdd }) => {
           resetQuantity={this.resetQuantity}
         /> */}
         <div className="product-action">
-          <button className="add-to-cart" type="button"    onClick={() => addCart(product)}>
+          <button
+            className="add-to-cart"
+            type="button"
+            onClick={() => addCart(product)}
+          >
             Add to cart
           </button>
         </div>
@@ -61,13 +58,15 @@ const Product = ({ product, openModal, handleAdd }) => {
         title={"Thông tin món " + product.Product_Name}
         visible={isModalVisible}
         onCancel={handleCancel}
-        okButtonProps={{ disabled: true }}
+        okText="Chọn món"
+        cancelText="Huỷ"
+        onOk={() => {addCart(product);handleCancel();}}
         cancelButtonProps={{ disabled: true }}
       >
         <div className="quick-view">
           <div className="quick-view-image">
             <img
-              src={process.env.PUBLIC_URL + "product/" + product.Product_Image + ".jpg"}
+              src={product.Product_Image}
               alt={product.Product_Name}
             />
           </div>
@@ -77,7 +76,9 @@ const Product = ({ product, openModal, handleAdd }) => {
               {numberWithCommas(parseInt(product.Product_NewPrice))}
             </span>
             <p className="product-description">
-              {product.Product_Description ?product.Product_Description : "Không có mô tả"}
+              {product.Product_Description
+                ? product.Product_Description
+                : "Không có mô tả"}
             </p>
           </div>
         </div>

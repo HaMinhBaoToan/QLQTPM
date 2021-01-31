@@ -7,7 +7,10 @@ router.get("/", async function (req, res) {
   const list = await productsModel.all();
   res.json(list);
 });
-
+router.get("/where", async function (req, res) {
+  const list = await productsModel.allWhere();
+  res.json(list);
+});
 router.get("/:id", async function (req, res) {
   const id = req.params.id || 0;
   const product = await productsModel.single(id);
@@ -21,9 +24,9 @@ router.get("/:id", async function (req, res) {
 router.post("/", async function (req, res) {
   const product = req.body;
   const id_list = await productsModel.add(product);
-  order.Product_ID = id_list[0];
+  id_list.Product_ID = id_list[0];
 
-  res.status(201).json(product); // created
+  res.status(201).json(id_list); // created
 });
 
 router.delete("/:id", async function (req, res) {
@@ -44,7 +47,11 @@ router.put("/:id", async function (req, res) {
   const product = req.body;
   delete product.key;
   delete product.Product_ID;
-
+  delete product.Product_CostPriceString;
+  delete product.Product_NewPriceString;
+  delete product.Product_ImageBase;
+  delete product.Categorie_Name;
+  delete product.Categorie_ID
    await productsModel.update(id, product);
 
   res.json({

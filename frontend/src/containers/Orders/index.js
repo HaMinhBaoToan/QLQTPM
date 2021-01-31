@@ -17,15 +17,13 @@ const Orders = () => {
     setProducts({});
     let url = "http://localhost:4000/api/orders";
     axios.get(url).then((response) => {
-      SetSoHD(response.data[response.data.length-1].Order_ID + 1);
-
+      SetSoHD(response.data[response.data.length - 1].Order_ID + 1);
     });
   };
   useEffect(() => {
     let url = "http://localhost:4000/api/orders";
     axios.get(url).then((response) => {
-
-      SetSoHD(response.data[response.data.length-1].Order_ID + 1);
+      SetSoHD(response.data[response.data.length - 1].Order_ID + 1);
     });
   }, []);
 
@@ -120,11 +118,11 @@ const Orders = () => {
       setProducts(data);
     }
   }
-  function handleDelete(id){
+  function handleDelete(id) {
     console.log(id);
     if (_.has(products, id)) {
       var data = _.cloneDeep(products); //
-     data= _.omit(data,id);
+      data = _.omit(data, id);
       // products.splice(id);
       setProducts(data);
     }
@@ -176,7 +174,7 @@ const Orders = () => {
                   <div className="item" key={products[idx].ProductID}>
                     <div className="image">
                       <img
-                        src={` ${process.env.PUBLIC_URL}/product/${products[idx].image}.jpg`}
+                        src={products[idx].image}
                         alt=""
                       />
                     </div>
@@ -212,7 +210,12 @@ const Orders = () => {
                       {numberWithCommas(products[idx].total)} vnđ
                     </div>
                     <div className="buttons">
-                      <span className="delete-btn" onClick={()=>handleDelete(products[idx].ProductID)}>X</span>
+                      <span
+                        className="delete-btn"
+                        onClick={() => handleDelete(products[idx].ProductID)}
+                      >
+                        X
+                      </span>
                     </div>
                   </div>
                 );

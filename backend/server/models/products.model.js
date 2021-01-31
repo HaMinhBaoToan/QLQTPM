@@ -1,10 +1,12 @@
 const db = require('../utils/db');
 
 module.exports = {
-  all() {
-    return db('products');
+  allWhere() {
+    return db('products').leftJoin('categories', 'products.Product_CategorieID', '=', 'categories.Categorie_ID').where('products.Product_IsActive', 1);
   },
-
+  all() {
+    return db('products').leftJoin('categories', 'products.Product_CategorieID', '=', 'categories.Categorie_ID');
+  },
   async single(id) {
     const product = await db('products')
       .where('Product_ID', id);
@@ -20,7 +22,7 @@ module.exports = {
     return db('products').insert(product);
   },
 
-  del(id) {
+  delete(id) {
     return db('products')
       .where('Product_ID', id)
       .del();
