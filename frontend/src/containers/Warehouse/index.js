@@ -1,24 +1,23 @@
-import React, { useEffect, useState } from "react";
-import { Tabs, Input } from "antd";
-import axios from "axios";
-import InputWarehouse from "./components/Input/Input-warehouse";
-import OutputWarehouse from "./components/Output/Output-warehouse";
-import WarehouseHome from "./components/WarehouseHome";
-import { WarehouseContext } from "../../utils/AppContext";
-import { formatNumber } from "../../utils/index";
+import React, { useEffect, useState } from 'react';
+import { Tabs, Input } from 'antd';
+import axios from 'axios';
+import InputWarehouse from './components/Input/Input-warehouse';
+import OutputWarehouse from './components/Output/Output-warehouse';
+import WarehouseHome from './components/WarehouseHome';
+import { WarehouseContext } from '../../utils/AppContext';
+import { formatNumber } from '../../utils/index';
 
-import "./warehouse.scss";
-var dateFormat = require("dateformat");
+import './warehouse.scss';
+var dateFormat = require('dateformat');
 const { TabPane } = Tabs;
-const { Search } = Input;
 const Warehouse = () => {
   const [dataReponse, setdataReponse] = useState([]);
   const [datatable, setDatatable] = useState([]);
   const [datatableTemp, setDatatableTemp] = useState([]);
 
   const APIgetAllProduct = () => {
-    console.log("runnnn index");
-    let url = "http://localhost:4000/api/goods";
+    console.log('runnnn index');
+    let url = 'http://localhost:4000/api/goods';
     axios.get(url).then((response) => {
       const data = [];
       for (let i = response.data.length - 1; i >= 0; i--) {
@@ -30,14 +29,14 @@ const Warehouse = () => {
           Goods_Unit: response.data[i].Goods_Unit,
           Goods_ImportDate: dateFormat(
             response.data[i].Goods_ImportDate,
-            "dd-mm-yyyy  ( HH:MM:ss ) "
+            'dd-mm-yyyy  ( HH:MM:ss ) '
           ),
           Goods_FromDate: dateFormat(
             response.data[i].Goods_FromDate,
-            "dd-mm-yyyy"
+            'dd-mm-yyyy'
           ),
           Goods_ToDate: [
-            dateFormat(response.data[i].Goods_ToDate, "dd-mm-yyyy"),
+            dateFormat(response.data[i].Goods_ToDate, 'dd-mm-yyyy'),
           ],
           Goods_Inventory:
             response.data[i].Goods_Quantity - response.data[i].Used_Quantity,
@@ -75,17 +74,7 @@ const Warehouse = () => {
     <WarehouseContext.Provider
       value={{ datatableTemp, APIgetAllProduct, datatable }}
     >
-      <div className="products loading">
-        <div className="w-100 ">
-          <div className="w-50 m-auto">
-            <Search
-              placeholder="input search text"
-              onChange={txt_Changed}
-              enterButton
-              allowClear
-            />
-          </div>
-        </div>
+      <div className="warehouse loading">
         <Tabs type="card">
           <TabPane tab="Kho" key="1">
             <WarehouseHome />
@@ -97,7 +86,6 @@ const Warehouse = () => {
           <TabPane tab="Xuất kho" key="3">
             <OutputWarehouse />
           </TabPane>
-
         </Tabs>
       </div>
     </WarehouseContext.Provider>

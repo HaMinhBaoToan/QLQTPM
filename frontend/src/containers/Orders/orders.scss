@@ -107,7 +107,7 @@
   }
 }
 
-.products-wrapper {
+.orders-wrapper {
   padding-top: 98px;
   animation: slideUp 300ms linear;
   animation-delay: 150ms;
@@ -118,14 +118,14 @@
     padding-top: 52px;
   }
 }
-.products {
+.orders {
   display: flex;
   display: -webkit-flex;
   flex-wrap: wrap;
   -webkit-flex-wrap: wrap;
-  padding: 16px;
+  padding: 16px !important;
   @media (max-width: 768px) {
-    padding: 8px;
+    padding: 8px !important;
   }
   .product {
     min-height: 355px;

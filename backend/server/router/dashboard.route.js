@@ -25,7 +25,7 @@ router.get('/', async function (req, res) {
       }),
       { amount: 0 }
     );
-    return { name: groupByChart[item][0].date, revenue: data.amount };
+    return { name: groupByChart[item][0].date, revenue: data.amount || null };
   });
 
   const list = {

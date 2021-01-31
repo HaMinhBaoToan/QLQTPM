@@ -1,51 +1,51 @@
-import React, { useContext} from "react";
-import { Row, Col, Table, Tag } from "antd";
-import _ from "lodash";
-import {WarehouseContext} from "../../../utils/AppContext";
-
+import React, { useContext } from 'react';
+import { Row, Col, Table, Tag } from 'antd';
+import _ from 'lodash';
+import { WarehouseContext } from '../../../utils/AppContext';
+import { InputSearch } from '../../../components/Input';
 
 const columns = [
   {
-    title: "ID",
-    dataIndex: "Goods_ID",
+    title: 'ID',
+    dataIndex: 'Goods_ID',
     width: 50,
-    align: "center",
+    align: 'center',
     sorter: {
       compare: (a, b) => a.Goods_ID - b.Goods_ID,
       multiple: 3,
     },
   },
   {
-    title: "Tên Hàng",
-    dataIndex: "Goods_Name",
+    title: 'Tên Hàng',
+    dataIndex: 'Goods_Name',
     width: 200,
-    align: "center",
+    align: 'center',
     sorter: {
       compare: (a, b) => a.Goods_Name.length - b.Goods_Name.length,
       multiple: 3,
     },
   },
   {
-    title: "Số lượng",
-    dataIndex: "Goods_Quantity",
+    title: 'Số lượng',
+    dataIndex: 'Goods_Quantity',
     width: 200,
-    align: "center",
+    align: 'center',
     sorter: {
       compare: (a, b) => a.Goods_Quantity - b.Goods_Quantity,
       multiple: 3,
     },
   },
   {
-    title: "Tồn Kho",
-    dataIndex: "Goods_Inventory",
+    title: 'Tồn Kho',
+    dataIndex: 'Goods_Inventory',
     width: 200,
-    align: "center",
+    align: 'center',
     render(text) {
       return {
         props: {
-          style: { color: parseInt(text) ===0 ? "red" :""}
+          style: { color: parseInt(text) === 0 ? 'red' : '' },
         },
-        children: <div>{text}</div>
+        children: <div>{text}</div>,
       };
     },
     // sorter: {
@@ -54,51 +54,48 @@ const columns = [
     // },
   },
   {
-    title: "Đơn vị",
-    dataIndex: "Goods_Unit",
+    title: 'Đơn vị',
+    dataIndex: 'Goods_Unit',
     width: 200,
-    align: "center",
+    align: 'center',
     sorter: {
       compare: (a, b) => a.Goods_Unit.length - b.Goods_Unit.length,
       multiple: 3,
     },
-    
   },
   {
-    title: "Hạn dùng từ ngày",
-    dataIndex: "Goods_FromDate",
+    title: 'Hạn dùng từ ngày',
+    dataIndex: 'Goods_FromDate',
     width: 200,
-    align: "center",
+    align: 'center',
   },
   {
-    title: "Hạn dùng đến ngày",
-    dataIndex: "Goods_ToDate",
+    title: 'Hạn dùng đến ngày',
+    dataIndex: 'Goods_ToDate',
     width: 200,
-    align: "center",
-    key: "Goods_ToDate",
+    align: 'center',
+    key: 'Goods_ToDate',
 
     render: (Goods_ToDate) => (
       <>
-      {
-          console.log(Goods_ToDate)
-      }
+        {console.log(Goods_ToDate)}
         {Goods_ToDate.map((tag) => {
-          var arr = _.split(tag, "-");
+          var arr = _.split(tag, '-');
           var currentTime = new Date();
           var month = currentTime.getMonth() + 1;
           var day = currentTime.getDate();
           var year = currentTime.getFullYear();
-          let color = "green";
+          let color = 'green';
 
           if (parseInt(arr[2]) < year) {
-            color = "volcano";
+            color = 'volcano';
           } else {
             if (parseInt(arr[2]) === year) {
               if (parseInt(arr[1]) === month) {
                 if (arr[0] < day) {
-                  color = "volcano";
+                  color = 'volcano';
                 } else if (Math.abs(arr[0] - day) < 15) {
-                  color = "gold";
+                  color = 'gold';
                 }
               }
             }
@@ -116,19 +113,23 @@ const columns = [
 ];
 
 const WarehouseHome = () => {
-  const {  datatableTemp} = useContext(WarehouseContext);
+  const { datatableTemp } = useContext(WarehouseContext);
 
   return (
     <div>
-      <Row style={{ paddingTop: "30px" }}>
+      <div className="w-100 search">
+        <InputSearch
+          placeholder="Mã sản phẩm, tên sản phẩm"
+          onChange={() => {}}
+        />
+      </div>
+      <Row style={{ paddingTop: '30px' }}>
         <Col>
           <Table
-           size="small"
+            size="small"
             columns={columns}
             dataSource={datatableTemp}
-            scroll={{ x: 1680}}
-            
-          
+            scroll={{ x: 1680 }}
           />
         </Col>
       </Row>

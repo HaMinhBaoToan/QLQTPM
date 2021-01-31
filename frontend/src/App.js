@@ -15,6 +15,7 @@ import AntIcon, {
 } from "@ant-design/icons";
 import { AppContext } from "./utils/AppContext";
 import Products from "./containers/Products";
+import Cusomters from './containers/Customers';
 
 const { Header, Sider, Content } = Layout;
 
@@ -56,7 +57,7 @@ function App() {
                     <Products />
                   </Route>
                   <Route path="/customers">
-                    <h3>This page is updating !</h3>
+                    <Cusomters/>
                   </Route>
                   <Route path="/staffs">
                     <h3>This page is updating !</h3>

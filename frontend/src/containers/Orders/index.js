@@ -104,10 +104,9 @@ const Orders = () => {
   };
   function handlebtnIncrease(product) {
     if (_.has(products, product.ProductID)) {
-      const data = _.cloneDeep(products); //
+      let data = _.cloneDeep(products); //
       data[product.ProductID].Quantity = data[product.ProductID].Quantity + 1;
-      data[product.ProductID].total =
-        data[product.ProductID].Quantity * data[product.ProductID].price;
+      data[product.ProductID].total = data[product.ProductID].Quantity * data[product.ProductID].price;
       setProducts(data);
     }
   }
@@ -149,7 +148,7 @@ const Orders = () => {
   // console.log("products", products);
 
   return (
-    <div className="products loading">
+    <div className="orders loading">
       <Row>
         <Col span={17}>
           <Products handleAdd={handleAdd} />

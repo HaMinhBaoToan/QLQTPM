@@ -1,3 +1,5 @@
+@import './assets/css/colors';
+
 body {
   background-color: #f0f2f5 !important;
 }
@@ -56,6 +58,45 @@ user-select: none;
       width: 26px;
       height: 26px;
       color: white;
+    }
+  }
+
+  .dashboard,
+  .customer,
+  .product-container,
+  .orders,
+  .warehouse {
+    text-align: left;
+    background-color: $purple-light;
+    padding: 2rem;
+    height: 100%;
+    overflow-y: auto;
+  }
+
+  table {
+    td.actions > button,
+    td.actions > button:hover {
+      border: none;
+      background: #fff;
+      box-shadow: none;
+      outline: none;
+    }
+  }
+}
+
+.ant-popover-arrow {
+  display: none;
+}
+
+.ant-popover-inner-content {
+  .my-popover-container {
+    .my-popover-item {
+      background-color: white;
+      min-width: 100px;
+      text-align: left;
+      border: none;
+      display: flex;
+      align-items: center;
     }
   }
 }

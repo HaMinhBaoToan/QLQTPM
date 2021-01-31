@@ -60,6 +60,7 @@ const renderLineChart = ({chartData}) => {
           type="monotone"
           dataKey="revenue"
           stroke="#8BC34A"
+          connectNulls
         />
         {/* <Line
           name="Lợi nhuận"

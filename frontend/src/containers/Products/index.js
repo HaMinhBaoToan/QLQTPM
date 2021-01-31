@@ -1,17 +1,18 @@
-import React, { useEffect, useState } from "react";
-import { Tabs, Input, Row, Col, Table, Button } from "antd";
+import React, { useEffect, useState } from 'react';
+import { Tabs, Row, Col, Table, Button } from 'antd';
 import {
   EditOutlined,
   EyeInvisibleOutlined,
   EyeOutlined,
-} from "@ant-design/icons";
-import axios from "axios";
-import { formatNumber } from "../../utils/index";
-import ModalForm from "./components/modal";
-var dateFormat = require("dateformat");
+} from '@ant-design/icons';
+import axios from 'axios';
+import { formatNumber } from '../../utils/index';
+import ModalForm from './components/modal';
+import { InputSearch } from '../../components/Input';
+import './styles.scss'
+var dateFormat = require('dateformat');
 
 const { TabPane } = Tabs;
-const { Search } = Input;
 
 const Products = () => {
   const [datatable, setDatatable] = useState([]);
@@ -19,25 +20,25 @@ const Products = () => {
 
   const columns = [
     {
-      title: "ID",
-      dataIndex: "Product_ID",
+      title: 'ID',
+      dataIndex: 'Product_ID',
       width: 100,
-      align: "center",
+      align: 'center',
       sorter: {
         compare: (a, b) => a.Product_ID - b.Product_ID,
         multiple: 3,
       },
     },
     {
-      title: "Hình Ảnh",
-      dataIndex: "Product_Image",
+      title: 'Hình Ảnh',
+      dataIndex: 'Product_Image',
       width: 200,
-      align: "center",
+      align: 'center',
 
       render: (Product_Image) => (
         <div key={Product_Image}>
           <img
-            style={{ height: "49px" }}
+            style={{ height: '49px' }}
             src={`${process.env.PUBLIC_URL}product/${Product_Image}.jpg`}
             alt={Product_Image}
           />
@@ -45,21 +46,21 @@ const Products = () => {
       ),
     },
     {
-      title: "Tên Hàng",
-      dataIndex: "Product_Name",
+      title: 'Tên Hàng',
+      dataIndex: 'Product_Name',
       width: 200,
-      align: "center",
+      align: 'center',
       sorter: {
         compare: (a, b) => a.Product_Name.length - b.Product_Name.length,
         multiple: 3,
       },
     },
     {
-      title: "Ẩn/Hiện",
-      dataIndex: "Product_IsActive",
+      title: 'Ẩn/Hiện',
+      dataIndex: 'Product_IsActive',
       width: 200,
-      align: "center",
-      key: "Product_IsActive",
+      align: 'center',
+      key: 'Product_IsActive',
 
       render: (Product_IsActive, Product) => (
         <>
@@ -81,26 +82,26 @@ const Products = () => {
         </>
       ),
     },
-   
+
     {
-      title: "Giá gốc",
-      dataIndex: "Product_CostPriceString",
-      align: "center",
+      title: 'Giá gốc',
+      dataIndex: 'Product_CostPriceString',
+      align: 'center',
     },
     {
-      title: "Giá mới",
-      dataIndex: "Product_NewPriceString",
-      align: "center",
+      title: 'Giá mới',
+      dataIndex: 'Product_NewPriceString',
+      align: 'center',
     },
     {
-      title: "Sửa",
-      dataIndex: "Product_Edit",
-      align: "center",
-      key: "Product_Edit",
+      title: 'Sửa',
+      dataIndex: 'Product_Edit',
+      align: 'center',
+      key: 'Product_Edit',
 
       render: (Product_Edit, Product) => (
         <Button
-          style={{ background: "#faad14", fontWeight: "bold" }}
+          style={{ background: '#faad14', fontWeight: 'bold' }}
           onClick={() => {
             setVisible(true);
             setProductModal(Product);
@@ -123,7 +124,7 @@ const Products = () => {
           APIgetAllProduct();
         })
         .catch(function (error) {
-          console.log("ERROR from server:", error);
+          console.log('ERROR from server:', error);
         });
     }
     if (setDisable === true) {
@@ -136,7 +137,7 @@ const Products = () => {
           APIgetAllProduct();
         })
         .catch(function (error) {
-          console.log("ERROR from server:", error);
+          console.log('ERROR from server:', error);
         });
     }
     if (upDateProduct === true) {
@@ -169,7 +170,7 @@ const Products = () => {
 
   //   }, [datatableTemp]);
   const APIgetAllProduct = () => {
-    let url = "http://localhost:4000/api/products";
+    let url = 'http://localhost:4000/api/products';
     axios.get(url).then((response) => {
       const data = [];
 
@@ -180,12 +181,16 @@ const Products = () => {
           Product_Name: response.data[i].Product_Name,
           Product_Image: response.data[i].Product_Image,
           Product_IsActive: response.data[i].Product_IsActive.data[0],
-          Product_CostPrice:  response.data[i].Product_CostPrice,
-          Product_NewPrice:  response.data[i].Product_NewPrice,
-          Product_CostPriceString:  `${formatNumber(response.data[i].Product_CostPrice)} đ`,
-          Product_NewPriceString:  `${formatNumber(response.data[i].Product_NewPrice)} đ`,
-          Product_Description:response.data[i].Product_Description,
-          Product_CreatedDate:response.data[i].Product_CreatedDate,
+          Product_CostPrice: response.data[i].Product_CostPrice,
+          Product_NewPrice: response.data[i].Product_NewPrice,
+          Product_CostPriceString: `${formatNumber(
+            response.data[i].Product_CostPrice
+          )} đ`,
+          Product_NewPriceString: `${formatNumber(
+            response.data[i].Product_NewPrice
+          )} đ`,
+          Product_Description: response.data[i].Product_Description,
+          Product_CreatedDate: response.data[i].Product_CreatedDate,
         });
       }
       //   console.log(response.data);
@@ -198,20 +203,13 @@ const Products = () => {
 
   const onCreate = (values) => {};
   return (
-    <>
+    <div className="product-container">
       <Tabs type="card">
         <TabPane tab="Sản Phẩm" key="1">
-          <div className="w-100 ">
-            <div className="w-50 m-auto">
-              <Search
-                placeholder="input search text"
-                //   onChange={txt_Changed}
-                enterButton
-                allowClear
-              />
-            </div>
+          <div className="w-100 search">
+              <InputSearch placeholder="Mã sản phẩm, tên sản phẩm" onChange={() => {}}/>
           </div>
-          <Row style={{ paddingTop: "30px" }}>
+          <Row style={{ paddingTop: '30px' }}>
             <Col>
               <Table
                 size="small"
@@ -234,7 +232,7 @@ const Products = () => {
         }}
         productModal={productModal}
       />
-    </>
+    </div>
   );
 };
 
