@@ -12,6 +12,9 @@ const USEDS = require('./server/router/useds.route');
 const GOODS = require('./server/router/goods.route');
 const BASE64IMAGE = require('./server/router/base64Image.route');
 const CATEGORIES = require('./server/router/categories.route');
+const USERS = require('./server/router/users.route');
+const AUTHS = require('./server/router/auth.route');
+
 const PORT = process.env.PORT || 4000;
 
 if(process.env.NODE_ENV !== 'test') {
@@ -41,7 +44,8 @@ app.use('/api/goods', GOODS );
 app.use('/api/useds', USEDS );
 app.use('/api/base64Image', BASE64IMAGE );
 app.use('/api/categories', CATEGORIES );
-
+app.use('/api/users', USERS );
+app.use('/api/auth', AUTHS );
 
 
 app.get('/err', function (req, res) {
