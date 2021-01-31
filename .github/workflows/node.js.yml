@@ -5,10 +5,10 @@ name: Node.js CI
 
 on:
   push:
-    branches: [ master ]
+    branches: [ unit-test ]
   pull_request:
     branches: [ master ]
-
+ 
 jobs:
   build: 
 
@@ -17,6 +17,15 @@ jobs:
     strategy:
       matrix:
         node-version: [10.x, 12.x, 14.x]
+        
+    #services:
+     # mysql:
+     #   image: mysql:5.7
+     #   env:
+     #     MYSQL_ROOT_PASSWORD: 123456
+     #   ports:
+     #     - 3366
+     #   options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
     defaults:
       run:
         working-directory: ./backend
@@ -27,7 +36,8 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
     - run: npm install
-    - run: mysql --host 127.0.0.1 --port ${{ job.services.mysql.ports['3366'] }} root 123456 < qlkd.sql
-    - run: mysql --host 127.0.0.1 --port ${{ job.services.mysql.ports['3366'] }} root 123456 -e "SHOW DATABASES"
-    - run: node scripts/ci ${{ job.services.mysql.ports['3366'] }}
+  #  - run: sudo service mysql start
+#    - run: mysql --host 127.0.0.1 --port ${{ job.services.mysql.ports['3366'] }} -u root -p "123456" < qlkd.sql
+ #  - run: mysql --host 127.0.0.1 --port ${{ job.services.mysql.ports['3366'] }} -u root -p "123456" -e "SHOW DATABASES"
+  #  - run: node scripts/ci ${{ job.services.mysql.ports['3366'] }}
     - run: npm test
