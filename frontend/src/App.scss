@@ -65,7 +65,8 @@ user-select: none;
   .customer,
   .product-container,
   .orders,
-  .warehouse {
+  .warehouse,
+  .employees {
     text-align: left;
     background-color: $purple-light;
     padding: 2rem;
@@ -88,6 +89,10 @@ user-select: none;
   display: none;
 }
 
+.ant-tag {
+  min-width: 80px;
+}
+
 .ant-popover-inner-content {
   .my-popover-container {
     .my-popover-item {
@@ -99,4 +104,9 @@ user-select: none;
       align-items: center;
     }
   }
+}
+
+.ant-btn::after {
+  border-color: white !important;
+  box-shadow: none !important;
 }

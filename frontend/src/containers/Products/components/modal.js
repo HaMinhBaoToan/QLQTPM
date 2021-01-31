@@ -5,7 +5,6 @@ const { Option } = Select;
 const { TextArea } = Input;
 const ModalForm = ({ visible, onCreate, onCancel, productModal }) => {
   const [form] = Form.useForm();
-  console.log(productModal);
   form.setFieldsValue({
     Product_Name: productModal.Product_Name,
     Product_CostPrice: productModal.Product_CostPrice,

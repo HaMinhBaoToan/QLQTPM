@@ -22,7 +22,6 @@ const Dashboard = () => {
   }, [dates]);
 
   const handleDate = (data) => {
-    console.log(data);
     const fromDate = moment(data[0]);
     const toDate = moment(data[1]);
     let url =`http://localhost:4000/api/dashboard?fromDate=${formatDate(fromDate)}&toDate=${formatDate(toDate)}`;

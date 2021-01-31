@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import { Tabs, Row, Col, Table, Button } from 'antd';
+import { Tabs, Table, Button, Popover } from 'antd';
 import {
-  EditOutlined,
   EyeInvisibleOutlined,
   EyeOutlined,
 } from '@ant-design/icons';
@@ -9,8 +8,8 @@ import axios from 'axios';
 import { formatNumber } from '../../utils/index';
 import ModalForm from './components/modal';
 import { InputSearch } from '../../components/Input';
-import './styles.scss'
-var dateFormat = require('dateformat');
+import './styles.scss';
+import Icon, { IconCustom } from '../../components/Icon';
 
 const { TabPane } = Tabs;
 
@@ -94,20 +93,43 @@ const Products = () => {
       align: 'center',
     },
     {
-      title: 'Sửa',
+      title: 'Action',
       dataIndex: 'Product_Edit',
       align: 'center',
       key: 'Product_Edit',
-
+      className: 'actions',
       render: (Product_Edit, Product) => (
-        <Button
-          style={{ background: '#faad14', fontWeight: 'bold' }}
-          onClick={() => {
-            setVisible(true);
-            setProductModal(Product);
-          }}
-          icon={<EditOutlined />}
-        />
+        <>
+          <Popover
+            placement="bottomRight"
+            content={
+              <div className="my-popover-container">
+                <Button
+                  className="my-btn-no-style my-popover-item"
+                  onClick={() => {
+                    setVisible(true);
+                    setProductModal(Product);
+                  }}
+                >
+                  <Icon component={IconCustom.Edit} className="my-icon-md" />
+                  Edit
+                </Button>
+                <Button
+                  className="my-btn-no-style my-popover-item"
+                  onClick={() => {}}
+                >
+                  <Icon component={IconCustom.Trash} className="my-icon-md" />
+                  Remove
+                </Button>
+              </div>
+            }
+            trigger="click"
+          >
+            <Button className="my-btn-no-style btn-icon text-dark-gray">
+              <Icon component={IconCustom.MoreHorizontal} />
+            </Button>
+          </Popover>
+        </>
       ),
     },
   ];
@@ -207,18 +229,18 @@ const Products = () => {
       <Tabs type="card">
         <TabPane tab="Sản Phẩm" key="1">
           <div className="w-100 search">
-              <InputSearch placeholder="Mã sản phẩm, tên sản phẩm" onChange={() => {}}/>
+            <InputSearch
+              placeholder="Mã sản phẩm, tên sản phẩm"
+              onChange={() => {}}
+            />
           </div>
-          <Row style={{ paddingTop: '30px' }}>
-            <Col>
-              <Table
-                size="small"
-                columns={columns}
-                dataSource={datatableTemp}
-                scroll={{ x: 1680 }}
-              />
-            </Col>
-          </Row>
+          <Table
+            style={{ paddingTop: '30px' }}
+            size="small"
+            columns={columns}
+            dataSource={datatableTemp}
+            scroll={{ x: 768 }}
+          />
         </TabPane>
         <TabPane tab="Nhập kho" key="2">
           qeqeewqqwe123123

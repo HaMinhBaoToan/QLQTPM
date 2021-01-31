@@ -18,16 +18,31 @@ const columns = [
     dataIndex: 'phone',
   },
   {
-    title: 'Nhóm khách hàng',
+    title: 'Email',
+    dataIndex: 'email',
+  },
+  {
+    title: 'Chức vụ',
     key: 'type',
     dataIndex: 'type',
     align: 'center',
     render: (tags) => (
       <span>
         {tags.map((tag) => {
-          let color = tag === 'Khách mới' ? 'geekblue' : 'green';
-          if (tag === 'VIP') {
-            color = 'volcano';
+          let color = '';
+          switch (tag) {
+            case 'Chủ':
+              color = 'red'
+              break;
+            case 'Quản lý':
+              color = 'geekblue'
+              break;
+            case 'Kế toán':
+              color = 'orange'
+              break;
+            default:
+              color = 'green'
+              break;
           }
           return (
             <Tag color={color} key={tag}>
@@ -80,25 +95,29 @@ const data = [
     id: '1',
     name: 'John Brown',
     phone: '0123456788',
-    type: ['Khách mới'],
+    email: 'email.com',
+    type: ['Chủ'],
   },
   {
     id: '2',
     name: 'Jim Green',
     phone: '0123456788',
-    type: ['Khách quen'],
+    email: 'email.com',
+    type: ['Quản lý'],
   },
   {
     id: '3',
     name: 'Joe Black',
     phone: '0123456788',
-    type: ['VIP'],
+    email: 'email.com',
+    type: ['Kế toán'],
   },
   {
     id: '4',
     name: 'Abc',
     phone: '0123456788',
-    type: ['VIP'],
+    email: 'email.com',
+    type: ['Nhân viên'],
   },
 ]; // rowSelection object indicates the need for row selection
 
@@ -117,13 +136,13 @@ const rowSelection = {
   },
 };
 
-const Cusomters = () => {
+const Employees = () => {
   return (
-    <div className="customer">
-      <h3>Khách hàng</h3>
+    <div className="employees">
+      <h3>Nhân viên</h3>
       <div className="w-100 search">
         <InputSearch
-          placeholder="Mã khách hàng, tên khách hành"
+          placeholder="Mã nhân viên, tên nhân viên"
           onChange={() => {}}
         />
       </div>
@@ -133,9 +152,10 @@ const Cusomters = () => {
         columns={columns}
         dataSource={data}
         rowKey="name"
+        scroll={{ x: 768 }}
       />
     </div>
   );
 };
 
-export default Cusomters;
+export default Employees;

@@ -52,7 +52,6 @@ const Warehouse = () => {
       setdataReponse(response.data);
     });
   };
-  console.log(dataReponse);
   useEffect(() => {
     APIgetAllProduct();
   }, []);

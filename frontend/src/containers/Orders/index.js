@@ -126,7 +126,6 @@ const Orders = () => {
       var data = _.cloneDeep(products); //
      data= _.omit(data,id);
       // products.splice(id);
-      console.log("data",data);
       setProducts(data);
     }
   }

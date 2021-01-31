@@ -45,8 +45,6 @@ router.put("/:id", async function (req, res) {
   delete product.key;
   delete product.Product_ID;
 
-  console.log(product);
-
    await productsModel.update(id, product);
 
   res.json({

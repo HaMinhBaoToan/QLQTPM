@@ -180,19 +180,16 @@ const InputWarehouse = () => {
         onCancel={() => {
           setVisible(false);
         }}
-        idNextGoods={datatable[0].Goods_ID+1}
+        idNextGoods={datatable[0].Goods_ID + 1}
       />
-      <Row style={{ paddingTop: "30px" }}>
-        <Col>
-          <Table
-           size="small"
-            columns={columns}
-            dataSource={datatableTemp}
-            // onChange={onChange}
-            scroll={{ x: 1700 }}
-          />
-        </Col>
-      </Row>
+      <Table
+        style={{ paddingTop: '30px' }}
+        size="small"
+        columns={columns}
+        dataSource={datatableTemp}
+        // onChange={onChange}
+        scroll={{ x: 768 }}
+      />
     </div>
   );
 };

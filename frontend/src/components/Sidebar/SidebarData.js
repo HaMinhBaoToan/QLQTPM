@@ -38,7 +38,7 @@ export const SidebarData = [
   },
   {
     title: "Nhân viên",
-    path: "/staffs",
+    path: "/employees",
     icon: <Io5Icons.IoPersonCircleOutline />,
     cName: "nav-text",
   },

@@ -78,7 +78,6 @@ const columns = [
 
     render: (Goods_ToDate) => (
       <>
-        {console.log(Goods_ToDate)}
         {Goods_ToDate.map((tag) => {
           var arr = _.split(tag, '-');
           var currentTime = new Date();
@@ -123,16 +122,13 @@ const WarehouseHome = () => {
           onChange={() => {}}
         />
       </div>
-      <Row style={{ paddingTop: '30px' }}>
-        <Col>
-          <Table
-            size="small"
-            columns={columns}
-            dataSource={datatableTemp}
-            scroll={{ x: 1680 }}
-          />
-        </Col>
-      </Row>
+      <Table
+        style={{ paddingTop: '30px' }}
+        size="small"
+        columns={columns}
+        dataSource={datatableTemp}
+        scroll={{ x: 768 }}
+      />
     </div>
   );
 };
