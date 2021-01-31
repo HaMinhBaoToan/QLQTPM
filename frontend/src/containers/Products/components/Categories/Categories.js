@@ -1,79 +1,96 @@
 import React, { useEffect, useState, useContext } from "react";
 import { Row, Col, Table, Button, notification } from "antd";
+import {
+  EditOutlined,
+  EyeInvisibleOutlined,
+  EyeOutlined,
+  DeleteOutlined,
+  ExclamationCircleOutlined,
+} from "@ant-design/icons";
 import axios from "axios";
-import ModalForm from "./Modal_Output_Warehouse";
-import { WarehouseContext } from "../../../../utils/AppContext";
 
 var dateFormat = require("dateformat");
 
 const columns = [
   {
-    title: "Mã Xuất",
-    dataIndex: "Used_ID",
+    title: "Mã danh mục",
+    dataIndex: "Categorie_ID",
     width: 250,
     align: "center",
     sorter: {
-      compare: (a, b) => a.Used_ID - b.Used_ID,
+      compare: (a, b) => a.Categorie_ID - b.Categorie_ID,
       multiple: 3,
     },
   },
   {
-    title: "Tên Hàng",
-    dataIndex: "Goods_Name",
+    title: "Tên danh mục",
+    dataIndex: "Categorie_Name",
     width: 250,
     align: "center",
     sorter: {
-      compare: (a, b) => a.Goods_Name.length - b.Goods_Name.length,
+      compare: (a, b) => a.Categorie_Name.length - b.Categorie_Name.length,
       multiple: 3,
     },
   },
 
   {
-    title: "Số lượng",
-    dataIndex: "Used_Quantity",
-    width: 0,
+    title: "Ẩn/Hiện danh mục",
+    dataIndex: "Categorie_IsActive",
+    width: 200,
     align: "center",
-    sorter: {
-      compare: (a, b) => a.Used_Quantity - b.Used_Quantity,
-      multiple: 3,
-    },
+    render: (Categorie_IsActive, Product) => (
+      <>
+        {Categorie_IsActive ? (
+          <Button
+            type="primary"
+            shape="circle"
+            //   onClick={() => handleProduct(Product, false, true, false)}
+            icon={<EyeOutlined />}
+          />
+        ) : (
+          <Button
+            type="dashed"
+            shape="circle"
+            //   onClick={() => handleProduct(Product, true, false, false)}
+            icon={<EyeInvisibleOutlined />}
+          />
+        )}
+      </>
+    ),
+  },
+
+  {
+    title: "Cập nhật lần cuối",
+    dataIndex: "Categorie_UpdateDate",
+    align: "center",
   },
   {
-    title: "Đơn vị",
-    dataIndex: "Goods_Unit",
-    align: "center",
-    sorter: {
-      compare: (a, b) => a.Goods_Unit.length - b.Goods_Unit.length,
-      multiple: 3,
-    },
-  },
-  {
-    title: "Ngày lập",
-    dataIndex: "Used_CreateDate",
+    title: "Cập nhật bởi",
+    dataIndex: "User_Name",
     align: "center",
   },
 ];
 
-const OutputWarehouse = () => {
-  const { APIgetAllProduct } = useContext(WarehouseContext);
+const Categories = () => {
+  //   const { APIgetAllProduct } = useContext(WarehouseContext);
 
   const [datatableOut, setDatatableOut] = useState([]);
   const [visible, setVisible] = useState(false);
   const APIgetAllUsed = () => {
-    let url = "http://localhost:4000/api/useds";
+    let url = "http://localhost:4000/api/categories";
     axios.get(url).then((response) => {
       const data = [];
       for (let i = response.data.length - 1; i >= 0; i--) {
         data.push({
           key: i,
-          Used_ID: response.data[i].Used_ID,
-          Goods_Name: `${response.data[i].Goods_Name}`,
-          Used_Quantity: response.data[i].Used_Quantity,
-          Goods_Unit: response.data[i].Goods_Unit,
-          Used_CreateDate: dateFormat(
-            response.data[i].Used_CreateDate,
+          Categorie_ID: response.data[i].Categorie_ID,
+          Categorie_Name: `${response.data[i].Categorie_Name}`,
+          Categorie_IsActive: response.data[i].Categorie_IsActive,
+          Categorie_UpdateDate: dateFormat(
+            response.data[i].Categorie_UpdateDate,
             "dd-mm-yyyy   ( HH:MM:ss ) "
           ),
+          User_Name: response.data[i].User_Name,
         });
       }
       setDatatableOut(data);
@@ -96,11 +113,11 @@ const OutputWarehouse = () => {
       Used_Quantity: values.Used_Quantity,
       Used_CreateDate: dateFormat(new Date(), "yyyy-mm-dd HH:MM:ss"),
     };
-   
+
     axios
       .post(`http://localhost:4000/api/useds/`, used)
       .then((response) => {
-        APIgetAllProduct();
+        // APIgetAllProduct();
         openNotificationWithIcon("success");
         APIgetAllUsed();
       })
@@ -108,8 +125,6 @@ const OutputWarehouse = () => {
         console.log("ERROR from server:", error);
       });
     setVisible(false);
-
-    
   };
 
   return (
@@ -122,13 +137,13 @@ const OutputWarehouse = () => {
       >
         + Lập phiếu xuất kho
       </Button>
-      <ModalForm
+      {/* <ModalForm
         visible={visible}
         onCreate={onCreate}
         onCancel={() => {
           setVisible(false);
         }}
-      />
+      /> */}
       <Row style={{ paddingTop: "30px" }}>
         <Col>
           <Table
@@ -142,4 +157,4 @@ const OutputWarehouse = () => {
     </div>
   );
 };
-export default OutputWarehouse;
+export default Categories;

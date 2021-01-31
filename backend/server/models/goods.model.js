@@ -23,26 +23,44 @@ module.exports = {
   // },
 
   all() {
-    return db
-      .with(
-        "b",
-        db({ u: "useds", g: "goods" })
-          .select({
-            Goods_ID: "g.Goods_ID",
-          })
-          .whereRaw("?? = ??", ["g.Goods_ID", "u.Used_Goods_ID"])
-          .groupBy("g.Goods_ID")
-          .sum({ Used_Quantity: "u.Used_Quantity" })
-      )
-      .select("*")
-      .from("b")
-      .rightJoin("goods as a", function () {
-        this.on("a.Goods_ID", "=", "b.Goods_ID");
+    return db.from(function () {
+      this.select({
+        Goods_ID: "g.Goods_ID",
       })
-      .leftJoin("suppliers as s", function () {
-        this.on("a.Goods_SupplierID", "=", "s.Supplier_ID");
-      });
+        .from({ u: "useds", g: "goods" })
+        .whereRaw("?? = ??", ["g.Goods_ID", "u.Used_Goods_ID"])
+        .groupBy("g.Goods_ID")
+        .sum({ Used_Quantity: "u.Used_Quantity" })
+        .as("b");
+    })
+
+    .rightJoin("goods as a", function () {
+      this.on("a.Goods_ID", "=", "b.Goods_ID");
+    })
+    .leftJoin("suppliers as s", function () {
+      this.on("a.Goods_SupplierID", "=", "s.Supplier_ID");
+    });
+
+    // .with(
+    //   "b",
+    //   db({ u: "useds", g: "goods" })
+    //     .select({
+    //       Goods_ID: "g.Goods_ID",
+    //     })
+    //     .whereRaw("?? = ??", ["g.Goods_ID", "u.Used_Goods_ID"])
+    //     .groupBy("g.Goods_ID")
+    //     .sum({ Used_Quantity: "u.Used_Quantity" })
+    // )
+    // .select("*")
+    // .from("b")
+    // .rightJoin("goods as a", function () {
+    //   this.on("a.Goods_ID", "=", "b.Goods_ID");
+    // })
+    // .leftJoin("suppliers as s", function () {
+    //   this.on("a.Goods_SupplierID", "=", "s.Supplier_ID");
+    // });
   },
+
   add(goods) {
     return db("goods").insert(goods);
   },

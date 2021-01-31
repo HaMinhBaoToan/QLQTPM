@@ -20,6 +20,8 @@ import axios from "axios";
 import { formatNumber } from "../../utils/index";
 import ModalEdit from "./components/ModalEdit";
 import ModalAdd from "./components/ModalAdd";
+import Categories from "./components/Categories/Categories";
+
 var dateFormat = require("dateformat");
 
 // var dateFormat = require("dateformat");
@@ -360,8 +362,8 @@ delete values.Product_ImageBase;
             </Col>
           </Row>
         </TabPane>
-        <TabPane tab="Nhập kho" key="2">
-          qeqeewqqwe123123
+        <TabPane tab="Danh Mục" key="2">
+         <Categories/>
         </TabPane>
       </Tabs>
       <ModalEdit
