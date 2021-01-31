@@ -9,7 +9,7 @@ const Products = ({handleAdd}) => {
   // const [addProductToCart, setAddProductToCart] = useState([]);
   
   useEffect(() => {
-    let url = "http://localhost:4000/api/products";
+    let url = "http://localhost:4000/api/products/where";
     axios.get(url).then((response) => {
       // setProducts(response.data);
       console.log(response.data)

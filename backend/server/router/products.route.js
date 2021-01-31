@@ -7,7 +7,10 @@ router.get("/", async function (req, res) {
   const list = await productsModel.all();
   res.json(list);
 });
-
+router.get("/where", async function (req, res) {
+  const list = await productsModel.allWhere();
+  res.json(list);
+});
 router.get("/:id", async function (req, res) {
   const id = req.params.id || 0;
   const product = await productsModel.single(id);

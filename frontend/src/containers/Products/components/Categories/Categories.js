@@ -1,82 +1,99 @@
-import React, { useEffect, useState, useContext } from "react";
-import { Row, Col, Table, Button, notification } from "antd";
+import React, { useEffect, useState } from "react";
+import { Row, Col, Table, Button, notification,Modal } from "antd";
 import {
-  EditOutlined,
   EyeInvisibleOutlined,
   EyeOutlined,
   DeleteOutlined,
   ExclamationCircleOutlined,
 } from "@ant-design/icons";
+import ModalEdit from "./ModalEdit";
+import ModalAdd from "./ModalAdd";
 import axios from "axios";
 
 var dateFormat = require("dateformat");
-
-const columns = [
-  {
-    title: "Mã danh mục",
-    dataIndex: "Categorie_ID",
-    width: 250,
-    align: "center",
-    sorter: {
-      compare: (a, b) => a.Categorie_ID - b.Categorie_ID,
-      multiple: 3,
-    },
-  },
-  {
-    title: "Tên danh mục",
-    dataIndex: "Categorie_Name",
-    width: 250,
-    align: "center",
-    sorter: {
-      compare: (a, b) => a.Categorie_Name.length - b.Categorie_Name.length,
-      multiple: 3,
-    },
-  },
-
-  {
-    title: "Ẩn/Hiện danh mục",
-    dataIndex: "Categorie_IsActive",
-    width: 200,
-    align: "center",
-    render: (Categorie_IsActive, Product) => (
-      <>
-        {Categorie_IsActive ? (
-          <Button
-            type="primary"
-            shape="circle"
-            //   onClick={() => handleProduct(Product, false, true, false)}
-            icon={<EyeOutlined />}
-          />
-        ) : (
-          <Button
-            type="dashed"
-            shape="circle"
-            //   onClick={() => handleProduct(Product, true, false, false)}
-            icon={<EyeInvisibleOutlined />}
-          />
-        )}
-      </>
-    ),
-  },
-
-  {
-    title: "Cập nhật lần cuối",
-    dataIndex: "Categorie_UpdateDate",
-    align: "center",
-  },
-  {
-    title: "Cập nhật bởi",
-    dataIndex: "User_Name",
-    align: "center",
-  },
-];
+const { confirm } = Modal;
 
 const Categories = () => {
   //   const { APIgetAllProduct } = useContext(WarehouseContext);
 
   const [datatableOut, setDatatableOut] = useState([]);
-  const [visible, setVisible] = useState(false);
-  const APIgetAllUsed = () => {
+  const [visibleModalEdit, setVisibleModalEdit] = useState(false);
+  const [visibleModalAdd, setVisibleModalAdd] = useState(false);
+
+  const columns = [
+    {
+      title: "Mã danh mục",
+      dataIndex: "Categorie_ID",
+      width: 250,
+      align: "center",
+      sorter: {
+        compare: (a, b) => a.Categorie_ID - b.Categorie_ID,
+        multiple: 3,
+      },
+    },
+    {
+      title: "Tên danh mục",
+      dataIndex: "Categorie_Name",
+      width: 250,
+      align: "center",
+      sorter: {
+        compare: (a, b) => a.Categorie_Name.length - b.Categorie_Name.length,
+        multiple: 3,
+      },
+    },
+
+    {
+      title: "Ẩn/Hiện danh mục",
+      dataIndex: "Categorie_IsActive",
+      width: 200,
+      align: "center",
+      render: (Categorie_IsActive, Categories) => (
+        <>
+          {Categorie_IsActive ? (
+            <Button
+              type="primary"
+              shape="circle"
+              onClick={() => handleCategories(Categories, false, true, false)}
+              icon={<EyeOutlined />}
+            />
+          ) : (
+            <Button
+              type="dashed"
+              shape="circle"
+              onClick={() => handleCategories(Categories, true, false, false)}
+              icon={<EyeInvisibleOutlined />}
+            />
+          )}
+        </>
+      ),
+    },
+
+    {
+      title: "Cập nhật lần cuối",
+      dataIndex: "Categorie_UpdateDate",
+      align: "center",
+    },
+    {
+      title: "Cập nhật bởi",
+      dataIndex: "User_Name",
+      align: "center",
+    },
+    {
+      title: "Xoá",
+      dataIndex: "Categorie_Delete",
+      align: "center",
+      width: 100,
+
+      render: (Categorie_Delete, Categories) => (
+        <Button
+          style={{ background: "#ff4d4f", fontWeight: "bold" }}
+          onClick={() => showDeleteConfirm(Categories)}
+          icon={<DeleteOutlined />}
+        />
+      ),
+    },
+  ];
+  const APIgetAllCategories = () => {
     let url = "http://localhost:4000/api/categories";
     axios.get(url).then((response) => {
       const data = [];
@@ -85,7 +102,7 @@ const Categories = () => {
           key: i,
           Categorie_ID: response.data[i].Categorie_ID,
           Categorie_Name: `${response.data[i].Categorie_Name}`,
-          Categorie_IsActive: response.data[i].Categorie_IsActive,
+          Categorie_IsActive: response.data[i].Categorie_IsActive.data[0],
           Categorie_UpdateDate: dateFormat(
             response.data[i].Categorie_UpdateDate,
             "dd-mm-yyyy   ( HH:MM:ss ) "
@@ -98,52 +115,114 @@ const Categories = () => {
   };
 
   useEffect(() => {
-    APIgetAllUsed();
+    APIgetAllCategories();
   }, []);
-  const openNotificationWithIcon = (type) => {
+
+  const handleCategories = (
+    Categories,
+    setEnable,
+    setDisable,
+    upDateProduct
+  ) => {
+    const URL = `http://localhost:4000/api/categories/${Categories.Categorie_ID}`;
+    if (setEnable === true) {
+      axios
+        .put(URL, {
+          ...Categories,
+          Categorie_IsActive: 1,
+        })
+        .then((response) => {
+          APIgetAllCategories();
+        })
+        .catch(function (error) {
+          console.log("ERROR from server:", error);
+        });
+    }
+    if (setDisable === true) {
+      axios
+        .put(URL, {
+          ...Categories,
+          Categorie_IsActive: 0,
+        })
+        .then((response) => {
+          APIgetAllCategories();
+        })
+        .catch(function (error) {
+          console.log("ERROR from server:", error);
+        });
+    }
+    if (upDateProduct === true) {
+    }
+  };
+  const openNotificationWithIcon = (type, message) => {
     notification[type]({
       message: "Hoàn Tất",
-      description: `Bạn vừa xuất kho thành công đơn hàng`,
+      description: message,
     });
   };
-  const onCreate = (values) => {
-    // console.log(values);
-    const used = {
-      Used_Goods_ID: values.Goods_ID,
-      Used_Quantity: values.Used_Quantity,
-      Used_CreateDate: dateFormat(new Date(), "yyyy-mm-dd HH:MM:ss"),
-    };
-
+  const onCreateAdd = (values) => {
+    values.Categorie_IsActive = 1;
+    values.Categorie_CreateUserID =1;
+    values.Categorie_UpdateUserID=1;
+    console.log(values);
+    const URL = `http://localhost:4000/api/categories/`;
     axios
-      .post(`http://localhost:4000/api/useds/`, used)
+      .post(URL, values)
       .then((response) => {
-        // APIgetAllProduct();
-        openNotificationWithIcon("success");
-        APIgetAllUsed();
+        APIgetAllCategories();
+
+        openNotificationWithIcon("success", "thêm thành công");
+        setVisibleModalAdd(false);
       })
       .catch(function (error) {
         console.log("ERROR from server:", error);
       });
-    setVisible(false);
   };
+
+  function showDeleteConfirm(Categories) {
+    console.log(Categories);
+    confirm({
+      title: `Bạn có chắc muốn xoá món ${Categories.Categorie_Name} ?`,
+      icon: <ExclamationCircleOutlined />,
+      // content: 'Some descriptions',
+      okText: "Delete",
+      okType: "danger",
+      cancelText: "Cancel",
+      onOk() {
+        const URL = `http://localhost:4000/api/categories/${Categories.Categorie_ID}`;
+        axios
+          .delete(URL)
+          .then((response) => {
+            APIgetAllCategories();
+            openNotificationWithIcon("success", "bạn đã xoá thành công");
+            console.log(response);
+          })
+          .catch(function (error) {
+            console.log("ERROR from server:", error);
+          });
+        console.log("OK");
+      },
+      onCancel() {},
+    });
+  }
 
   return (
     <div>
       <Button
         type="primary"
         onClick={() => {
-          setVisible(true);
+          setVisibleModalAdd(true);
         }}
       >
-        + Lập phiếu xuất kho
+        + Thêm danh mục
       </Button>
-      {/* <ModalForm
-        visible={visible}
-        onCreate={onCreate}
+      <ModalAdd
+        visibleModalAdd={visibleModalAdd}
+        onCreateAdd={onCreateAdd}
         onCancel={() => {
-          setVisible(false);
+          setVisibleModalAdd(false);
         }}
-      /> */}
+      />
       <Row style={{ paddingTop: "30px" }}>
         <Col>
           <Table
