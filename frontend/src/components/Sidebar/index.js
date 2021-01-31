@@ -1,7 +1,7 @@
 import React from 'react';
 // import * as FaIcons from 'react-icons/fa';
 import * as IoIcons from 'react-icons/io';
-import { Link } from 'react-router-dom';
+import { NavLink, Link } from 'react-router-dom';
 import { SidebarData } from './SidebarData';
 import './styles.scss';
 import { IconContext } from 'react-icons';
@@ -19,10 +19,10 @@ function Sidebar({sidebar, showSidebar}) {
             {SidebarData.map((item, index) => {
               return (
                 <li key={index} className={item.cName}>
-                  <Link to={item.path}>
+                  <NavLink to={item.path}  exact  activeClassName="active-navlink">
                     <div className='icon'>{item.icon}</div>
                     <span>{item.title}</span>
-                  </Link>
+                  </NavLink>
                 </li>
               );
             })}

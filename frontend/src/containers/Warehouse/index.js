@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Tabs, Input } from 'antd';
+import { Tabs } from 'antd';
 import axios from 'axios';
 import InputWarehouse from './components/Input/Input-warehouse';
 import OutputWarehouse from './components/Output/Output-warehouse';
@@ -60,7 +60,6 @@ const Warehouse = () => {
   //   // setDatatable(datatable.filter(item => item.Goods_Name.toLowerCase().includes(value.toLowerCase())))
   // };
   const txt_Changed = function (e) {
-    console.log(e.target.value);
     const temp = datatable.filter((item) =>
       item.Goods_Name.toLowerCase().includes(e.target.value.toLowerCase())
     );
@@ -71,9 +70,11 @@ const Warehouse = () => {
 
   return (
     <WarehouseContext.Provider
-      value={{ datatableTemp, APIgetAllProduct, datatable }}
+      value={{ datatableTemp, APIgetAllProduct, datatable,txt_Changed }}
     >
       <div className="warehouse loading">
+      <h3 className="mb-3">Quản lý kho</h3>
+
         <Tabs type="card">
           <TabPane tab="Kho" key="1">
             <WarehouseHome />

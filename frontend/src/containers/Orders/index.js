@@ -104,7 +104,8 @@ const Orders = () => {
     if (_.has(products, product.ProductID)) {
       let data = _.cloneDeep(products); //
       data[product.ProductID].Quantity = data[product.ProductID].Quantity + 1;
-      data[product.ProductID].total = data[product.ProductID].Quantity * data[product.ProductID].price;
+      data[product.ProductID].total =
+        data[product.ProductID].Quantity * data[product.ProductID].price;
       setProducts(data);
     }
   }
@@ -146,6 +147,7 @@ const Orders = () => {
 
   return (
     <div className="orders loading">
+      <h3 style={{margin:"16px"}}>Menu</h3>
       <Row>
         <Col span={17}>
           <Products handleAdd={handleAdd} />
@@ -173,10 +175,7 @@ const Orders = () => {
                 return (
                   <div className="item" key={products[idx].ProductID}>
                     <div className="image">
-                      <img
-                        src={products[idx].image}
-                        alt=""
-                      />
+                      <img src={products[idx].image} alt="" />
                     </div>
 
                     <div className="description">

@@ -39,10 +39,14 @@ router.delete("/:id", async function (req, res) {
     return res.status(304).end();
   }
 
-  await categoriesModel.delete(id);
+  await categoriesModel.delete(id).then((result) => {
+    res.json({
+      message: "delete success",
+    });
+  }).catch((err) => {
+    res.status(500).json(err);
+  });;
 
-  res.json({
-    message: "delete success",
-  });
+  
 });
 module.exports = router;
