@@ -1,55 +1,84 @@
 import React, { useEffect, useState } from "react";
-import { DatePicker, Select, Button } from "antd";
+import { DatePicker, Select, Button, Row, Col, Form } from "antd";
 import { SearchOutlined } from "@ant-design/icons";
 import moment from "moment";
 import { formatDate, formatNumber } from "../../utils/index";
+import Template1 from "./components/Template1";
 
 const { RangePicker } = DatePicker;
 const { Option } = Select;
 const Report = () => {
+  const [form] = Form.useForm();
   const [dates, setDates] = useState({
     fromDate: moment().subtract(1, "years").startOf("year"),
     toDate: moment(),
   });
+  const [varReport, setVarReport] = useState();
+  const [typeReport, setTypeReport] = useState(0);
 
-  const handleDate = (data) => {
-    if (data) {
-      const fromDate = moment(data[0]);
-      const toDate = moment(data[1]);
-      setDates({ fromDate: fromDate, toDate: toDate });
+  useEffect(() => {
+    form.setFieldsValue({
+      Date: [moment(dates.fromDate), moment(dates.toDate)],
+      report: "Báo Cáo Tổng",
+    });
+  
+  }, [])
+
+  const onFinish = (values) => {
+    console.log( values.report);
+    setVarReport(values);
+    if( values.report==='Báo Cáo Tổng'){
+      setTypeReport(1);
+    }else{
+      setTypeReport(0);
+
     }
   };
-  function handleChange(value) {
-    console.log(`selected ${value}`);
-  }
+
   return (
     <div className="report">
-      <h3>Báo Cáo</h3>
-      <div className="w-100 mt-3">
-        <div className="float-left">
-          <RangePicker
-            onChange={handleDate}
-            defaultValue={[moment(dates.fromDate), moment(dates.toDate)]}
-            format={"DD/MM/YYYY"}
-          />
-        </div>
-        <div className="ml-3 float-left">
-          <Select
-            defaultValue="report"
-            style={{ width: 220 }}
-            onChange={handleChange}
-          >
-            <Option value="report">Báo Cáo Tổng</Option>
-            <Option value="report1">Báo Cáo Công Nợ Thu</Option>
-            <Option value="report2">Báo Cáo Công Nợ Chi</Option>
-          </Select>
-        </div>
-        <div className="ml-3 float-left">
-          <Button type="primary" icon={<SearchOutlined />}>
-            Search
-          </Button>
-        </div>
-      </div>
+      <Row>
+        <Col span={24}>
+          <h3>Báo Cáo</h3>
+        </Col>
+
+        <Col span={24} className="mt-3">
+          <Form form={form} onFinish={onFinish} >
+            <div className="float-left">
+              <Form.Item name="Date"  rules={[{ required: true, message: "Vui lòng nhập trường này!" }]}>
+                <RangePicker format={"DD/MM/YYYY"} />
+              </Form.Item>
+            </div>
+            <div className="ml-3 float-left">
+              <Form.Item name="report">
+                <Select style={{ width: 220 }}>
+                  <Option value="Báo Cáo Tổng">Báo Cáo Tổng</Option>
+                  <Option value="Báo Cáo Công Nợ Thu">
+                    Báo Cáo Công Nợ Thu
+                  </Option>
+                  <Option value="Báo Cáo Công Nợ Chi">
+                    Báo Cáo Công Nợ Chi
+                  </Option>
+                </Select>
+              </Form.Item>
+            </div>
+            <div className="ml-3 float-left">
+              <Form.Item>
+                <Button
+                  type="primary"
+                  htmlType="submit"
+                  icon={<SearchOutlined />}
+                >
+                  Search
+                </Button>
+              </Form.Item>
+            </div>
+          </Form>
+        </Col>
+        <Col span={24} className="mt-5 bg-white ">
+          {typeReport === 1 ? <Template1  varReport={varReport}/> : ""}
+        </Col>
+      </Row>
     </div>
   );
 };

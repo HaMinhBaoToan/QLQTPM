@@ -99,7 +99,7 @@ const OrdersDetails = () => {
         <>
           {Order.Order_Status[0] === "Waiting" ? (
             <Button
-              className="my-btn-no-style my-popover-item"
+              className="my-btn-no-style my-popover-item" 
               onClick={() => {
                 let url = `http://localhost:4000/api/orders/${Order.Order_ID}`;
                 axios.put(url, { Order_Status: "Done" }).then((response) => {
