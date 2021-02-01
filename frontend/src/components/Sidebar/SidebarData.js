@@ -2,7 +2,7 @@ import React from "react";
 import * as AiIcons from "react-icons/ai";
 import * as Io5Icons from "react-icons/io5";
 import * as MdIcons from "react-icons/md";
-import * as RiIcons from "react-icons/ri";
+// import * as RiIcons from "react-icons/ri";
 import * as IoIcons from "react-icons/io";
 
 export const SidebarData = [
@@ -15,7 +15,13 @@ export const SidebarData = [
   {
     title: "Menu",
     path: "/orders",
-    icon: <AiIcons.AiOutlineFileText />,
+    icon: <AiIcons.AiOutlineRead />,
+    cName: "nav-text",
+  },
+  {
+    title: "Đơn hàng",
+    path: "/orders-details",
+    icon: <AiIcons.AiOutlineGold />,
     cName: "nav-text",
   },
   {
@@ -45,7 +51,7 @@ export const SidebarData = [
   {
     title: "Báo cáo",
     path: "/reports",
-    icon: <RiIcons.RiCalendarTodoFill />,
+    icon: <AiIcons.AiOutlineLineChart />,
     cName: "nav-text",
   },
   {

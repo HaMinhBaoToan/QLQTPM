@@ -35,7 +35,7 @@ const Orders = () => {
       Order_EmployeesID: 1,
       Order_Description: Phone,
       Order_Name: Name,
-      Order_Status: "Done",
+      Order_Status: "Waiting",
       Order_OrderDate: dateFormat(new Date(), "yyyy-mm-dd HH:MM:ss"),
       Order_Discount: 0,
       Order_BranchID: 1,
@@ -155,7 +155,7 @@ const Orders = () => {
         </Col>
         <Col span={7}>
           <div className="cart-detail">
-            <div className="title">Hoá Đơn</div>
+            <div className="title">Hoá Đơn</div>  
             <div>
               <Input
                 addonBefore="Họ và Tên:     "

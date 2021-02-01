@@ -9,6 +9,11 @@ router.get("/", async function (req, res) {
 
   res.json(list);
 });
+router.get("/users", async function (req, res) {
+  const list = await orderModel.allUser();
+
+  res.json(list);
+});
 
 router.get("/:id", async function (req, res) {
   const id = req.params.id || 0;
@@ -20,7 +25,16 @@ router.get("/:id", async function (req, res) {
 
   res.json(order);
 });
+router.get("/:id/details", async function (req, res) {
+  const id = req.params.id || 0;
+  const order_detail = await orderModel.detail(id);
 
+  if (order_detail === null) {
+    res.status(204).end(); // no content
+  } else {
+    res.json(order_detail);
+  }
+});
 router.post("/", async function (req, res) {
   const order = req.body;
   const id_list = await orderModel
@@ -31,10 +45,8 @@ router.post("/", async function (req, res) {
       res.status(201).json(order); // created
     })
     .catch(function (error) {
-        res.status(500).json(error);
+      res.status(500).json(error);
     });
-
-  
 });
 
 router.delete("/:id", async function (req, res) {
@@ -50,11 +62,11 @@ router.delete("/:id", async function (req, res) {
   });
 });
 
-router.put("/:id", async function (req, res) {
+router.put("/:id",  function (req, res) {
   const id = req.params.id;
   const order = req.body;
-
-  await orderModel.update(id, order);
+  console.log(order);
+   orderModel.update(id, order);
 
   res.json({
     message: "update success",

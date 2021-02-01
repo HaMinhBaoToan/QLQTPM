@@ -47,7 +47,7 @@ const Categories = () => {
     },
     {
       title: "Cập nhật bởi",
-      dataIndex: "User_Name",
+      dataIndex: "User_FullName",
       align: "center",
       width: 100,
     },
@@ -105,7 +105,7 @@ const Categories = () => {
             response.data[i].Categorie_UpdateDate,
             "dd-mm-yyyy   ( HH:MM:ss ) "
           ),
-          User_Name: response.data[i].User_Name,
+          User_FullName: response.data[i].User_FullName,
         });
       }
       setDatatableOut(data);

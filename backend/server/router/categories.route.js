@@ -23,7 +23,7 @@ router.put("/:id", async function (req, res) {
   delete categorie.Categorie_ID;
 
   delete categorie.Categorie_UpdateDate;
-  delete categorie.User_Name;
+  delete categorie.User_FullName;
   console.log(id);
   console.log(categorie);
 

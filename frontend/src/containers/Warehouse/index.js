@@ -11,7 +11,7 @@ import './warehouse.scss';
 var dateFormat = require('dateformat');
 const { TabPane } = Tabs;
 const Warehouse = () => {
-  const [dataReponse, setdataReponse] = useState([]);
+  // const [dataReponse, setdataReponse] = useState([]);
   const [datatable, setDatatable] = useState([]);
   const [datatableTemp, setDatatableTemp] = useState([]);
 
@@ -49,7 +49,7 @@ const Warehouse = () => {
       }
       setDatatable(data);
       setDatatableTemp(data);
-      setdataReponse(response.data);
+      // setdataReponse(response.data);
     });
   };
   useEffect(() => {

@@ -5,6 +5,18 @@ module.exports = {
     all(){
         return db('orders');
     },
+    allUser(){
+        return db('orders').leftJoin('users', 'orders.Order_EmployeesID', '=', 'users.User_ID');
+    },
+    async detail(id){
+        const orders = await db('orders_details').leftJoin('products', 'orders_details.ProductID', '=', 'products.Product_ID').where('orders_details.OrderId', id);
+
+        if(orders.length === 0){
+            return null
+        }
+        return orders;
+    },
+
 
     async single(id){
         const orders = await db('orders').where('Order_Id', id);
@@ -24,8 +36,8 @@ module.exports = {
         return db('orders').where('Order_ID', id).del()
     },
 
-    update(id, order){
-        return db('orders').where('Order_ID', id).update(order)
+    async update(id, order){
+        return await db('orders').where('Order_ID', id).update(order)
     },
 
     getDataOverview(fromDate, toDate) {
