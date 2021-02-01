@@ -103,9 +103,9 @@ const OrdersDetails = () => {
               onClick={() => {
                 let url = `http://localhost:4000/api/orders/${Order.Order_ID}`;
                 axios.put(url, { Order_Status: "Done" }).then((response) => {
-                  APIgetAllOrders();
-
-                  console.log(response.data);
+                  setTimeout(() => {
+                    APIgetAllOrders();
+                  },50)
                 });
               }}
             >
@@ -160,7 +160,6 @@ const OrdersDetails = () => {
     axios
       .get(url)
       .then((response) => {
-        console.log(response.data);
         const data = [];
         for (let i = response.data.length - 1; i >= 0; i--) {
           data.push({
@@ -194,6 +193,8 @@ const OrdersDetails = () => {
     console.log(values);
     setVisibleModalView(false);
   };
+
+  console.log('render', datatableTemp);
   return (
     <div className="orders-details">
       <h3 style={{ margin: "16px" }}>Đơn hàng đã bán</h3>
