@@ -3,7 +3,7 @@ import "antd/dist/antd.css";
 import "./App.scss";
 import "./assets/css/global.scss";
 import React, { useState } from "react";
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import { BrowserRouter as Router, Switch, Route, Redirect } from "react-router-dom";
 import Sidebar from "./components/Sidebar/index";
 import Dashboard from "./containers/DashBoard";
 import Orders from "./containers/Orders";
@@ -17,13 +17,19 @@ import { AppContext } from "./utils/AppContext";
 import Products from "./containers/Products";
 import Cusomters from './containers/Customers';
 import Employees from './containers/Employees';
+import Login from './components/Login/index';
 
 const { Header, Sider, Content } = Layout;
 
 function App() {
   const [collapsed, setCollapsed] = useState(false);
+  const [accessToken, setAccessToken] = useState();
 
   const handleCollapsed = () => setCollapsed(!collapsed);
+
+  if(!accessToken) {
+    return <Login setAccessToken={setAccessToken} />
+  }
 
   return (
     <AppContext.Provider value={""}>
@@ -48,6 +54,7 @@ function App() {
               </Header>
               <Content>
                 <Switch>
+                  <Route path='/login' component={Login} />
                   <Route path="/orders">
                     <Orders />
                   </Route>
