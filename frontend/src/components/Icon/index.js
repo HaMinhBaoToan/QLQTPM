@@ -1,5 +1,5 @@
-import React from 'react';
-import AntIcon from '@ant-design/icons';
+import React from "react";
+import AntIcon from "@ant-design/icons";
 
 const Icon = ({ component, ...rest }) => {
   return <AntIcon component={component} {...rest} />;
@@ -117,5 +117,15 @@ export const IconCustom = {
         </g>
       </g>
     </svg>
-  )
+  ),
+  abc: () => (
+    <svg version="1.1" width="16" height="16" viewBox="0 0 1024 1024">
+    <title>check</title>
+    <g id="icomoon-ignore">
+    </g>
+    <path fill="#3bb54a" d="M512.001 0.002c282.768 0 511.999 229.23 511.999 511.999s-229.23 511.999-511.999 511.999-511.999-229.23-511.999-511.999v0c-0.805-281.966 227.12-511.194 509.084-511.999 0.972-0.003 1.943-0.003 2.915 0z"></path>
+    <path fill="#d4e1f4" d="M795.636 370.909l-363.635 363.635-203.636-202.18 82.91-81.454 120.726 119.273 280.728-280.728z"></path>
+    </svg>
+    
+  ),
 };
