@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Table, Tag, Popover, Button } from 'antd';
 import Icon, { IconCustom } from '../../components/Icon';
 import { InputSearch } from '../../components/Input';
 import './styles.scss';
+import axios from 'axios';
 
 const columns = [
   {
@@ -118,6 +119,37 @@ const rowSelection = {
 };
 
 const Cusomters = () => {
+
+  const [customers, setCustomers] = useState([]);
+
+  const getCustomers = () => {
+    let url = "http://localhost:4000/api/users";
+    axios.get(url, {params: {role: 'Customer'}}).then(({data}) => {
+      const result = [];
+        // data.forEach((element) => {
+        //   const {
+        //     User_ID,
+        //     User_FullName,
+        //     User_Email,
+        //     User_Mobile,
+        //     Role_Name,
+        //   } = element;
+        //   result.push({
+        //     User_ID,
+        //     User_FullName,
+        //     User_Email,
+        //     User_Mobile,
+        //     Role_Name,
+        //   });
+        // });
+        setCustomers(result);
+    });
+  };
+  
+  useEffect(() => {
+    getCustomers();
+  }, []);
+
   return (
     <div className="customer">
       <h3>Khách hàng</h3>
@@ -134,7 +166,7 @@ const Cusomters = () => {
         style={{ paddingTop: '30px' }}
         rowSelection={rowSelection}
         columns={columns}
-        dataSource={data}
+        dataSource={customers}
         rowKey="name"
       />
     </div>
