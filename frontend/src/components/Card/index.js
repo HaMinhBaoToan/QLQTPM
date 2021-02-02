@@ -13,6 +13,16 @@ const cardInfo = [
   },
 ];
 
+const cardInfo2 = [
+  {
+    color: '#8BC34A',
+    title: 'Tổng giá trị',
+  },
+  {
+    color: '#D32F2F',
+    title: 'Số tiền chi',
+  },
+];
 const CardComponent = ({ amount, totalItems, index }) => {
   return (
     <Card className="card" style={{ backgroundColor: cardInfo[index].color }}>
@@ -21,7 +31,7 @@ const CardComponent = ({ amount, totalItems, index }) => {
         <h2>{formatNumber(totalItems)}</h2>
       </div>
       <div>
-        <h5>Tổng giá trị</h5>
+        <h5>{cardInfo2[index].title}</h5>
         <h2>{formatNumber(amount)}</h2>
       </div>
     </Card>

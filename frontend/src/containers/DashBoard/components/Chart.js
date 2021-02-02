@@ -10,6 +10,7 @@ import {
   ResponsiveContainer,
   Legend,
 } from 'recharts';
+import {  formatNumber } from '../../../utils';
 
 // const data = [
 //   { name: 'Tháng 1', profit: 10000, revenue: 40000 },
@@ -27,7 +28,7 @@ import {
 // ];
 
 const renderLineChart = ({chartData}) => {
-
+  
   const customTooltip = ({ payload, label, active }) => {
     if (active && payload?.length) {
       return (
@@ -39,7 +40,7 @@ const renderLineChart = ({chartData}) => {
           </p> */}
           <p className="revenue">
             <span className="dot" style={{ background: payload[0]?.color }} />
-            {`Lợi nhuận : ${payload[0]?.value?.toLocaleString()}`}
+            {`Lợi nhuận : ${formatNumber(payload[0]?.value)} đ`}
           </p>
         </div>
       );

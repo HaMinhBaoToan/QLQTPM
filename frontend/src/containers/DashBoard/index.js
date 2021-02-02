@@ -11,16 +11,19 @@ const { RangePicker } = DatePicker;
 
 const Dashboard = () => {
   const [data, setData] = useState({infor: [], chartData: [], topItemsData: []});
-  const [dates, setDates] = useState({fromDate: moment().startOf('year'), toDate: moment().endOf('year')});
+  const [dates, setDates] = useState({fromDate: moment("20201201"), toDate: moment()});
 
   useEffect(() => {
-    let url =`http://localhost:4000/api/dashboard?fromDate=${formatDate(dates.fromDate)}&toDate=${formatDate(dates.toDate)}`;
+    // console.log(formatDate(dates.toDate.add(1, 'days')))
+    let url =`http://localhost:4000/api/dashboard?fromDate=${formatDate(dates.fromDate)}&toDate=${formatDate(dates.toDate.add(1, 'days'))}`;
     axios.get(url).then((response) => {
       setData(response.data);
     });
   }, [dates]);
 
   const handleDate = (data) => {
+   if(data)
+   {
     const fromDate = moment(data[0]);
     const toDate = moment(data[1]);
     let url =`http://localhost:4000/api/dashboard?fromDate=${formatDate(fromDate)}&toDate=${formatDate(toDate)}`;
@@ -28,6 +31,7 @@ const Dashboard = () => {
       setData(response.data);
       setDates({fromDate, toDate})
     });
+   }
   }
 
   return (

@@ -14,7 +14,7 @@ const Report = () => {
     content: () => componentRef.current,
   });
   const [dates, setDates] = useState({
-    fromDate: moment("20201001"),
+    fromDate: moment("20210101"),
     toDate: moment(),
   });
   const [varReport, setVarReport] = useState();

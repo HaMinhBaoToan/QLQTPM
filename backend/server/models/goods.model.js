@@ -1,15 +1,18 @@
 const db = require("../utils/db");
 
 module.exports = {
-  getDataDashboard() {
-    return db("goods").select(
-      db.raw("sum(??) as ??", ["Goods_Quantity", "totalItems"]),
+  getDataDashboard(fromDate, toDate) {
+    return db("goods")
+    .whereBetween('goods.Goods_ImportDate', [fromDate, toDate])
+    .leftJoin('useds', 'useds.Used_Goods_ID', '=', 'goods.Goods_ID')
+    .select(
+      db.raw("sum(??)-sum(??) as ??", ["goods.Goods_Quantity", "useds.Used_Quantity","totalItems"]),
       db.raw("sum(?? * ??) as ??", [
         "Goods_Quantity",
         "Goods_UnitCost",
         "amount",
       ])
-    );
+    )   
   },
   // all() {
   //   return db("goods")
