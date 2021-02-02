@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { Row, Col, Table, Tag } from 'antd';
+import {  Table, Tag } from 'antd';
 import _ from 'lodash';
 import { WarehouseContext } from '../../../utils/AppContext';
 import { InputSearch } from '../../../components/Input';
@@ -112,14 +112,14 @@ const columns = [
 ];
 
 const WarehouseHome = () => {
-  const { datatableTemp } = useContext(WarehouseContext);
+  const { datatableTemp,txt_Changed } = useContext(WarehouseContext);
 
   return (
     <div>
       <div className="w-100 search">
         <InputSearch
           placeholder="Mã sản phẩm, tên sản phẩm"
-          onChange={() => {}}
+          onChange={(e) => txt_Changed(e)}
         />
       </div>
       <Table

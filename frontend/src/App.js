@@ -4,19 +4,23 @@ import "./App.scss";
 import "./assets/css/global.scss";
 import React, { useState } from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-import Sidebar from "./components/Sidebar/index";
-import Dashboard from "./containers/DashBoard";
-import Orders from "./containers/Orders";
-import Warehouse from "./containers/Warehouse";
 import { Layout } from "antd";
 import AntIcon, {
   MenuUnfoldOutlined,
   MenuFoldOutlined,
 } from "@ant-design/icons";
 import { AppContext } from "./utils/AppContext";
+
+import Sidebar from "./components/Sidebar/index";
+import Dashboard from "./containers/DashBoard";
+import Orders from "./containers/Orders";
+import OrdersDetails from "./containers/Orders_details";
+
+import Warehouse from "./containers/Warehouse";
 import Products from "./containers/Products";
-import Cusomters from './containers/Customers';
-import Employees from './containers/Employees';
+import Cusomters from "./containers/Customers";
+import Employees from "./containers/Employees";
+import Report from "./containers/Report/Report";
 
 const { Header, Sider, Content } = Layout;
 
@@ -58,13 +62,16 @@ function App() {
                     <Products />
                   </Route>
                   <Route path="/customers">
-                    <Cusomters/>
+                    <Cusomters />
                   </Route>
                   <Route path="/employees">
-                    <Employees/>
+                    <Employees />
                   </Route>
                   <Route path="/reports">
-                    <h3>This page is updating !</h3>
+                    <Report />
+                  </Route>
+                  <Route path="/orders-details">
+                    <OrdersDetails />
                   </Route>
                   <Route path="/">
                     <Dashboard />

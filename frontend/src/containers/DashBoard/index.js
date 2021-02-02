@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import moment from 'moment';
-import { DatePicker } from 'antd';
-import { Row, Col } from 'antd';
+import { DatePicker , Row, Col } from 'antd';
 import './styles.scss';
 import CardComponent from '../../components/Card';
 import LineChart from './components/Chart';

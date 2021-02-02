@@ -23,7 +23,7 @@ router.put("/:id", async function (req, res) {
   delete categorie.Categorie_ID;
 
   delete categorie.Categorie_UpdateDate;
-  delete categorie.User_Name;
+  delete categorie.User_FullName;
   console.log(id);
   console.log(categorie);
 
@@ -39,10 +39,14 @@ router.delete("/:id", async function (req, res) {
     return res.status(304).end();
   }
 
-  await categoriesModel.delete(id);
+  await categoriesModel.delete(id).then((result) => {
+    res.json({
+      message: "delete success",
+    });
+  }).catch((err) => {
+    res.status(500).json(err);
+  });;
 
-  res.json({
-    message: "delete success",
-  });
+  
 });
 module.exports = router;

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Row, Col, Table, Button, notification,Modal } from "antd";
+import { Table, Button, notification, Modal } from "antd";
 import {
   EyeInvisibleOutlined,
   EyeOutlined,
@@ -14,8 +14,6 @@ var dateFormat = require("dateformat");
 const { confirm } = Modal;
 
 const Categories = () => {
-  //   const { APIgetAllProduct } = useContext(WarehouseContext);
-
   const [datatableOut, setDatatableOut] = useState([]);
   const [visibleModalEdit, setVisibleModalEdit] = useState(false);
   const [visibleModalAdd, setVisibleModalAdd] = useState(false);
@@ -24,7 +22,7 @@ const Categories = () => {
     {
       title: "Mã danh mục",
       dataIndex: "Categorie_ID",
-      width: 250,
+      width: 200,
       align: "center",
       sorter: {
         compare: (a, b) => a.Categorie_ID - b.Categorie_ID,
@@ -34,18 +32,29 @@ const Categories = () => {
     {
       title: "Tên danh mục",
       dataIndex: "Categorie_Name",
-      width: 250,
+      width: 200,
       align: "center",
       sorter: {
         compare: (a, b) => a.Categorie_Name.length - b.Categorie_Name.length,
         multiple: 3,
       },
     },
-
+    {
+      title: "Cập nhật lần cuối",
+      dataIndex: "Categorie_UpdateDate",
+      width: 200,
+      align: "center",
+    },
+    {
+      title: "Cập nhật bởi",
+      dataIndex: "User_FullName",
+      align: "center",
+      width: 100,
+    },
     {
       title: "Ẩn/Hiện danh mục",
       dataIndex: "Categorie_IsActive",
-      width: 200,
+      width: 100,
       align: "center",
       render: (Categorie_IsActive, Categories) => (
         <>
@@ -69,21 +78,10 @@ const Categories = () => {
     },
 
     {
-      title: "Cập nhật lần cuối",
-      dataIndex: "Categorie_UpdateDate",
-      align: "center",
-    },
-    {
-      title: "Cập nhật bởi",
-      dataIndex: "User_Name",
-      align: "center",
-    },
-    {
       title: "Xoá",
+      width: 100,
       dataIndex: "Categorie_Delete",
       align: "center",
-      width: 100,
-
       render: (Categorie_Delete, Categories) => (
         <Button
           style={{ background: "#ff4d4f", fontWeight: "bold" }}
@@ -107,7 +105,7 @@ const Categories = () => {
             response.data[i].Categorie_UpdateDate,
             "dd-mm-yyyy   ( HH:MM:ss ) "
           ),
-          User_Name: response.data[i].User_Name,
+          User_FullName: response.data[i].User_FullName,
         });
       }
       setDatatableOut(data);
@@ -156,14 +154,14 @@ const Categories = () => {
   };
   const openNotificationWithIcon = (type, message) => {
     notification[type]({
-      message: "Hoàn Tất",
-      description: message,
+      message: message,
+      // description: message,
     });
   };
   const onCreateAdd = (values) => {
     values.Categorie_IsActive = 1;
-    values.Categorie_CreateUserID =1;
-    values.Categorie_UpdateUserID=1;
+    values.Categorie_CreateUserID = 1;
+    values.Categorie_UpdateUserID = 1;
     console.log(values);
     const URL = `http://localhost:4000/api/categories/`;
     axios
@@ -180,7 +178,6 @@ const Categories = () => {
   };
 
   function showDeleteConfirm(Categories) {
-    console.log(Categories);
     confirm({
       title: `Bạn có chắc muốn xoá món ${Categories.Categorie_Name} ?`,
       icon: <ExclamationCircleOutlined />,
@@ -198,16 +195,20 @@ const Categories = () => {
             console.log(response);
           })
           .catch(function (error) {
+            openNotificationWithIcon(
+              "error",
+              "bạn không thể xoá danh mục có sản phẩm"
+            );
+
             console.log("ERROR from server:", error);
           });
-        console.log("OK");
       },
       onCancel() {},
     });
   }
 
   return (
-    <div>
+    <>
       <Button
         type="primary"
         onClick={() => {
@@ -216,6 +217,7 @@ const Categories = () => {
       >
         + Thêm danh mục
       </Button>
+
       <ModalAdd
         visibleModalAdd={visibleModalAdd}
         onCreateAdd={onCreateAdd}
@@ -223,17 +225,14 @@ const Categories = () => {
           setVisibleModalAdd(false);
         }}
       />
-      <Row style={{ paddingTop: "30px" }}>
-        <Col>
-          <Table
-            size="small"
-            columns={columns}
-            dataSource={datatableOut}
-            scroll={{ x: 1700 }}
-          />
-        </Col>
-      </Row>
-    </div>
+      <Table
+        style={{ paddingTop: "30px" }}
+        size="small"
+        columns={columns}
+        dataSource={datatableOut}
+        scroll={{ x: 768 }}
+      />
+    </>
   );
 };
 export default Categories;

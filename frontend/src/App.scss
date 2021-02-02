@@ -66,7 +66,9 @@ user-select: none;
   .product-container,
   .orders,
   .warehouse,
-  .employees {
+  .employees,
+  .orders-details,
+  .report {
     text-align: left;
     background-color: $purple-light;
     padding: 2rem;
@@ -134,3 +136,12 @@ user-select: none;
   }
 }
 
+.active-navlink{
+  background: #212a3e;
+}
+
+span {
+  svg{
+    vertical-align: baseline;
+  }
+}

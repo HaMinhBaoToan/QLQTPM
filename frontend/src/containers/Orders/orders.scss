@@ -39,6 +39,7 @@
     }
   }
   .product-price-old {
+    text-align: center;
     text-decoration-line: line-through;
     &::after {
       content: " vnđ";
