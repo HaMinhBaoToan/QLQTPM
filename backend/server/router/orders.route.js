@@ -9,6 +9,22 @@ router.get("/", async function (req, res) {
 
   res.json(list);
 });
+
+router.get("/details", async function (req, res) {
+  const { fromDate, toDate } = req.query 
+
+ const list = await orderModel.getDataReport_Order(fromDate,toDate);
+
+  res.json(list);
+});
+
+router.get("/top", async function (req, res) {
+  const { fromDate, toDate } = req.query 
+
+ const list = await orderModel.getDataReport_Top(fromDate,toDate);
+
+  res.json(list);
+});
 router.get("/users", async function (req, res) {
   const list = await orderModel.allUser();
 

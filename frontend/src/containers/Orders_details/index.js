@@ -26,7 +26,7 @@ const OrdersDetails = () => {
     {
       title: "Tên khách đặt món",
       dataIndex: "Order_Name",
-      width: 200,
+      width: 250,
       align: "center",
     },
     {
@@ -44,7 +44,7 @@ const OrdersDetails = () => {
     {
       title: "Ngày đặt",
       dataIndex: "Order_OrderDate",
-      width: 200,
+      width: 250,
       align: "center",
     },
     {
@@ -68,8 +68,6 @@ const OrdersDetails = () => {
       dataIndex: "Order_Status",
       width: 200,
       align: "center",
-      key: "Order_Status",
-
       render: (Order_Status, Order) => (
         <>
           {Order_Status.map((tag) => {
@@ -99,18 +97,49 @@ const OrdersDetails = () => {
         <>
           {Order.Order_Status[0] === "Waiting" ? (
             <Button
-              className="my-btn-no-style my-popover-item" 
+              className="my-btn-no-style my-popover-item"
+              style={{ background: "#52c41a" }}
               onClick={() => {
                 let url = `http://localhost:4000/api/orders/${Order.Order_ID}`;
                 axios.put(url, { Order_Status: "Done" }).then((response) => {
                   setTimeout(() => {
                     APIgetAllOrders();
-                  },50)
+                  }, 50);
                 });
               }}
             >
-              <Icon component={IconCustom.abc} className="my-icon-md" />
-              Xác nhận đơn hàng
+              <Icon component={IconCustom.Check} className="my-icon-md" />
+              Xác nhận
+            </Button>
+          ) : (
+            ""
+          )}
+        </>
+      ),
+    },
+    {
+      title: "Huỷ",
+      dataIndex: "Order_Cancel",
+      width: 150,
+      align: "center",
+      className: "actions",
+      render: (Order_Details, Order) => (
+        <>
+          {Order.Order_Status[0] === "Waiting" ? (
+            <Button
+              className="my-btn-no-style my-popover-item"
+              style={{ background: "#f5222d" }}
+              onClick={() => {
+                let url = `http://localhost:4000/api/orders/${Order.Order_ID}`;
+                axios.put(url, { Order_Status: "Cancel" }).then((response) => {
+                  setTimeout(() => {
+                    APIgetAllOrders();
+                  }, 50);
+                });
+              }}
+            >
+              <Icon component={IconCustom.Cancel} className="my-icon-md" />
+              Huỷ
             </Button>
           ) : (
             ""
@@ -194,7 +223,7 @@ const OrdersDetails = () => {
     setVisibleModalView(false);
   };
 
-  console.log('render', datatableTemp);
+  console.log("render", datatableTemp);
   return (
     <div className="orders-details">
       <h3 style={{ margin: "16px" }}>Đơn hàng đã bán</h3>

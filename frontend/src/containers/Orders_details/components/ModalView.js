@@ -68,7 +68,7 @@ const ModalForm = ({ visibleModalView, onCreate, onCancel, orderModal }) => {
         compare: (a, b) => a.Order_ID - b.Order_ID,
         multiple: 3,
       },
-      render: ( Order) => (
+      render: (Product_Price, Order) => (
         <>{formatNumber(Order.Quantity * Order.Product_NewPrice) + " đ"}</>
       ),
     },

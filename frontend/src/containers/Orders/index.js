@@ -12,18 +12,22 @@ const Orders = () => {
   const [Name, setName] = useState("");
   const [Phone, setPhone] = useState("");
   const clearState = () => {
-    setName("toan");
-    setPhone("TOAN");
+    setName("temp");
+    setPhone("123");
     setProducts({});
     let url = "http://localhost:4000/api/orders";
     axios.get(url).then((response) => {
-      SetSoHD(response.data[response.data.length - 1].Order_ID + 1);
+      if (response.data.length) {
+        SetSoHD(response.data[response.data.length - 1].Order_ID + 1);
+      }
     });
   };
   useEffect(() => {
     let url = "http://localhost:4000/api/orders";
     axios.get(url).then((response) => {
-      SetSoHD(response.data[response.data.length - 1].Order_ID + 1);
+      if (response.data.length) {
+        SetSoHD(response.data[response.data.length - 1].Order_ID + 1);
+      }
     });
   }, []);
 
@@ -147,7 +151,7 @@ const Orders = () => {
 
   return (
     <div className="orders loading">
-      <h3 style={{margin:"16px"}}>Menu</h3>
+      <h3 style={{ margin: "16px" }}>Menu</h3>
       <Row>
         <Col span={17}>
           <Products handleAdd={handleAdd} />
@@ -155,15 +159,18 @@ const Orders = () => {
         </Col>
         <Col span={7}>
           <div className="cart-detail">
-            <div className="title">Hoá Đơn</div>  
+            <div className="title">Hoá Đơn</div>
             <div>
               <Input
                 addonBefore="Họ và Tên:     "
+
+                value={Name}
                 disabled={_.isEmpty(products)}
                 onChange={(e) => setName(e.target.value)}
               />
               <Input
                 addonBefore="SĐT:            "
+                value={Phone}  
                 disabled={_.isEmpty(products)}
                 onChange={(e) => setPhone(e.target.value)}
                 type="number"

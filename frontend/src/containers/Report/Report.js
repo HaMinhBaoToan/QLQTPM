@@ -1,16 +1,20 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { DatePicker, Select, Button, Row, Col, Form } from "antd";
-import { SearchOutlined } from "@ant-design/icons";
+import { SearchOutlined, PrinterOutlined } from "@ant-design/icons";
 import moment from "moment";
+import { useReactToPrint } from "react-to-print";
 import { formatDate, formatNumber } from "../../utils/index";
 import Template1 from "./components/Template1";
-
 const { RangePicker } = DatePicker;
 const { Option } = Select;
 const Report = () => {
   const [form] = Form.useForm();
+  const componentRef = useRef();
+  const handlePrint = useReactToPrint({
+    content: () => componentRef.current,
+  });
   const [dates, setDates] = useState({
-    fromDate: moment().subtract(1, "years").startOf("year"),
+    fromDate: moment("20201001"),
     toDate: moment(),
   });
   const [varReport, setVarReport] = useState();
@@ -21,31 +25,34 @@ const Report = () => {
       Date: [moment(dates.fromDate), moment(dates.toDate)],
       report: "Báo Cáo Tổng",
     });
-  
-  }, [])
+  }, []);
 
   const onFinish = (values) => {
-    console.log( values.report);
+    console.log(values.report);
     setVarReport(values);
-    if( values.report==='Báo Cáo Tổng'){
+    if (values.report === "Báo Cáo Tổng") {
       setTypeReport(1);
-    }else{
+    } else {
       setTypeReport(0);
-
     }
   };
 
   return (
-    <div className="report">
+    <div className="report" ref={componentRef}>
       <Row>
         <Col span={24}>
           <h3>Báo Cáo</h3>
         </Col>
 
         <Col span={24} className="mt-3">
-          <Form form={form} onFinish={onFinish} >
+          <Form form={form} onFinish={onFinish}>
             <div className="float-left">
-              <Form.Item name="Date"  rules={[{ required: true, message: "Vui lòng nhập trường này!" }]}>
+              <Form.Item
+                name="Date"
+                rules={[
+                  { required: true, message: "Vui lòng nhập trường này!" },
+                ]}
+              >
                 <RangePicker format={"DD/MM/YYYY"} />
               </Form.Item>
             </div>
@@ -75,8 +82,13 @@ const Report = () => {
             </div>
           </Form>
         </Col>
-        <Col span={24} className="mt-5 bg-white ">
-          {typeReport === 1 ? <Template1  varReport={varReport}/> : ""}
+
+        <Col span={24} className="bg-white ">
+          {typeReport === 1 ? (
+            <Template1  varReport={varReport} />
+          ) : (
+            ""
+          )}
         </Col>
       </Row>
     </div>

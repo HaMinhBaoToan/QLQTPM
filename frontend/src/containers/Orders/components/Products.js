@@ -14,7 +14,6 @@ const Products = ({ handleAdd }) => {
     let url = "http://localhost:4000/api/products/where";
     axios.get(url).then((response) => {
       // setProducts(response.data);
-      console.log(response.data);
       setProducts(sortByKey(response.data, "Product_Name"));
       setproductsTemp(sortByKey(response.data, "Product_Name"));
     });

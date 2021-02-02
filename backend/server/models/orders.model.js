@@ -51,7 +51,36 @@ module.exports = {
                 )
                 .groupBy('orders.Order_ID')
     },
-
+    getDataReport_Order(fromDate, toDate) {
+        return db('orders')
+                .whereBetween('Order_OrderDate', [fromDate, toDate])
+                .where("orders.Order_Status","=","Done")
+                .leftJoin('orders_details', 'orders.Order_ID', '=', 'orders_details.OrderID')
+                .leftJoin('products', 'orders_details.ProductID', '=', 'products.Product_ID')
+                .select(
+                    db.raw('orders.Order_ID'),
+                    db.raw('orders.Order_Name'),
+                    db.raw('sum(??) as ??', ['orders_details.Quantity', 'ItemSum']),
+                    db.raw('sum(?? * ??) as ??', ['products.Product_CostPrice', 'orders_details.Quantity', 'Amount'])
+                )
+                .groupBy('orders_details.OrderID')
+    },
+    getDataReport_Top(fromDate, toDate) {
+        return db('orders')
+                .whereBetween('Order_OrderDate', [fromDate, toDate])
+                .where("orders.Order_Status","=","Done")
+                .leftJoin('orders_details', 'orders.Order_ID', '=', 'orders_details.OrderID')
+                .leftJoin('products', 'orders_details.ProductID', '=', 'products.Product_ID')
+                .select(
+                    db.raw('products.Product_Name'),
+                    db.raw('sum(??) as ??', ['orders_details.Quantity', 'ItemSum']),
+                    db.raw('sum(?? * ??) as ??', ['products.Product_CostPrice', 'orders_details.Quantity', 'Amount'])
+                )
+                .groupBy('orders_details.ProductID')
+                .orderBy('ItemSum','desc')
+                .limit(10)
+    },
+    
     getTopItems(fromDate, toDate) {
         return db('orders')
                 .whereBetween('Order_OrderDate', [fromDate, toDate])
