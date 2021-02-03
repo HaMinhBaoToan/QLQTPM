@@ -5,8 +5,10 @@ module.exports = {
         return db('users');
     },
 
-    getUsers(role) {
-        return db("users").join('roles', {'roles.Role_ID': 'users.User_Role'}).whereIn('Role_Name', role);
+    getUsers(role, search) {
+        return db("users").join('roles', {'roles.Role_ID': 'users.User_Role'}).whereIn('Role_Name', role).andWhere(function() {
+            this.where('User_FullName', 'like', `%${search}%`).orWhere('User_Mobile', 'like', `%${search}%`)
+          });
     },
 
     async single(user_id){
