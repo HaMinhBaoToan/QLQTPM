@@ -14,6 +14,11 @@ module.exports = {
       ])
     )   
   },
+  goodsUsed(fromDate, toDate) {
+    return db("goods")
+    .whereBetween('goods.Goods_ImportDate', [fromDate, toDate])
+    
+  },
   // all() {
   //   return db("goods")
   //     .select("*")

@@ -8,7 +8,11 @@ router.get("/", async function (req, res) {
 
   res.json(list);
 });
-
+router.get("/useds", async function (req, res) {
+  const { fromDate, toDate } = req.query || {};
+  const inforGoods = await goodsModel.goodsUsed(fromDate, toDate);
+  res.json(inforGoods);
+});
 router.post("/", async function (req, res) {
   const goods = req.body;
   const id_list = await goodsModel

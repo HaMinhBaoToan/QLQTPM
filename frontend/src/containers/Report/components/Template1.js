@@ -5,6 +5,8 @@ import axios from "axios";
 import { formatDate, formatNumber } from "../../../utils";
 import { useReactToPrint } from "react-to-print";
 import { PrinterOutlined } from "@ant-design/icons";
+import Chart from './Chart'
+
 
 import moment from "moment";
 const { Text } = Typography;
@@ -21,9 +23,33 @@ const Template1 = ({ varReport }) => {
     totalItem: 0,
     totalPrice: 0,
   });
+  const [dataTableGoods, setdataTableGoods] = useState([]);
+  const [summaryGoods, setsummaryGoods] = useState({
+    totalItem: 0,
+    totalPrice: 0,
+  });
   const handlePrint = useReactToPrint({
     content: () => componentRef.current,
   });
+
+  const columnsTopProduct = [
+    {
+      title: <strong>Top</strong>,
+      align: "center",
+      dataIndex: "STT",
+    },
+    {
+      title: <strong>Sản phẩm </strong>,
+      dataIndex: "Product_Name",
+      key: "Product_Name",
+      align: "center",
+    },
+    {
+      title: <strong>Số lượng</strong>,
+      align: "center",
+      dataIndex: "ItemSum",
+    },
+  ];
   const columnsOrder = [
     {
       title: <strong>Ngày</strong>,
@@ -35,17 +61,13 @@ const Template1 = ({ varReport }) => {
           dataIndex: "DATE",
           key: "DATE",
           align: "center",
-
           colSpan: 1,
-          render: (Order_OrderDate) => (
-            <>{moment(Order_OrderDate).format("DD/MM/YYYY")}</>
-          ),
         },
       ],
     },
 
     {
-      title: <strong>Số lượng mua</strong>,
+      title: <strong>Số lượng bán</strong>,
       colSpan: 1,
       align: "center",
       children: [
@@ -85,25 +107,64 @@ const Template1 = ({ varReport }) => {
     },
   ];
 
-  const columnsTopProduct = [
+ 
+  const columnsGoods = [
     {
-      title: <strong>Top</strong>,
+      title: <strong>Ngày</strong>,
+      colSpan: 1,
       align: "center",
-      dataIndex: "STT",
+      children: [
+        {
+          title: <strong>Tổng</strong>,
+          dataIndex: "DATE",
+          key: "DATE`",
+          align: "center",
+          colSpan: 1,
+        },
+      ],
     },
-    {
-      title: <strong>Sản phẩm </strong>,
-      dataIndex: "Product_Name",
-      key: "Product_Name",
-      align: "center",
-    },
-    {
-      title: <strong>Số lượng</strong>,
-      align: "center",
-      dataIndex: "ItemSum",
-    },
-  ];
 
+    {
+      title: <strong>Số lượng mua</strong>,
+      colSpan: 1,
+      align: "center",
+      children: [
+        {
+          title: (
+            <Text type="danger font-weight-bold">
+              {summaryGoods.totalItem} sản phẩm
+            </Text>
+          ),
+          dataIndex: "Goods_Quantity",
+          align: "center",
+
+          key: "Goods_Quantity",
+          colSpan: 1,
+        },
+      ],
+    },
+    {
+      title: <strong>Tồng tiền</strong>,
+      colSpan: 1,
+      align: "center",
+      children: [
+        {
+          title: (
+            <Text type="danger font-weight-bold">
+              {formatNumber(summaryGoods.totalPrice)} đ{" "}
+            </Text>
+          ),
+          dataIndex: "Amount",
+          key: "Amount",
+          align: "center",
+
+          colSpan: 1,
+          render: (Amount) => <>{formatNumber(Amount) + " đ"}</>,
+        },
+      ],
+    },
+   
+  ];
   useEffect(() => {
     const URL_Order = `http://localhost:4000/api/orders/details?fromDate=${formatDate(
       varReport.Date[0]
@@ -111,11 +172,12 @@ const Template1 = ({ varReport }) => {
     const URL_Top = `http://localhost:4000/api/orders/top?fromDate=${formatDate(
       varReport.Date[0]
     )}&toDate=${formatDate(varReport.Date[1])}`;
-
+    const URL_GoosdsUsed = `http://localhost:4000/api/goods/useds?fromDate=${formatDate(
+      varReport.Date[0]
+    )}&toDate=${formatDate(varReport.Date[1])}`;
     axios
       .get(URL_Order)
       .then((result) => {
-        console.log(result.data);
         var temp = result.data;
         let totalItem = 0;
         let totalPrice = 0;
@@ -124,7 +186,11 @@ const Template1 = ({ varReport }) => {
           totalItem += parseInt(ItemSum);
           totalPrice += parseInt(Amount);
         });
-        setdataTableOrder(result.data);
+        var result_temp = temp.map((item, index) => ({
+          ...item,
+          DATE:moment(item.DATE).format("DD/MM/YYYY"),
+        }));
+        setdataTableOrder(result_temp);
         setsummaryOrder({
           ...summaryOrder,
           totalItem: totalItem,
@@ -138,7 +204,6 @@ const Template1 = ({ varReport }) => {
     axios
       .get(URL_Top)
       .then((result) => {
-        console.log(result.data);
         var temp = result.data;
         let totalItem = 0;
         let totalPrice = 0;
@@ -160,6 +225,31 @@ const Template1 = ({ varReport }) => {
       .catch((err) => {
         console.log(err);
       });
+      axios
+      .get(URL_GoosdsUsed)
+      .then((result) => {
+        var temp = result.data;
+        let totalItem = 0;
+        let totalPrice = 0;
+
+        temp.forEach(({ Goods_Quantity, Goods_UnitCost }) => {
+          totalItem += parseInt(Goods_Quantity);
+          totalPrice += parseInt(Goods_UnitCost) * parseInt(Goods_Quantity);
+        });
+        var result_temp = temp.map((item, index) => ({
+          ...item,
+          DATE:moment(item.Goods_ImportDate).format("DD/MM/YYYY"),
+          Amount: parseInt(item.Goods_UnitCost) * parseInt(item.Goods_Quantity),
+          ItemSum:item.Goods_Quantity
+        }));
+        setdataTableGoods(result_temp);
+        setsummaryGoods({
+          ...summaryOrder,
+          totalItem: totalItem,
+          totalPrice: totalPrice,
+        });
+
+      })
   }, [varReport]);
   return (
     <>
@@ -223,6 +313,8 @@ const Template1 = ({ varReport }) => {
           <h5 className="mb-4 font-weight-bold">
             Doanh thu bán hàng
           </h5>
+          <Chart dataTable={dataTableOrder} width={"60%"} height={"25%"}/>
+
           <Table
             columns={columnsOrder}
             pagination={false}
@@ -235,14 +327,18 @@ const Template1 = ({ varReport }) => {
           <h5 className=" mb-4 font-weight-bold">
             Quản lý chi tiêu{" "}
           </h5>
+          <Chart dataTable={dataTableGoods}  width={"60%"} height={"45%"}/>
+
           <Table
-            columns={columnsOrder}
+            columns={columnsGoods}
             pagination={false}
             size="small"
-            dataSource={dataTableOrder}
+            dataSource={dataTableGoods}
             bordered
           />
         </Col>
+
+
         <Col
           offset={8}
           span={6}
@@ -264,6 +360,7 @@ const Template1 = ({ varReport }) => {
             </span>
           </span>
         </Col>
+      
       </Row>
     </>
   );
