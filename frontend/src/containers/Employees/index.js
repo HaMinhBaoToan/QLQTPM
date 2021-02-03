@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { Modal, Table, Tag, Popover, Button } from 'antd';
 import Icon, { IconCustom } from '../../components/Icon';
 import { InputSearch } from '../../components/Input';
 import axios from 'axios';
 import './styles.scss';
-import AddEmployee from './components/AddEdit';
+import AddEditEmployee from './components/AddEdit';
 import { ExclamationCircleOutlined } from '@ant-design/icons';
 
 const { confirm } = Modal;
@@ -34,15 +34,20 @@ const rowSelection = {
 
 const Employees = () => {
   const [employees, setEmployees] = useState([]);
-  const [modalVisible, setModalVisible] = useState({visible: false, isCreate: true});
+  const [modalVisible, setModalVisible] = useState({
+    visible: false,
+    isCreate: true,
+  });
   const [currentEmployee, setCurrentEmployee] = useState({});
+  const [search, setSearch] = useState('');
 
-  const getEmployees = () => {
+  const getEmployees = useCallback(() => {
     let url = 'http://localhost:4000/api/users';
     axios
       .get(url, {
         params: {
           role: ['Owner', 'Manager', 'Employee', 'Accountant'].join(','),
+          search,
         },
       })
       .then(({ data }) => {
@@ -54,23 +59,23 @@ const Employees = () => {
             User_Email: element.User_Email,
             User_Mobile: element.User_Mobile,
             User_Role: element.User_Role,
-            User_Name: element.User_Name
+            User_Name: element.User_Name,
           });
         });
         setEmployees(result);
       });
-  };
+  }, [search]);
 
   useEffect(() => {
     getEmployees();
-  }, []);
+  }, [search, getEmployees]);
 
   const changeVisibleModal = (value) => {
-    setModalVisible({...modalVisible, visible: value});
+    setModalVisible({ ...modalVisible, visible: value });
   };
 
   const updateEmployees = (data) => {
-    if(modalVisible.isCreate) {
+    if (modalVisible.isCreate) {
       setEmployees([...employees, data]);
     } else {
       const filter = employees.filter((obj) => obj.User_ID !== data.User_ID);
@@ -85,7 +90,7 @@ const Employees = () => {
       .delete(URL)
       .then(() => {
         const data = employees.filter((obj) => obj.User_ID !== id);
-        setTimeout(() =>  setEmployees(data), 50);
+        setTimeout(() => setEmployees(data), 50);
       })
       .catch(function (error) {
         console.log('ERROR from server:', error);
@@ -101,15 +106,11 @@ const Employees = () => {
       cancelText: 'Hủy',
       onOk() {
         handleDeleteEmployee(id);
-      }
+      },
     });
-  }
+  };
 
   const columns = [
-    {
-      title: 'Mã NV',
-      dataIndex: 'User_ID',
-    },
     {
       title: 'Tên nhân viên',
       dataIndex: 'User_FullName',
@@ -169,8 +170,8 @@ const Employees = () => {
                 <Button
                   className="my-btn-no-style my-popover-item"
                   onClick={() => {
-                    setModalVisible({visible: true, isCreate: false});
-                    setCurrentEmployee(item)
+                    setModalVisible({ visible: true, isCreate: false });
+                    setCurrentEmployee(item);
                   }}
                 >
                   <Icon component={IconCustom.Edit} className="my-icon-md" />
@@ -202,9 +203,15 @@ const Employees = () => {
       <div className="w-100 search">
         <InputSearch
           placeholder="Mã nhân viên, tên nhân viên"
-          onChange={() => {}}
+          onChange={setSearch}
         />
-        <Button type="primary" onClick={() => setModalVisible({visible: true, isCreate: true})}>
+        <Button
+          type="primary"
+          onClick={() => {
+            setModalVisible({ visible: true, isCreate: true });
+            setCurrentEmployee({});
+          }}
+        >
           + Thêm nhân viên
         </Button>
       </div>
@@ -216,7 +223,7 @@ const Employees = () => {
         rowKey="User_ID"
         scroll={{ x: 768 }}
       />
-      <AddEmployee
+      <AddEditEmployee
         modalVisible={modalVisible}
         handleCancel={() => changeVisibleModal(false)}
         updateEmployees={updateEmployees}

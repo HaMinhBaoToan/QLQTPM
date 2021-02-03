@@ -14,22 +14,19 @@ router.post('/register', async function (req, res) {
 });
 
 router.get('/', async function (req, res) {
-  const { role = '' } = req.query;
-  const list = await usersModel.getUsers(role.split(','));
-
+  const { role = '', search } = req.query;
+  const list = await usersModel.getUsers(role.split(','), search);
   res.json(list);
 });
 
 router.post('/', async function (req, res) {
   const user = req.body;
-  console.log('req.body', req.body);
   const id = await usersModel.add(user);
   res.status(201).json({ ...user, User_ID: id });
 });
 
 router.put('/', async function (req, res) {
   const {User_ID, ...user} = req.body;
-  console.log('put', req.body);
 
   const id = await usersModel.update(User_ID, user);
   res.status(201).json(req.body);
