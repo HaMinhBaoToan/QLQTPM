@@ -12,6 +12,13 @@ const layout = {
   },
 };
 
+const tailLayout = {
+  wrapperCol: {
+    offset: 14,
+    span: 6
+  }
+}
+
 const Login = ({ setAccessToken }) => {
   const [labelText, setLabelText] = useState(" ");
   const history = useHistory();
@@ -78,7 +85,7 @@ console.log(from)
           <Input.Password />
         </Form.Item>
 
-        <Form.Item>
+        <Form.Item {...tailLayout}>
           <Button type="primary" htmlType="submit" className="w-100">
             Login
           </Button>
