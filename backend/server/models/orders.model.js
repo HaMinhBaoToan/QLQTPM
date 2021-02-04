@@ -58,12 +58,11 @@ module.exports = {
                 .leftJoin('orders_details', 'orders.Order_ID', '=', 'orders_details.OrderID')
                 .leftJoin('products', 'orders_details.ProductID', '=', 'products.Product_ID')
                 .select(
-                    db.raw('orders.Order_ID'),
-                    db.raw('orders.Order_Name'),
+                    db.raw('date(??) as ??', ['orders.Order_OrderDate', 'DATE']),
                     db.raw('sum(??) as ??', ['orders_details.Quantity', 'ItemSum']),
                     db.raw('sum(?? * ??) as ??', ['products.Product_CostPrice', 'orders_details.Quantity', 'Amount'])
                 )
-                .groupBy('orders_details.OrderID')
+                .groupByRaw('date(orders.Order_OrderDate)')
     },
     getDataReport_Top(fromDate, toDate) {
         return db('orders')

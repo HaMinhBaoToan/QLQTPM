@@ -14,7 +14,7 @@ const Report = () => {
     content: () => componentRef.current,
   });
   const [dates, setDates] = useState({
-    fromDate: moment("20201001"),
+    fromDate: moment("20210101"),
     toDate: moment(),
   });
   const [varReport, setVarReport] = useState();
@@ -60,12 +60,12 @@ const Report = () => {
               <Form.Item name="report">
                 <Select style={{ width: 220 }}>
                   <Option value="Báo Cáo Tổng">Báo Cáo Tổng</Option>
-                  <Option value="Báo Cáo Công Nợ Thu">
+                  {/* <Option value="Báo Cáo Công Nợ Thu">
                     Báo Cáo Công Nợ Thu
                   </Option>
                   <Option value="Báo Cáo Công Nợ Chi">
                     Báo Cáo Công Nợ Chi
-                  </Option>
+                  </Option> */}
                 </Select>
               </Form.Item>
             </div>
