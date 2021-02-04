@@ -1,14 +1,12 @@
 /* eslint-disable no-template-curly-in-string */
 import React, { useEffect } from 'react';
-import { Modal, Form, Input, Button, Select } from 'antd';
+import { Modal, Form, Input, Button } from 'antd';
 import axios from 'axios';
 
-const { Option } = Select;
-
 export const ROLES = {
-  2: 'Manager',
-  3: 'Employee',
-  5: 'Accountant',
+  1: 'Khách mới',
+  2: 'Khách thân thiết',
+  3: 'Khách VIP',
 };
 
 const layout = {
@@ -30,37 +28,35 @@ const validateMessages = {
   },
 };
 
-const AddEditEmployee = ({ modalVisible, handleCancel, updateEmployees, currentEmployee }) => {
-  const {visible, isCreate} = modalVisible;
-  const [form] = Form.useForm(null);
+const AddEditCustomer = ({
+  modalVisible,
+  handleCancel,
+  updateCustomers,
+  currentCustomer,
+}) => {
+  const { visible, isCreate } = modalVisible;
+  const [form] = Form.useForm();
 
   useEffect(() => {
-  console.log('vo day ne', currentEmployee);
-
-    form.setFieldsValue(currentEmployee);
-  }, [form, currentEmployee]);
-
-  const onChangeRole = (value) => {
-    form.setFieldsValue({
-      User_Role: value,
-    });
-  };
+    form.setFieldsValue(currentCustomer);
+  }, [form, currentCustomer]);
 
   const onFinish = (values) => {
-    const body = {...values, User_ID: currentEmployee.User_ID}
+    const rs = {...values, User_Role: 4};
+    const body = { ...rs, User_ID: currentCustomer.User_ID };
 
     let url = 'http://localhost:4000/api/users';
     const axiosMethod = isCreate
-      ? axios.post(url, values)
+      ? axios.post(url, rs)
       : axios.put(url, body);
     axiosMethod.then(({ data }) => {
-      updateEmployees(data);
+      updateCustomers(data);
     });
   };
 
   return (
     <Modal
-      title={`${isCreate ? 'Thêm': 'Cập nhật'} nhân viên`}
+      title={`${isCreate ? 'Thêm' : 'Cập nhật'} khách hàng`}
       visible={visible}
       onCancel={handleCancel}
       footer={null}
@@ -75,7 +71,7 @@ const AddEditEmployee = ({ modalVisible, handleCancel, updateEmployees, currentE
         form={form}
       >
         <Form.Item
-          name='User_FullName'
+          name="User_FullName"
           label="Họ và tên:"
           rules={[
             {
@@ -86,7 +82,7 @@ const AddEditEmployee = ({ modalVisible, handleCancel, updateEmployees, currentE
           <Input />
         </Form.Item>
         <Form.Item
-          name='User_Mobile'
+          name="User_Mobile"
           label="Số điện thoại:"
           rules={[
             {
@@ -97,7 +93,7 @@ const AddEditEmployee = ({ modalVisible, handleCancel, updateEmployees, currentE
           <Input />
         </Form.Item>
         <Form.Item
-          name='User_Name'
+          name="User_Name"
           label="Tên đăng nhập"
           rules={[
             {
@@ -108,26 +104,7 @@ const AddEditEmployee = ({ modalVisible, handleCancel, updateEmployees, currentE
           <Input />
         </Form.Item>
         <Form.Item
-          name='User_Role'
-          label="Chức vụ"
-          rules={[
-            {
-              required: true,
-            },
-          ]}
-        >
-          <Select
-            value="3"
-            style={{ width: 160 }}
-            onChange={onChangeRole}
-          >
-            {Object.keys(ROLES).map((i) => (
-              <Option key={i} value={i}>{ROLES[i]}</Option>
-            ))}
-          </Select>
-        </Form.Item>
-        <Form.Item
-          name='User_Email'
+          name="User_Email"
           label="Email"
           rules={[
             {
@@ -139,11 +116,11 @@ const AddEditEmployee = ({ modalVisible, handleCancel, updateEmployees, currentE
           <Input />
         </Form.Item>
         <Form.Item wrapperCol={{ ...layout.wrapperCol, offset: 8 }}>
-          <Button type="default" htmlType="submit" style={{marginRight: 16}}>
+          <Button type="default" htmlType="submit" style={{ marginRight: 16 }}>
             Cancel
           </Button>
           <Button type="primary" htmlType="submit">
-            {isCreate ? 'Tạo mới': 'Cập nhật'}
+            {isCreate ? 'Tạo mới' : 'Cập nhật'}
           </Button>
         </Form.Item>
       </Form>
@@ -151,4 +128,4 @@ const AddEditEmployee = ({ modalVisible, handleCancel, updateEmployees, currentE
   );
 };
 
-export default AddEditEmployee;
+export default AddEditCustomer;
