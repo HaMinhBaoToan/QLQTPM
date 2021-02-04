@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from "react";
-import { Table, notification, Tag, Popover, Button } from "antd";
+import { Table, Tag, Popover, Button } from "antd";
 import axios from "axios";
 import { formatNumber } from "../../utils/index";
 import _ from "lodash";
 import Icon, { IconCustom } from "../../components/Icon";
 import ModalView from "./components/ModalView";
+import './styles.scss';
+
 var dateFormat = require("dateformat");
 const OrdersDetails = () => {
   const [datatable, setDatatable] = useState([]);
@@ -24,7 +26,7 @@ const OrdersDetails = () => {
       },
     },
     {
-      title: "Tên khách đặt món",
+      title: "Tên khách hàng",
       dataIndex: "Order_Name",
       width: 250,
       align: "center",
@@ -96,21 +98,14 @@ const OrdersDetails = () => {
       render: (Order_Details, Order) => (
         <>
           {Order.Order_Status[0] === "Waiting" ? (
-            <Button
-              className="my-btn-no-style my-popover-item"
-              style={{ background: "#52c41a" }}
-              onClick={() => {
-                let url = `http://localhost:4000/api/orders/${Order.Order_ID}`;
-                axios.put(url, { Order_Status: "Done" }).then((response) => {
-                  setTimeout(() => {
-                    APIgetAllOrders();
-                  }, 50);
-                });
-              }}
-            >
-              <Icon component={IconCustom.Check} className="my-icon-md" />
-              Xác nhận
-            </Button>
+            <Icon component={IconCustom.Check} className="my-icon-md icon-confirm confirm-yes" onClick={() => {
+              let url = `http://localhost:4000/api/orders/${Order.Order_ID}`;
+              axios.put(url, { Order_Status: "Done" }).then((response) => {
+                setTimeout(() => {
+                  APIgetAllOrders();
+                }, 50);
+              });
+            }} />
           ) : (
             ""
           )}
@@ -126,21 +121,14 @@ const OrdersDetails = () => {
       render: (Order_Details, Order) => (
         <>
           {Order.Order_Status[0] === "Waiting" ? (
-            <Button
-              className="my-btn-no-style my-popover-item"
-              style={{ background: "#f5222d" }}
-              onClick={() => {
-                let url = `http://localhost:4000/api/orders/${Order.Order_ID}`;
-                axios.put(url, { Order_Status: "Cancel" }).then((response) => {
-                  setTimeout(() => {
-                    APIgetAllOrders();
-                  }, 50);
-                });
-              }}
-            >
-              <Icon component={IconCustom.Cancel} className="my-icon-md" />
-              Huỷ
-            </Button>
+           <Icon component={IconCustom.Cancel} className="my-icon-md icon-confirm confirm-cancel" onClick={() => {
+            let url = `http://localhost:4000/api/orders/${Order.Order_ID}`;
+            axios.put(url, { Order_Status: "Cancel" }).then((response) => {
+              setTimeout(() => {
+                APIgetAllOrders();
+              }, 50);
+            });
+          }} />
           ) : (
             ""
           )}
@@ -199,7 +187,7 @@ const OrdersDetails = () => {
             Order_Description: response.data[i].Order_Description,
             Order_OrderDate: dateFormat(
               response.data[i].Order_OrderDate,
-              "dd-mm-yyyy  ( HH:MM:ss ) "
+              "dd-mm-yyyy ( h:MM TT )"
             ),
             Order_PriceAmont: `${formatNumber(
               response.data[i].Order_PriceAmont

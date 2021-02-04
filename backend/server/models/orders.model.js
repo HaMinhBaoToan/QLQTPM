@@ -81,15 +81,22 @@ module.exports = {
     },
     
     getTopItems(fromDate, toDate) {
-        return db('orders')
+        return db.with('with_alias', db('orders')
                 .whereBetween('Order_OrderDate', [fromDate, toDate])
                 .join('orders_details', 'orders.Order_ID', '=', 'orders_details.OrderID')
                 .join('products', 'orders_details.ProductID', '=', 'products.Product_ID')
                 .select(
                     'products.Product_Name as name',
-                    'orders_details.Quantity as totalOrders',
-                    db.raw('(?? * ??) as ??', ['products.Product_CostPrice', 'orders_details.Quantity', 'amount'])
+                    'products.Product_CostPrice as price',
+                    db.raw('count(??) as totalOrders',  ['*'])
                 )
+                .groupBy('products.Product_Name')
+                ).select(
+                    'name',
+                    'price',
+                    'totalOrders',
+                    db.raw('(?? * ??) as ??', ['price', 'totalOrders', 'amount'])
+                ).from('with_alias')
                 .orderBy('amount', 'desc')
     },
 

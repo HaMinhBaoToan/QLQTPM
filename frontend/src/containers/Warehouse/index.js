@@ -29,7 +29,7 @@ const Warehouse = () => {
           Goods_Unit: response.data[i].Goods_Unit,
           Goods_ImportDate: dateFormat(
             response.data[i].Goods_ImportDate,
-            'dd-mm-yyyy  ( HH:MM:ss ) '
+            'dd-mm-yyyy ( h:MM TT )'
           ),
           Goods_FromDate: dateFormat(
             response.data[i].Goods_FromDate,

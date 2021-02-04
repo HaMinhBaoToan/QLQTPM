@@ -103,7 +103,7 @@ const Categories = () => {
           Categorie_IsActive: response.data[i].Categorie_IsActive.data[0],
           Categorie_UpdateDate: dateFormat(
             response.data[i].Categorie_UpdateDate,
-            "dd-mm-yyyy   ( HH:MM:ss ) "
+            "dd-mm-yyyy ( h:MM TT )"
           ),
           User_FullName: response.data[i].User_FullName,
         });
