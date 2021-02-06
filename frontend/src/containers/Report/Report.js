@@ -1,18 +1,17 @@
 import React, { useEffect, useState, useRef } from "react";
 import { DatePicker, Select, Button, Row, Col, Form } from "antd";
-import { SearchOutlined, PrinterOutlined } from "@ant-design/icons";
+import { SearchOutlined } from "@ant-design/icons";
 import moment from "moment";
-import { useReactToPrint } from "react-to-print";
-import { formatDate, formatNumber } from "../../utils/index";
+// import { useReactToPrint } from "react-to-print";
 import Template1 from "./components/Template1";
 const { RangePicker } = DatePicker;
 const { Option } = Select;
 const Report = () => {
   const [form] = Form.useForm();
   const componentRef = useRef();
-  const handlePrint = useReactToPrint({
-    content: () => componentRef.current,
-  });
+  // const handlePrint = useReactToPrint({
+  //   content: () => componentRef.current,
+  // });
   const [dates, setDates] = useState({
     fromDate: moment("20210101"),
     toDate: moment(),
@@ -25,10 +24,9 @@ const Report = () => {
       Date: [moment(dates.fromDate), moment(dates.toDate)],
       report: "Báo Cáo Tổng",
     });
-  }, []);
+  }, [form, dates]);
 
   const onFinish = (values) => {
-    console.log(values.report);
     setVarReport(values);
     if (values.report === "Báo Cáo Tổng") {
       setTypeReport(1);
@@ -82,14 +80,14 @@ const Report = () => {
             </div>
           </Form>
         </Col>
-
-        <Col span={24} className="bg-white ">
+        {varReport ? <Col span={24} className="bg-white ">
           {typeReport === 1 ? (
             <Template1  varReport={varReport} />
           ) : (
             ""
           )}
-        </Col>
+        </Col> : <div style={{fontSize: 25,margin: '0 auto', paddingTop: 50}}>No data</div>}
+        
       </Row>
     </div>
   );

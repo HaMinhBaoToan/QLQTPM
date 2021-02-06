@@ -56,7 +56,6 @@ router.post("/", async function (req, res) {
   const id_list = await orderModel
     .add(order)
     .then(function (respon) {
-      // console.log("log", respon);
       order.Order_ID = respon[0];
       res.status(201).json(order); // created
     })
@@ -81,7 +80,6 @@ router.delete("/:id", async function (req, res) {
 router.put("/:id",  function (req, res) {
   const id = req.params.id;
   const order = req.body;
-  console.log(order);
    orderModel.update(id, order);
 
   res.json({

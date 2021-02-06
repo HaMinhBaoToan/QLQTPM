@@ -201,7 +201,6 @@ const Products = () => {
         .then((response) => {
           APIgetAllProduct();
           openNotificationWithIcon("success", `Bạn sửa thành công`);
-          console.log(response);
         })
         .catch(function (error) {
           console.log("ERROR from server:", error);
@@ -255,13 +254,11 @@ const Products = () => {
           Categorie_ID: response.data[i].Categorie_ID,
         });
       }
-      //   console.log(response.data);
       setDatatable(data);
       setDatatableTemp(data);
     });
   };
   function showDeleteConfirm(product) {
-    console.log(product);
     confirm({
       title: `Bạn có chắc muốn xoá món ${product.Product_Name} ?`,
       icon: <ExclamationCircleOutlined />,
@@ -276,12 +273,10 @@ const Products = () => {
           .then((response) => {
             APIgetAllProduct();
             openNotificationWithIcon("success", "bạn đã xoá thành công");
-            console.log(response);
           })
           .catch(function (error) {
             console.log("ERROR from server:", error);
           });
-        console.log("OK");
       },
       onCancel() {},
     });
@@ -298,7 +293,6 @@ const Products = () => {
       values.Product_CostPrice;
     values.Product_Image = values.Product_ImageBase;
     delete values.Product_ImageBase;
-    console.log(values);
     const URL = `http://localhost:4000/api/products/`;
     axios
       .post(URL, values)
@@ -306,7 +300,6 @@ const Products = () => {
         APIgetAllProduct();
         openNotificationWithIcon("success", "bạn thêm thành công");
         setVisibleModalAdd(false);
-        console.log(response);
       })
       .catch(function (error) {
         console.log("ERROR from server:", error);

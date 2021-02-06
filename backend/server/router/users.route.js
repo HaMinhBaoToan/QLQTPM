@@ -21,6 +21,7 @@ router.get('/', async function (req, res) {
 
 router.post('/', async function (req, res) {
   const user = req.body;
+  user.User_Password = bcrypt.hashSync(user.User_Password, 10);
   const id = await usersModel.add(user);
   res.status(201).json({ ...user, User_ID: id });
 });

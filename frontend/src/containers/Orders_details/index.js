@@ -75,13 +75,13 @@ const OrdersDetails = () => {
           {Order_Status.map((tag) => {
             var textDiv = "";
             if (tag === "Done") {
-              textDiv = <Tag color="green">Đơn hàng hoàn tất</Tag>;
+              textDiv = <Tag key={tag} color="green">Đơn hàng hoàn tất</Tag>;
             }
             if (tag === "Cancel") {
-              textDiv = <Tag color="red">Đơn hàng huỷ</Tag>;
+              textDiv = <Tag key={tag} color="red">Đơn hàng huỷ</Tag>;
             }
             if (tag === "Waiting") {
-              textDiv = <Tag color="gold">Chờ xác nhận</Tag>;
+              textDiv = <Tag key={tag} color="gold">Chờ xác nhận</Tag>;
             }
             return textDiv;
           })}
@@ -207,11 +207,9 @@ const OrdersDetails = () => {
     APIgetAllOrders();
   }, []);
   const onCreate = (values) => {
-    console.log(values);
     setVisibleModalView(false);
   };
 
-  console.log("render", datatableTemp);
   return (
     <div className="orders-details">
       <h3 style={{ margin: "16px" }}>Đơn hàng đã bán</h3>
@@ -221,6 +219,7 @@ const OrdersDetails = () => {
         columns={columns}
         dataSource={datatableTemp}
         scroll={{ x: 768 }}
+        rowKey="Order_ID"
       />
       <ModalView
         visibleModalView={visibleModalView}

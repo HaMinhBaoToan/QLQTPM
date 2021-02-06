@@ -1,8 +1,6 @@
 import React, { useState } from "react";
 import "./styles.scss";
 import { Form, Input, Button, Typography, Alert } from "antd";
-import "antd/dist/antd.css";
-import PropTypes from "prop-types";
 import { useHistory, useLocation } from "react-router-dom";
 import axios from "axios";
 const { Text } = Typography;
@@ -12,19 +10,11 @@ const layout = {
   },
 };
 
-const tailLayout = {
-  wrapperCol: {
-    offset: 14,
-    span: 6
-  }
-}
-
 const Login = ({ setAccessToken }) => {
   const [labelText, setLabelText] = useState(" ");
   const history = useHistory();
   const location = useLocation();
   const { from } = location.state || { from: { pathname: "/" } };
-console.log(from)
   const onFinish = (values) => {
     const API_URL = "http://localhost:4000/api/auth";
     axios
@@ -43,7 +33,7 @@ console.log(from)
           setLabelText(
             <Alert message="Email or Password is incorrect !!" type="error" />
           );
-          setTimeout(() => setLabelText(" "), 3000);
+          // setTimeout(() => setLabelText(" "), 3000);
         }
       })
       .catch((err) => {});
@@ -59,6 +49,9 @@ console.log(from)
         }}
         onFinish={onFinish}
       >
+        <Form.Item>
+          <h3>Login</h3>
+        </Form.Item>
         <Form.Item
           label=" Tên đăng nhập"
           name="User_Name"
@@ -85,15 +78,17 @@ console.log(from)
           <Input.Password />
         </Form.Item>
 
-        <Form.Item {...tailLayout}>
+        <Text type="danger">{labelText}</Text>
+
+
+        <Form.Item >
           <Button type="primary" htmlType="submit" className="w-100">
             Login
           </Button>
         </Form.Item>
       </Form>
-      <Text type="danger">{labelText}</Text>
     </div>
-  );
+  )
 };
 
 export default Login;

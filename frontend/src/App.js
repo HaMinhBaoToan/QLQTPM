@@ -38,19 +38,11 @@ function App() {
   }, [accessToken]);
   if (!accessToken) {
     return (
-      // <Router>
-      // <Switch>
-      // <Redirect push to="/login"  />
-      //   <Route exact path='/login'  >
-      //     <Login setAccessToken={setAccessToken} />;
-      //   </Route>
-      //   </Switch>
-      // </Router>
       <Router>
       <Switch>
         <Redirect exact from="/" to="/login" />
         <Route path="/login">
-          <Login setAccessToken={setAccessToken} />;
+          <Login setAccessToken={setAccessToken} />
         </Route>
       </Switch>
       </Router>

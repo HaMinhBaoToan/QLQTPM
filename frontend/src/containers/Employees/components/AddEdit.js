@@ -35,8 +35,6 @@ const AddEditEmployee = ({ modalVisible, handleCancel, updateEmployees, currentE
   const [form] = Form.useForm(null);
 
   useEffect(() => {
-  console.log('vo day ne', currentEmployee);
-
     form.setFieldsValue(currentEmployee);
   }, [form, currentEmployee]);
 

@@ -14,7 +14,6 @@ const Dashboard = () => {
   const [dates, setDates] = useState({fromDate: moment("20201201"), toDate: moment()});
 
   useEffect(() => {
-    // console.log(formatDate(dates.toDate.add(1, 'days')))
     let url =`http://localhost:4000/api/dashboard?fromDate=${formatDate(dates.fromDate)}&toDate=${formatDate(dates.toDate.add(1, 'days'))}`;
     axios.get(url).then((response) => {
       setData(response.data);

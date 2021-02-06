@@ -162,7 +162,6 @@ const Categories = () => {
     values.Categorie_IsActive = 1;
     values.Categorie_CreateUserID = 1;
     values.Categorie_UpdateUserID = 1;
-    console.log(values);
     const URL = `http://localhost:4000/api/categories/`;
     axios
       .post(URL, values)
@@ -192,7 +191,6 @@ const Categories = () => {
           .then((response) => {
             APIgetAllCategories();
             openNotificationWithIcon("success", "bạn đã xoá thành công");
-            console.log(response);
           })
           .catch(function (error) {
             openNotificationWithIcon(

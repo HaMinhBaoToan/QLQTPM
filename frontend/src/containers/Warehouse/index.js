@@ -11,12 +11,10 @@ import './warehouse.scss';
 var dateFormat = require('dateformat');
 const { TabPane } = Tabs;
 const Warehouse = () => {
-  // const [dataReponse, setdataReponse] = useState([]);
   const [datatable, setDatatable] = useState([]);
   const [datatableTemp, setDatatableTemp] = useState([]);
 
   const APIgetAllProduct = () => {
-    console.log('runnnn index');
     let url = 'http://localhost:4000/api/goods';
     axios.get(url).then((response) => {
       const data = [];

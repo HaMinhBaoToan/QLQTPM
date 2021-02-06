@@ -5,4 +5,23 @@
   align-items: center;
   text-align: center;
   min-height: 100vh;
+  background: #458FDC;
+
+  .ant-form {
+    padding: 60px;
+    background: white;
+    border-radius: 10px;
+
+    .ant-form-item-label {
+      text-align: start;
+    }
+
+    .ant-btn {
+      min-width: 120px;
+    }
+
+    .ant-alert-error {
+      margin-bottom: 30px;
+    }
+  }
 }

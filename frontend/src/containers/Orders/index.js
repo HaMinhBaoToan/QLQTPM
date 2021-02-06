@@ -1,21 +1,21 @@
-import React, { useEffect, useState } from "react";
-import Products from "./components/Products";
-import { Row, Col, Input, notification } from "antd";
-import "./orders.scss";
-import axios from "axios";
-import _ from "lodash";
+import React, { useEffect, useState } from 'react';
+import Products from './components/Products';
+import { Row, Col, Input, notification } from 'antd';
+import './orders.scss';
+import axios from 'axios';
+import _ from 'lodash';
 
-var dateFormat = require("dateformat");
+var dateFormat = require('dateformat');
 const Orders = () => {
   const [products, setProducts] = useState({});
   const [soHD, SetSoHD] = useState();
-  const [Name, setName] = useState("");
-  const [Phone, setPhone] = useState("");
+  const [Name, setName] = useState('');
+  const [Phone, setPhone] = useState('');
   const clearState = () => {
-    setName("temp");
-    setPhone("123");
+    setName('temp');
+    setPhone('123');
     setProducts({});
-    let url = "http://localhost:4000/api/orders";
+    let url = 'http://localhost:4000/api/orders';
     axios.get(url).then((response) => {
       if (response.data.length) {
         SetSoHD(response.data[response.data.length - 1].Order_ID + 1);
@@ -23,7 +23,7 @@ const Orders = () => {
     });
   };
   useEffect(() => {
-    let url = "http://localhost:4000/api/orders";
+    let url = 'http://localhost:4000/api/orders';
     axios.get(url).then((response) => {
       if (response.data.length) {
         SetSoHD(response.data[response.data.length - 1].Order_ID + 1);
@@ -39,8 +39,8 @@ const Orders = () => {
       Order_EmployeesID: 1,
       Order_Description: Phone,
       Order_Name: Name,
-      Order_Status: "Waiting",
-      Order_OrderDate: dateFormat(new Date(), "yyyy-mm-dd HH:MM:ss"),
+      Order_Status: 'Waiting',
+      Order_OrderDate: dateFormat(new Date(), 'yyyy-mm-dd HH:MM:ss'),
       Order_Discount: 0,
       Order_BranchID: 1,
       Order_QuantityAmount: quantityAmount(products),
@@ -50,7 +50,7 @@ const Orders = () => {
     axios
       .post(url_Order, order)
       .then((response) => {
-        openNotificationWithIcon("success", response.data.Order_ID);
+        openNotificationWithIcon('success', response.data.Order_ID);
         axios
           .post(url_DetailOrder, [response.data.Order_ID, products])
           .then((response2) => {
@@ -58,17 +58,17 @@ const Orders = () => {
           });
       })
       .catch(function (error) {
-        console.log("ERROR from server:", error);
+        console.log('ERROR from server:', error);
       });
   };
   const openNotificationWithIcon = (type, idDonHang) => {
     notification[type]({
-      message: "Hoàn Tất Thanh Toán",
+      message: 'Hoàn Tất Thanh Toán',
       description: `Bạn vừa thanh toán thành công đơn hàng ${idDonHang}`,
     });
   };
   const numberWithCommas = (x) => {
-    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
   };
 
   function handleAdd(product) {
@@ -124,7 +124,6 @@ const Orders = () => {
     }
   }
   function handleDelete(id) {
-    console.log(id);
     if (_.has(products, id)) {
       var data = _.cloneDeep(products); //
       data = _.omit(data, id);
@@ -147,11 +146,10 @@ const Orders = () => {
     }
     return amount;
   };
-  // console.log("products", products);
 
   return (
     <div className="orders loading">
-      <h3 style={{ margin: "16px" }}>Menu</h3>
+      <h3 style={{ margin: '16px' }}>Menu</h3>
       <Row>
         <Col span={17}>
           <Products handleAdd={handleAdd} />
@@ -163,14 +161,13 @@ const Orders = () => {
             <div>
               <Input
                 addonBefore="Họ và Tên:     "
-
                 value={Name}
                 disabled={_.isEmpty(products)}
                 onChange={(e) => setName(e.target.value)}
               />
               <Input
                 addonBefore="SĐT:            "
-                value={Phone}  
+                value={Phone}
                 disabled={_.isEmpty(products)}
                 onChange={(e) => setPhone(e.target.value)}
                 type="number"
@@ -229,18 +226,21 @@ const Orders = () => {
             </div>
             <div className="action-block">
               <Row className="amount">
-                <Col span={5}>Tổng:</Col>
-                <Col span={9}>Số Lượng: {quantityAmount(products)}</Col>
-                <Col span={9}>
-                  Giá: {numberWithCommas(priceAmount(products))} vnđ
+                <Col>Tổng:</Col>
+                <Col>
+                  Số Lượng:<span>{quantityAmount(products)}</span>
+                </Col>
+                <Col>
+                  Giá:{' '}
+                  <span>{numberWithCommas(priceAmount(products))} vnđ</span>
                 </Col>
               </Row>
               <button
                 type="button"
                 className={
                   _.isEmpty(Name) || _.isEmpty(Phone) || _.isEmpty(products)
-                    ? "diablebtnCheckout"
-                    : "btnCheckout"
+                    ? 'diablebtnCheckout'
+                    : 'btnCheckout'
                 }
                 disabled={
                   _.isEmpty(Name) || _.isEmpty(Phone) || _.isEmpty(products)

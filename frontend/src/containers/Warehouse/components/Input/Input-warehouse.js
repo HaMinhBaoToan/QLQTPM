@@ -1,5 +1,5 @@
 import React, {  useState ,useContext} from "react";
-import { Row, Col, Table, Tag, Button, notification } from "antd";
+import { Table, Tag, Button, notification } from "antd";
 import axios from "axios";
 import _ from "lodash";
 import ModalForm from "./Modal_Input_Warehouse";

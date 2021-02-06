@@ -361,6 +361,7 @@
   .detail {
     overflow: scroll;
     height: 500px;
+    max-height: 450px;
     .item {
       // padding: 20px 30px;
       // height: 120px;
@@ -461,7 +462,13 @@
     width: 100%;
     .amount{
       font-size: 20px;
+      flex-direction: column;
 
+      .ant-col {
+        padding: 0 10px;
+        display: flex;
+        justify-content: space-between;
+      }
     }
     .btnCheckout {
       background: $primary-orange;

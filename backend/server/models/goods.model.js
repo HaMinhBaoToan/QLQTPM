@@ -73,9 +73,6 @@ module.exports = {
     return db("goods").insert(goods);
   },
   update(id, Used_Quantity) {
-    console.log(id);
-    console.log(Used_Quantity);
-
     return db("goods")
       .where("Goods_ID", id)
       .update({
