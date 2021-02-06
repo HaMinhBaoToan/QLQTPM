@@ -2,8 +2,8 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "antd/dist/antd.css";
 import "./App.scss";
 import "./assets/css/global.scss";
-import React, { useState } from "react";
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { BrowserRouter as Router, Switch, Route, Redirect } from "react-router-dom";
 import { Layout } from "antd";
 import AntIcon, {
   MenuUnfoldOutlined,
@@ -20,14 +20,42 @@ import Warehouse from "./containers/Warehouse";
 import Products from "./containers/Products";
 import Cusomters from "./containers/Customers";
 import Employees from "./containers/Employees";
+import Login from "./components/Login/index";
 import Report from "./containers/Report/Report";
 
 const { Header, Sider, Content } = Layout;
 
 function App() {
   const [collapsed, setCollapsed] = useState(false);
+  const [accessToken, setAccessToken] = useState(false);
 
   const handleCollapsed = () => setCollapsed(!collapsed);
+  useEffect(() => {
+    const tokenString = localStorage.getItem("QuanLyKinhDoanh_Token");
+    if (tokenString) {
+      setAccessToken(true);
+    }
+  }, [accessToken]);
+  if (!accessToken) {
+    return (
+      // <Router>
+      // <Switch>
+      // <Redirect push to="/login"  />
+      //   <Route exact path='/login'  >
+      //     <Login setAccessToken={setAccessToken} />;
+      //   </Route>
+      //   </Switch>
+      // </Router>
+      <Router>
+      <Switch>
+        <Redirect exact from="/" to="/login" />
+        <Route path="/login">
+          <Login setAccessToken={setAccessToken} />;
+        </Route>
+      </Switch>
+      </Router>
+    );
+  }
 
   return (
     <AppContext.Provider value={""}>
@@ -36,7 +64,7 @@ function App() {
           <Layout>
             <Sider trigger={null} collapsible collapsed={collapsed}>
               <div className="logo" />
-              <Sidebar sidebar={collapsed} showSidebar={handleCollapsed} />
+              <Sidebar sidebar={collapsed} showSidebar={handleCollapsed}  setAccessToken={setAccessToken}/>
             </Sider>
             <Layout className="site-layout">
               <Header className="site-layout-background">

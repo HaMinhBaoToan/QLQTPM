@@ -6,8 +6,14 @@ import { SidebarData } from './SidebarData';
 import './styles.scss';
 import { IconContext } from 'react-icons';
 
-function Sidebar({sidebar, showSidebar}) {
-
+function Sidebar({sidebar, showSidebar,setAccessToken}) {
+  const logOut = () => {
+      const tokenString = localStorage.getItem("QuanLyKinhDoanh_Token");
+      if (tokenString) {
+        localStorage.removeItem("QuanLyKinhDoanh_Token");
+      setAccessToken(false);
+      }
+  };
   return (
     <div className='sidebar'>
       <IconContext.Provider value={{ color: '#fff' }}>
@@ -28,7 +34,7 @@ function Sidebar({sidebar, showSidebar}) {
             })}
 
             <li className='navbar-exit'>
-            <Link to='#'>
+            <Link to='/' onClick={logOut}>
                     <div className='icon'>{<IoIcons.IoMdExit/>}</div>
                     <span>Exit</span>
                   </Link>
