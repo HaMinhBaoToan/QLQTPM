@@ -1,0 +1,23 @@
+.icon-confirm {
+    height: 30px;
+    width: 30px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 auto;
+
+    &.confirm-yes {
+        background: #52c41a;
+    }
+
+    &.confirm-cancel {
+        background: #f5222d;
+    }
+
+    > svg {
+        fill: white;
+        height: 14px;
+        width: 14px;
+    }
+}

@@ -1,20 +1,20 @@
-import React, { useEffect, useState } from 'react';
-import { Tabs, Table, Button, notification, Modal, Popover } from 'antd';
+import React, { useEffect, useState } from "react";
+import { Tabs, Table, Button, notification, Modal, Popover } from "antd";
 import {
   EyeInvisibleOutlined,
   EyeOutlined,
   ExclamationCircleOutlined,
-} from '@ant-design/icons';
-import axios from 'axios';
-import { formatNumber } from '../../utils/index';
-import ModalEdit from './components/ModalEdit';
-import ModalAdd from './components/ModalAdd';
-import Categories from './components/Categories/Categories';
-import './styles.scss';
-import Icon, { IconCustom } from '../../components/Icon';
-import { InputSearch } from '../../components/Input';
+} from "@ant-design/icons";
+import axios from "axios";
+import { formatNumber } from "../../utils/index";
+import ModalEdit from "./components/ModalEdit";
+import ModalAdd from "./components/ModalAdd";
+import Categories from "./components/Categories/Categories";
+import "./styles.scss";
+import Icon, { IconCustom } from "../../components/Icon";
+import { InputSearch } from "../../components/Input";
 
-const dateFormat = require('dateformat');
+const dateFormat = require("dateformat");
 
 const { TabPane } = Tabs;
 const { confirm } = Modal;
@@ -29,65 +29,65 @@ const Products = () => {
 
   const columns = [
     {
-      title: 'ID',
-      dataIndex: 'Product_ID',
+      title: "ID",
+      dataIndex: "Product_ID",
       width: 100,
-      align: 'center',
+      align: "center",
       sorter: {
         compare: (a, b) => a.Product_ID - b.Product_ID,
         multiple: 3,
       },
     },
     {
-      title: 'Hình Ảnh',
-      dataIndex: 'Product_Image',
+      title: "Hình Ảnh",
+      dataIndex: "Product_Image",
       width: 200,
-      align: 'center',
+      align: "center",
 
       render: (Product_Image) => (
         <div key={Product_Image}>
-          <img style={{ height: '49px' }} src={Product_Image} alt={''} />
+          <img style={{ height: "49px" }} src={Product_Image} alt={""} />
         </div>
       ),
     },
     {
-      title: 'Tên Hàng',
-      dataIndex: 'Product_Name',
+      title: "Tên Hàng",
+      dataIndex: "Product_Name",
       width: 200,
-      align: 'center',
+      align: "center",
       sorter: {
         compare: (a, b) => a.Product_Name.length - b.Product_Name.length,
         multiple: 3,
       },
     },
     {
-      title: 'Giá gốc',
-      dataIndex: 'Product_CostPriceString',
+      title: "Giá gốc",
+      dataIndex: "Product_CostPriceString",
       width: 100,
-      align: 'center',
+      align: "center",
     },
     {
-      title: 'Giá mới',
-      dataIndex: 'Product_NewPriceString',
+      title: "Giá mới",
+      dataIndex: "Product_NewPriceString",
       width: 100,
-      align: 'center',
+      align: "center",
     },
     {
-      title: 'Danh mục',
-      dataIndex: 'Categorie_Name',
+      title: "Danh mục",
+      dataIndex: "Categorie_Name",
       width: 100,
-      align: 'center',
+      align: "center",
       sorter: {
         compare: (a, b) => a.Categorie_Name.length - b.Categorie_Name.length,
         multiple: 3,
       },
     },
     {
-      title: 'Ẩn/Hiện',
-      dataIndex: 'Product_IsActive',
+      title: "Ẩn/Hiện",
+      dataIndex: "Product_IsActive",
       width: 100,
-      align: 'center',
-      key: 'Product_IsActive',
+      align: "center",
+      key: "Product_IsActive",
 
       render: (Product_IsActive, Product) => (
         <>
@@ -110,11 +110,11 @@ const Products = () => {
       ),
     },
     {
-      title: 'Action',
-      dataIndex: 'Product_Edit',
-      align: 'center',
-      key: 'Product_Edit',
-      className: 'actions',
+      title: "Action",
+      dataIndex: "Product_Edit",
+      align: "center",
+      key: "Product_Edit",
+      className: "actions",
       width: 50,
       render: (Product_Edit, Product) => (
         <>
@@ -164,7 +164,7 @@ const Products = () => {
           APIgetAllProduct();
         })
         .catch(function (error) {
-          console.log('ERROR from server:', error);
+          console.log("ERROR from server:", error);
         });
     }
     if (setDisable === true) {
@@ -177,7 +177,7 @@ const Products = () => {
           APIgetAllProduct();
         })
         .catch(function (error) {
-          console.log('ERROR from server:', error);
+          console.log("ERROR from server:", error);
         });
     }
     if (upDateProduct === true) {
@@ -200,11 +200,11 @@ const Products = () => {
         })
         .then((response) => {
           APIgetAllProduct();
-          openNotificationWithIcon('success', `Bạn sửa thành công`);
+          openNotificationWithIcon("success", `Bạn sửa thành công`);
           console.log(response);
         })
         .catch(function (error) {
-          console.log('ERROR from server:', error);
+          console.log("ERROR from server:", error);
         });
     }
 
@@ -218,20 +218,20 @@ const Products = () => {
   };
   const openNotificationWithIcon = (type, message) => {
     notification[type]({
-      message: 'Hoàn Tất',
+      message: "Hoàn Tất",
       description: message,
     });
   };
   useEffect(() => {
     APIgetAllProduct();
-    let url = 'http://localhost:4000/api/categories';
+    let url = "http://localhost:4000/api/categories";
     axios.get(url).then((response) => {
       setCategories(response.data);
     });
   }, []);
 
   const APIgetAllProduct = () => {
-    let url = 'http://localhost:4000/api/products';
+    let url = "http://localhost:4000/api/products";
     axios.get(url).then((response) => {
       const data = [];
 
@@ -266,22 +266,22 @@ const Products = () => {
       title: `Bạn có chắc muốn xoá món ${product.Product_Name} ?`,
       icon: <ExclamationCircleOutlined />,
       // content: 'Some descriptions',
-      okText: 'Delete',
-      okType: 'danger',
-      cancelText: 'Cancel',
+      okText: "Delete",
+      okType: "danger",
+      cancelText: "Cancel",
       onOk() {
         const URL = `http://localhost:4000/api/products/${product.Product_ID}`;
         axios
           .delete(URL)
           .then((response) => {
             APIgetAllProduct();
-            openNotificationWithIcon('success', 'bạn đã xoá thành công');
+            openNotificationWithIcon("success", "bạn đã xoá thành công");
             console.log(response);
           })
           .catch(function (error) {
-            console.log('ERROR from server:', error);
+            console.log("ERROR from server:", error);
           });
-        console.log('OK');
+        console.log("OK");
       },
       onCancel() {},
     });
@@ -292,7 +292,7 @@ const Products = () => {
     setVisibleModalEdit(false);
   };
   const onCreateAdd = (values) => {
-    values.Product_CreatedDate = dateFormat(new Date(), 'yyyy-mm-dd HH:MM:ss');
+    values.Product_CreatedDate = dateFormat(new Date(), "yyyy-mm-dd HH:MM:ss");
     values.Product_CreatedByUserID = 1;
     values.Product_NewPrice = values.Product_OldPrice =
       values.Product_CostPrice;
@@ -304,12 +304,12 @@ const Products = () => {
       .post(URL, values)
       .then((response) => {
         APIgetAllProduct();
-        openNotificationWithIcon('success', 'bạn thêm thành công');
+        openNotificationWithIcon("success", "bạn thêm thành công");
         setVisibleModalAdd(false);
         console.log(response);
       })
       .catch(function (error) {
-        console.log('ERROR from server:', error);
+        console.log("ERROR from server:", error);
       });
   };
   const txt_Changed = function (e) {
@@ -320,12 +320,13 @@ const Products = () => {
   };
   return (
     <div className="product-container">
+      <h3 className="mb-3">Quản lý sản phẩm & danh mục </h3>
       <Tabs type="card">
         <TabPane tab="Sản Phẩm" key="1">
           <div className="w-100 search">
             <InputSearch
               placeholder="Mã sản phẩm, tên sản phẩm"
-              onChange={() => {}}
+              onChange={(e) => txt_Changed(e)}
             />
             <Button
               type="primary"
@@ -345,7 +346,7 @@ const Products = () => {
             categories={categories}
           />
           <Table
-            style={{ paddingTop: '30px' }}
+            style={{ paddingTop: "30px" }}
             size="small"
             columns={columns}
             dataSource={datatableTemp}

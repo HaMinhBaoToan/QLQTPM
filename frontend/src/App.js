@@ -2,27 +2,26 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "antd/dist/antd.css";
 import "./App.scss";
 import "./assets/css/global.scss";
-import React, { useState, useEffect } from "react";
-import {
-  BrowserRouter as Router,
-  Switch,
-  Route,
-  Redirect,
-} from "react-router-dom";
-import Sidebar from "./components/Sidebar/index";
-import Dashboard from "./containers/DashBoard";
-import Orders from "./containers/Orders";
-import Warehouse from "./containers/Warehouse";
+import React, { useEffect, useState } from "react";
+import { BrowserRouter as Router, Switch, Route, Redirect } from "react-router-dom";
 import { Layout } from "antd";
 import AntIcon, {
   MenuUnfoldOutlined,
   MenuFoldOutlined,
 } from "@ant-design/icons";
 import { AppContext } from "./utils/AppContext";
+
+import Sidebar from "./components/Sidebar/index";
+import Dashboard from "./containers/DashBoard";
+import Orders from "./containers/Orders";
+import OrdersDetails from "./containers/Orders_details";
+
+import Warehouse from "./containers/Warehouse";
 import Products from "./containers/Products";
 import Cusomters from "./containers/Customers";
 import Employees from "./containers/Employees";
 import Login from "./components/Login/index";
+import Report from "./containers/Report/Report";
 
 const { Header, Sider, Content } = Layout;
 
@@ -97,7 +96,10 @@ function App() {
                     <Employees />
                   </Route>
                   <Route path="/reports">
-                    <h3>This page is updating !</h3>
+                    <Report />
+                  </Route>
+                  <Route path="/orders-details">
+                    <OrdersDetails />
                   </Route>
                   <Route path="/">
                     <Dashboard />

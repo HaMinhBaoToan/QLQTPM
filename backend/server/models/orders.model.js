@@ -5,6 +5,18 @@ module.exports = {
     all(){
         return db('orders');
     },
+    allUser(){
+        return db('orders').leftJoin('users', 'orders.Order_EmployeesID', '=', 'users.User_ID');
+    },
+    async detail(id){
+        const orders = await db('orders_details').leftJoin('products', 'orders_details.ProductID', '=', 'products.Product_ID').where('orders_details.OrderId', id);
+
+        if(orders.length === 0){
+            return null
+        }
+        return orders;
+    },
+
 
     async single(id){
         const orders = await db('orders').where('Order_Id', id);
@@ -24,8 +36,8 @@ module.exports = {
         return db('orders').where('Order_ID', id).del()
     },
 
-    update(id, order){
-        return db('orders').where('Order_ID', id).update(order)
+    async update(id, order){
+        return await db('orders').where('Order_ID', id).update(order)
     },
 
     getDataOverview(fromDate, toDate) {
@@ -39,17 +51,52 @@ module.exports = {
                 )
                 .groupBy('orders.Order_ID')
     },
-
-    getTopItems(fromDate, toDate) {
+    getDataReport_Order(fromDate, toDate) {
         return db('orders')
+                .whereBetween('Order_OrderDate', [fromDate, toDate])
+                .where("orders.Order_Status","=","Done")
+                .leftJoin('orders_details', 'orders.Order_ID', '=', 'orders_details.OrderID')
+                .leftJoin('products', 'orders_details.ProductID', '=', 'products.Product_ID')
+                .select(
+                    db.raw('date(??) as ??', ['orders.Order_OrderDate', 'DATE']),
+                    db.raw('sum(??) as ??', ['orders_details.Quantity', 'ItemSum']),
+                    db.raw('sum(?? * ??) as ??', ['products.Product_CostPrice', 'orders_details.Quantity', 'Amount'])
+                )
+                .groupByRaw('date(orders.Order_OrderDate)')
+    },
+    getDataReport_Top(fromDate, toDate) {
+        return db('orders')
+                .whereBetween('Order_OrderDate', [fromDate, toDate])
+                .where("orders.Order_Status","=","Done")
+                .leftJoin('orders_details', 'orders.Order_ID', '=', 'orders_details.OrderID')
+                .leftJoin('products', 'orders_details.ProductID', '=', 'products.Product_ID')
+                .select(
+                    db.raw('products.Product_Name'),
+                    db.raw('sum(??) as ??', ['orders_details.Quantity', 'ItemSum']),
+                    db.raw('sum(?? * ??) as ??', ['products.Product_CostPrice', 'orders_details.Quantity', 'Amount'])
+                )
+                .groupBy('orders_details.ProductID')
+                .orderBy('ItemSum','desc')
+                .limit(10)
+    },
+    
+    getTopItems(fromDate, toDate) {
+        return db.with('with_alias', db('orders')
                 .whereBetween('Order_OrderDate', [fromDate, toDate])
                 .join('orders_details', 'orders.Order_ID', '=', 'orders_details.OrderID')
                 .join('products', 'orders_details.ProductID', '=', 'products.Product_ID')
                 .select(
                     'products.Product_Name as name',
-                    'orders_details.Quantity as totalOrders',
-                    db.raw('(?? * ??) as ??', ['products.Product_CostPrice', 'orders_details.Quantity', 'amount'])
+                    'products.Product_CostPrice as price',
+                    db.raw('count(??) as totalOrders',  ['*'])
                 )
+                .groupBy('products.Product_Name')
+                ).select(
+                    'name',
+                    'price',
+                    'totalOrders',
+                    db.raw('(?? * ??) as ??', ['price', 'totalOrders', 'amount'])
+                ).from('with_alias')
                 .orderBy('amount', 'desc')
     },
 

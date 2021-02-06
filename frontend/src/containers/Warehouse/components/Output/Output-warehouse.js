@@ -72,7 +72,7 @@ const OutputWarehouse = () => {
           Goods_Unit: response.data[i].Goods_Unit,
           Used_CreateDate: dateFormat(
             response.data[i].Used_CreateDate,
-            "dd-mm-yyyy   ( HH:MM:ss ) "
+            "dd-mm-yyyy ( h:MM TT )"
           ),
         });
       }

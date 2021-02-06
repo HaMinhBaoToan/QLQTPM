@@ -1,7 +1,5 @@
-import React, { useState, useEffect } from "react";
-import { Modal, Form, Input, InputNumber, Image, Select } from "antd";
-
-const { Option } = Select;
+import React from "react";
+import { Modal, Form, Input } from "antd";
 const { TextArea } = Input;
 const ModalForm = ({ visibleModalAdd, onCreateAdd, onCancel }) => {
   const [form] = Form.useForm();

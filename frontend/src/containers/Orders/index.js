@@ -12,18 +12,22 @@ const Orders = () => {
   const [Name, setName] = useState("");
   const [Phone, setPhone] = useState("");
   const clearState = () => {
-    setName("toan");
-    setPhone("TOAN");
+    setName("temp");
+    setPhone("123");
     setProducts({});
     let url = "http://localhost:4000/api/orders";
     axios.get(url).then((response) => {
-      SetSoHD(response.data[response.data.length - 1].Order_ID + 1);
+      if (response.data.length) {
+        SetSoHD(response.data[response.data.length - 1].Order_ID + 1);
+      }
     });
   };
   useEffect(() => {
     let url = "http://localhost:4000/api/orders";
     axios.get(url).then((response) => {
-      SetSoHD(response.data[response.data.length - 1].Order_ID + 1);
+      if (response.data.length) {
+        SetSoHD(response.data[response.data.length - 1].Order_ID + 1);
+      }
     });
   }, []);
 
@@ -35,7 +39,7 @@ const Orders = () => {
       Order_EmployeesID: 1,
       Order_Description: Phone,
       Order_Name: Name,
-      Order_Status: "Done",
+      Order_Status: "Waiting",
       Order_OrderDate: dateFormat(new Date(), "yyyy-mm-dd HH:MM:ss"),
       Order_Discount: 0,
       Order_BranchID: 1,
@@ -104,7 +108,8 @@ const Orders = () => {
     if (_.has(products, product.ProductID)) {
       let data = _.cloneDeep(products); //
       data[product.ProductID].Quantity = data[product.ProductID].Quantity + 1;
-      data[product.ProductID].total = data[product.ProductID].Quantity * data[product.ProductID].price;
+      data[product.ProductID].total =
+        data[product.ProductID].Quantity * data[product.ProductID].price;
       setProducts(data);
     }
   }
@@ -146,6 +151,7 @@ const Orders = () => {
 
   return (
     <div className="orders loading">
+      <h3 style={{ margin: "16px" }}>Menu</h3>
       <Row>
         <Col span={17}>
           <Products handleAdd={handleAdd} />
@@ -157,11 +163,14 @@ const Orders = () => {
             <div>
               <Input
                 addonBefore="Họ và Tên:     "
+
+                value={Name}
                 disabled={_.isEmpty(products)}
                 onChange={(e) => setName(e.target.value)}
               />
               <Input
                 addonBefore="SĐT:            "
+                value={Phone}  
                 disabled={_.isEmpty(products)}
                 onChange={(e) => setPhone(e.target.value)}
                 type="number"
@@ -173,10 +182,7 @@ const Orders = () => {
                 return (
                   <div className="item" key={products[idx].ProductID}>
                     <div className="image">
-                      <img
-                        src={products[idx].image}
-                        alt=""
-                      />
+                      <img src={products[idx].image} alt="" />
                     </div>
 
                     <div className="description">
