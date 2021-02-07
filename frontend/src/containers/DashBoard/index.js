@@ -39,7 +39,7 @@ const Dashboard = () => {
       <div>
         <RangePicker
           onChange={handleDate}
-          defaultValue={[moment(dates.fromDate), moment(dates.toDate)]}
+          value={[moment(dates.fromDate), moment(dates.toDate)]}
           format={'DD/MM/YYYY'}
         />
       </div>

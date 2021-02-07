@@ -21,14 +21,14 @@ router.get('/', async function (req, res) {
 
 router.post('/', async function (req, res) {
   const user = req.body;
-  user.User_Password = bcrypt.hashSync(user.User_Password, 10);
+  user.User_Password = bcrypt.hashSync(user.User_Password || '123', 10);
   const id = await usersModel.add(user);
   res.status(201).json({ ...user, User_ID: id });
 });
 
 router.put('/', async function (req, res) {
   const {User_ID, ...user} = req.body;
-
+  user.User_Password = bcrypt.hashSync(user.User_Password || '123', 10);
   const id = await usersModel.update(User_ID, user);
   res.status(201).json(req.body);
 });

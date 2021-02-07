@@ -60,6 +60,7 @@ const Employees = () => {
             User_Mobile: element.User_Mobile,
             User_Role: element.User_Role,
             User_Name: element.User_Name,
+            User_Password: '',
           });
         });
         setEmployees(result);
@@ -186,7 +187,7 @@ const Employees = () => {
                 </Button>
               </div>
             }
-            trigger="focus"
+            trigger="click"
           >
             <Button className="my-btn-no-style btn-icon text-dark-gray">
               <Icon component={IconCustom.MoreHorizontal} />

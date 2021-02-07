@@ -35,7 +35,7 @@ const AddEditEmployee = ({ modalVisible, handleCancel, updateEmployees, currentE
   const [form] = Form.useForm(null);
 
   useEffect(() => {
-    form.setFieldsValue(currentEmployee);
+    form.setFieldsValue({...currentEmployee, User_Password: ''});
   }, [form, currentEmployee]);
 
   const onChangeRole = (value) => {
@@ -97,6 +97,17 @@ const AddEditEmployee = ({ modalVisible, handleCancel, updateEmployees, currentE
         <Form.Item
           name='User_Name'
           label="Tên đăng nhập"
+          rules={[
+            {
+              required: true,
+            },
+          ]}
+        >
+          <Input />
+        </Form.Item>
+        <Form.Item
+          name='User_Password'
+          label="Mật khẩu"
           rules={[
             {
               required: true,
