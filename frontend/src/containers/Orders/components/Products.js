@@ -28,7 +28,7 @@ const Products = ({ handleAdd }) => {
 
   const txt_Changed = function (e) {
     const temp = products.filter((item) =>
-      item.Product_Name.toLowerCase().includes(e.target.value.toLowerCase())
+      item.Product_Name.toLowerCase().includes(e.toLowerCase())
     );
     setproductsTemp(temp);
   };

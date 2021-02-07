@@ -59,7 +59,7 @@ const Warehouse = () => {
   // };
   const txt_Changed = function (e) {
     const temp = datatable.filter((item) =>
-      item.Goods_Name.toLowerCase().includes(e.target.value.toLowerCase())
+      item.Goods_Name.toLowerCase().includes(e.toLowerCase())
     );
     setDatatableTemp(temp);
 
