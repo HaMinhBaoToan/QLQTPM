@@ -3,9 +3,9 @@ const knex = require('knex')({
   connection: {
     host: '127.0.0.1',
     user: 'root',
-    password: '123456',
+    password: '',
     database: 'qlkd',
-    port: 3366
+    port: 3306
 
     //   host: 'us-cdbr-east-03.cleardb.com',
     // user: 'b0fcb0931e803b',
