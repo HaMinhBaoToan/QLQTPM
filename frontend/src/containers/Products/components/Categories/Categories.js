@@ -6,7 +6,6 @@ import {
   DeleteOutlined,
   ExclamationCircleOutlined,
 } from "@ant-design/icons";
-import ModalEdit from "./ModalEdit";
 import ModalAdd from "./ModalAdd";
 import axios from "axios";
 

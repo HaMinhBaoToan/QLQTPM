@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import { Table, Tag, Popover, Button } from "antd";
 import axios from "axios";
 import { formatNumber } from "../../utils/index";
-import _ from "lodash";
 import Icon, { IconCustom } from "../../components/Icon";
 import ModalView from "./components/ModalView";
 import './styles.scss';

@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from "react";
-import { Modal, Form, Input, Table } from "antd";
+import { Modal, Form, Table } from "antd";
 import axios from "axios";
 import { formatNumber } from "../../../utils/index";
-import _ from "lodash";
 const ModalForm = ({ visibleModalView, onCreate, onCancel, orderModal }) => {
   const [form] = Form.useForm();
   const [datatable, setDatatable] = useState([]);

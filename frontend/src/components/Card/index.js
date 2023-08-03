@@ -1,7 +1,7 @@
 import { Card } from 'antd';
 import './styles.scss';
 import { formatNumber } from '../../utils';
-
+import React  from 'react';
 const cardInfo = [
   {
     color: '#8BC34A',

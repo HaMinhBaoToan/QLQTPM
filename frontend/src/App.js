@@ -1,5 +1,5 @@
 import "bootstrap/dist/css/bootstrap.min.css";
-import "antd/dist/antd.css";
+import "antd/dist/antd.min.css";
 import "./App.scss";
 import "./assets/css/global.scss";
 import React, { useEffect, useState } from "react";
@@ -30,24 +30,24 @@ function App() {
   const [accessToken, setAccessToken] = useState(false);
 
   const handleCollapsed = () => setCollapsed(!collapsed);
-  useEffect(() => {
-    const tokenString = localStorage.getItem("QuanLyKinhDoanh_Token");
-    if (tokenString) {
-      setAccessToken(true);
-    }
-  }, [accessToken]);
-  if (!accessToken) {
-    return (
-      <Router>
-      <Switch>
-        <Redirect exact from="/" to="/login" />
-        <Route path="/login">
-          <Login setAccessToken={setAccessToken} />
-        </Route>
-      </Switch>
-      </Router>
-    );
-  }
+  // useEffect(() => {
+  //   const tokenString = localStorage.getItem("QuanLyKinhDoanh_Token");
+  //   if (tokenString) {
+  //     setAccessToken(true);
+  //   }
+  // }, [accessToken]);
+  // if (!accessToken) {
+  //   return (
+  //     <Router>
+  //     <Switch>
+  //       <Redirect exact from="/" to="/login" />
+  //       <Route path="/login">
+  //         <Login setAccessToken={setAccessToken} />
+  //       </Route>
+  //     </Switch>
+  //     </Router>
+  //   );
+  // }
 
   return (
     <AppContext.Provider value={""}>
