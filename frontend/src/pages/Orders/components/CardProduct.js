@@ -56,7 +56,7 @@ const Product = ({ product, openModal, handleAdd }) => {
 
       <Modal
         title={"Thông tin món " + product.Product_Name}
-        visible={isModalVisible}
+        open={isModalVisible}
         onCancel={handleCancel}
         okText="Chọn món"
         cancelText="Huỷ"

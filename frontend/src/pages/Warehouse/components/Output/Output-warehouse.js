@@ -3,8 +3,8 @@ import { Row, Col, Table, Button, notification } from "antd";
 import axios from "axios";
 import ModalForm from "./Modal_Output_Warehouse";
 import { WarehouseContext } from "../../../../utils/AppContext";
+import dateFormat from "dateformat";
 
-var dateFormat = require("dateformat");
 
 const columns = [
   {

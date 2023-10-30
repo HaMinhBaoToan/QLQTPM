@@ -3,26 +3,30 @@
 body {
   background-color: #f0f2f5 !important;
 }
+
 * {
   font-family: Arial, sans-serif;
   /* If you want to implement it in very old browser-versions */
--webkit-user-select: none; /* Chrome/Safari */ 
--moz-user-select: none; /* Firefox */
--ms-user-select: none; /* IE10+ */
+  -webkit-user-select: none;
+  /* Chrome/Safari */
+  -moz-user-select: none;
+  /* Firefox */
+  -ms-user-select: none;
+  /* IE10+ */
 
-/* The rule below is not implemented in browsers yet */
--o-user-select: none;
+  /* The rule below is not implemented in browsers yet */
+  -o-user-select: none;
 
-/* The rule below is implemented in most browsers by now */
-user-select: none;
+  /* The rule below is implemented in most browsers by now */
+  user-select: none;
 }
+
 #root {
   height: 100%;
   width: 100%;
 }
 
 .App {
-  text-align: center;
   height: 100%;
   width: 100%;
 }
@@ -30,45 +34,16 @@ user-select: none;
 .ant-layout {
   height: 100%;
 
-  // .ant-layout-sider-dark, .ant-layout-sider{
-  //   transition: 350ms;
+  .content-side // .dashboard,
 
-  // }
-
-  .ant-layout-sider-collapsed {
-    flex: unset !important;
-    width: unset !important;
-    max-width: unset !important;
-    min-width: unset !important;
-  }
-
-  .ant-layout-header {
-    padding: 0;
-    background: #394867;
-    display: flex;
-  }
-
-  .hambergurIcon {
-    width: 60px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    svg {
-      width: 26px;
-      height: 26px;
-      color: white;
-    }
-  }
-
-  .dashboard,
-  .customer,
-  .product-container,
-  .orders,
-  .warehouse,
-  .employees,
-  .orders-details,
-  .report {
+  // .customer,
+  // .product-container,
+  // .orders,
+  // .warehouse,
+  // .employees,
+  // .orders-details,
+  // .report 
+    {
     text-align: left;
     background-color: $purple-light;
     padding: 2rem;
@@ -76,72 +51,72 @@ user-select: none;
     overflow-y: auto;
   }
 
-  table {
-    td.actions > button,
-    td.actions > button:hover {
-      border: none;
-      background: #fff;
-      box-shadow: none;
-      outline: none;
-    }
-  }
+  // table {
+  //   td.actions > button,
+  //   td.actions > button:hover {
+  //     border: none;
+  //     background: #fff;
+  //     box-shadow: none;
+  //     outline: none;
+  //   }
+  // }
 }
 
-.ant-popover-arrow {
-  display: none;
-}
+// .ant-popover-arrow {
+//   display: none;
+// }
 
-.ant-tag {
-  min-width: 80px;
-}
+// .ant-tag {
+//   min-width: 80px;
+// }
 
-.ant-popover-inner-content {
-  .my-popover-container {
-    .my-popover-item {
-      background-color: white;
-      min-width: 100px;
-      text-align: left;
-      border: none;
-      display: flex;
-      align-items: center;
-    }
-  }
-}
+// .ant-popover-inner-content {
+//   .my-popover-container {
+//     .my-popover-item {
+//       background-color: white;
+//       min-width: 100px;
+//       text-align: left;
+//       border: none;
+//       display: flex;
+//       align-items: center;
+//     }
+//   }
+// }
 
-.ant-btn::after {
-  border-color: white !important;
-  box-shadow: none !important;
-}
+// .ant-btn::after {
+//   border-color: white !important;
+//   box-shadow: none !important;
+// }
 
-.inputFile {
-  cursor: pointer;
-  width: 180px;
-  height: 34px;
-  overflow: hidden;
-  &:before {
-    width: 158px;
-    height: 32px;
-    font-size: 16px;
-    line-height: 32px;
-    content: 'Select your file';
-    display: inline-block;
-    background: white;
-    border: 1px solid #000;
-    padding: 0 10px;
-    text-align: center;
-    font-family: Helvetica, Arial, sans-serif;
-  }
-  &::-webkit-file-upload-button {
-    visibility: hidden;
-  }
-}
+// .inputFile {
+//   cursor: pointer;
+//   width: 180px;
+//   height: 34px;
+//   overflow: hidden;
+//   &:before {
+//     width: 158px;
+//     height: 32px;
+//     font-size: 16px;
+//     line-height: 32px;
+//     content: 'Select your file';
+//     display: inline-block;
+//     background: white;
+//     border: 1px solid #000;
+//     padding: 0 10px;
+//     text-align: center;
+//     font-family: Helvetica, Arial, sans-serif;
+//   }
+//   &::-webkit-file-upload-button {
+//     visibility: hidden;
+//   }
+// }
 
-.active-navlink{
-  background: #212a3e;
-}
+// .active-navlink{
+//   background: #212a3e;
+// }
 
-span {
-  svg{
-    vertical-align: baseline;
-  }
-}
+// span {
+//   svg{
+//     vertical-align: baseline;
+//   }
+// }

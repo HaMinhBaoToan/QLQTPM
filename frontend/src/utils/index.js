@@ -1,7 +1,9 @@
-import moment from 'moment';
+import dayjs from 'dayjs';
+
+const dateFormat = 'YYYY-MM-DD';
 
 const formatDate = (date) => {
-    return moment(date).toISOString();
+    return dayjs(date,dateFormat).toISOString();
 }
 
 const formatNumber = (number = 0) => {

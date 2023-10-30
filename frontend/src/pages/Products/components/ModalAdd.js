@@ -10,11 +10,11 @@ const ModalForm = ({
   categories,
 }) => {
   const [form] = Form.useForm();
-  const [imageBase64, setimageBase64] = useState();
+  const [imageBase64, setImageBase64] = useState();
 
   return (
     <Modal
-      visible={visible}
+      open={visible}
       title="Thêm Sản Phẩm"  
       okText="Thêm"
       cancelText="Huỷ"
@@ -24,7 +24,7 @@ const ModalForm = ({
           .validateFields()
           .then((values) => {
             form.resetFields();
-            setimageBase64();
+            setImageBase64();
             onCreateAdd(values);
           })
           .catch((info) => {
@@ -87,7 +87,7 @@ const ModalForm = ({
             reader.readAsDataURL(e.target.files[0]);
             reader.onloadend = function (event) {
               var base64Data = event.target.result;
-              setimageBase64(base64Data);
+              setImageBase64(base64Data);
               form.setFieldsValue({
                 Product_ImageBase: base64Data,
               });

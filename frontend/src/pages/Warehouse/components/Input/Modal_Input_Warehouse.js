@@ -23,7 +23,7 @@ const ModalForm = ({ visible, onCreate, onCancel, idNextGoods }) => {
 
   return (
     <Modal
-      visible={visible}
+      open={visible}
       title="Create a new collection"
       okText="Create"
       cancelText="Cancel"

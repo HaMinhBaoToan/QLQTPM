@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import "./styles.scss";
 import { Form, Input, Button, Typography, Alert } from "antd";
-import { useHistory, useLocation } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import axios from "axios";
 const { Text } = Typography;
 const layout = {
@@ -12,7 +12,7 @@ const layout = {
 
 const Login = ({ setAccessToken }) => {
   const [labelText, setLabelText] = useState(" ");
-  const history = useHistory();
+  const history = useNavigate();
   const location = useLocation();
   const { from } = location.state || { from: { pathname: "/" } };
   const onFinish = (values) => {
@@ -25,7 +25,7 @@ const Login = ({ setAccessToken }) => {
             "QuanLyKinhDoanh_Token",
             JSON.stringify(result.data)
           );
-      setAccessToken(true);
+          setAccessToken(true);
 
           history.push(from);
 
@@ -36,7 +36,7 @@ const Login = ({ setAccessToken }) => {
           // setTimeout(() => setLabelText(" "), 3000);
         }
       })
-      .catch((err) => {});
+      .catch((err) => { });
   };
 
   return (

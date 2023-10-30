@@ -4,7 +4,8 @@ import axios from "axios";
 import _ from "lodash";
 import ModalForm from "./Modal_Input_Warehouse";
 import {WarehouseContext} from "../../../../utils/AppContext";
-var dateFormat = require("dateformat");
+import dateFormat from "dateformat";
+
 
 const columns = [
   {

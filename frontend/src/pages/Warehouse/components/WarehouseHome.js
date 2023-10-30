@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import {  Table, Tag } from 'antd';
+import { Table, Tag } from 'antd';
 import _ from 'lodash';
 import { WarehouseContext } from '../../../utils/AppContext';
 import { InputSearch } from '../../../components/Input';
@@ -42,10 +42,7 @@ const columns = [
     align: 'center',
     render(text) {
       return {
-        props: {
-          style: { color: parseInt(text) === 0 ? 'red' : '' },
-        },
-        children: <div>{text}</div>,
+        children: <div style={{ color: parseInt(text) === 0 ? 'red' : '' }}>{text}</div>,
       };
     },
     // sorter: {
@@ -112,7 +109,7 @@ const columns = [
 ];
 
 const WarehouseHome = () => {
-  const { datatableTemp,txt_Changed } = useContext(WarehouseContext);
+  const { datatableTemp, txt_Changed } = useContext(WarehouseContext);
 
   return (
     <div>

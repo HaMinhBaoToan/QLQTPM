@@ -6,10 +6,26 @@ import OutputWarehouse from './components/Output/Output-warehouse';
 import WarehouseHome from './components/WarehouseHome';
 import { WarehouseContext } from '../../utils/AppContext';
 import { formatNumber } from '../../utils/index';
-
+import dateFormat from "dateformat";
 import './warehouse.scss';
-var dateFormat = require('dateformat');
-const { TabPane } = Tabs;
+const items = [
+  {
+    key: '1',
+    label: 'Kho',
+    children: <WarehouseHome />,
+  },
+  {
+    key: '2',
+    label: 'Nhập kho',
+    children: <InputWarehouse />,
+  },
+  {
+    key: '3',
+    label: 'Xuất kho',
+    children: <OutputWarehouse />,
+  },
+];
+
 const Warehouse = () => {
   const [datatable, setDatatable] = useState([]);
   const [datatableTemp, setDatatableTemp] = useState([]);
@@ -68,23 +84,14 @@ const Warehouse = () => {
 
   return (
     <WarehouseContext.Provider
-      value={{ datatableTemp, APIgetAllProduct, datatable,txt_Changed }}
+      value={{ datatableTemp, APIgetAllProduct, datatable, txt_Changed }}
     >
       <div className="warehouse loading">
-      <h3 className="mb-3">Quản lý kho</h3>
+        <h3 className="mb-3">Quản lý kho</h3>
 
-        <Tabs type="card">
-          <TabPane tab="Kho" key="1">
-            <WarehouseHome />
-          </TabPane>
-          <TabPane tab="Nhập kho" key="2">
-            <InputWarehouse />
-          </TabPane>
+        <Tabs type="card" items={items} />
 
-          <TabPane tab="Xuất kho" key="3">
-            <OutputWarehouse />
-          </TabPane>
-        </Tabs>
+
       </div>
     </WarehouseContext.Provider>
   );

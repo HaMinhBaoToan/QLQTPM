@@ -6,14 +6,14 @@ import { SidebarData } from './SidebarData';
 import './styles.scss';
 import { IconContext } from 'react-icons';
 
-function Sidebar({sidebar, showSidebar,setAccessToken}) {
-  const logOut = () => {
-      const tokenString = localStorage.getItem("QuanLyKinhDoanh_Token");
-      if (tokenString) {
-        localStorage.removeItem("QuanLyKinhDoanh_Token");
-      setAccessToken(false);
-      }
-  };
+function Sidebar({ sidebar, showSidebar, setAccessToken }) {
+  // const logOut = () => {
+  //   const tokenString = localStorage.getItem("QuanLyKinhDoanh_Token");
+  //   if (tokenString) {
+  //     localStorage.removeItem("QuanLyKinhDoanh_Token");
+  //     setAccessToken(false);
+  //   }
+  // };
   return (
     <div className='sidebar'>
       <IconContext.Provider value={{ color: '#fff' }}>
@@ -24,8 +24,8 @@ function Sidebar({sidebar, showSidebar,setAccessToken}) {
             </li>
             {SidebarData.map((item, index) => {
               return (
-                <li key={index} className={item.cName}>
-                  <NavLink to={item.path}  exact  activeClassName="active-navlink">
+                <li key={index} className='nav-text'>
+                  <NavLink to={item.path} end className={(navData) => navData.isActive ? "active-navlink" : ""} >
                     <div className='icon'>{item.icon}</div>
                     <span>{item.title}</span>
                   </NavLink>
@@ -33,20 +33,13 @@ function Sidebar({sidebar, showSidebar,setAccessToken}) {
               );
             })}
 
-            <li className='navbar-exit'>
-            <Link to='/' onClick={logOut}>
-                    <div className='icon'>{<IoIcons.IoMdExit/>}</div>
-                    <span>Exit</span>
-                  </Link>
-            
-                    
-              {/* <span className='menu-bars-exit'>
-              
-                <a href="#">
-                
-                </a>
-              </span> */}
-            </li>
+              <li className='nav-text navbar-exit'>
+                <NavLink to='/'>
+                {/* onClick={logOut} */}
+                  <div className='icon'>{<IoIcons.IoMdExit />}</div>
+                  <span>Thoát</span>
+                </NavLink>
+              </li>
           </ul>
         </nav>
       </IconContext.Provider>

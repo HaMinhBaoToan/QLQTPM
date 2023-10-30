@@ -14,7 +14,7 @@ const { confirm } = Modal;
 
 const Categories = () => {
   const [datatableOut, setDatatableOut] = useState([]);
-  const [visibleModalEdit, setVisibleModalEdit] = useState(false);
+  // const [visibleModalEdit, setVisibleModalEdit] = useState(false);
   const [visibleModalAdd, setVisibleModalAdd] = useState(false);
 
   const columns = [
