@@ -1,5 +1,8 @@
 import React, { useState } from "react";
-import { Modal } from "antd";
+import { Modal, Button } from "antd";
+import * as AiIcons from "react-icons/ai";
+import * as FaIcons from "react-icons/fa";
+
 const Product = ({ product, openModal, handleAdd }) => {
   const numberWithCommas = (x) => {
     return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
@@ -22,28 +25,49 @@ const Product = ({ product, openModal, handleAdd }) => {
     setIsModalVisible(false);
   };
   return (
-    <div className="product">
+    <div className="featured__item">
       <div>
-        <div className="product-image">
-          <img
+        <div className="featured__item__pic" style={{
+          backgroundImage: `url(${product.Product_Image})`,
+        }}>
+          {/* <img
             src={product.Product_Image}
             alt={product.Product_Name}
             onClick={showModal}
-          />
+          /> */}
+          <ul className="featured__item__pic__hover">
+            <li className='btn-format' onClick={() => addCart(product)}>
+              <FaIcons.FaShoppingCart />
+            </li>
+            {/* <button
+              className="add-to-cart"
+              type="button"
+              onClick={() => addCart(product)}
+            >
+              Add to cart
+            </button> */}
+          </ul>
         </div>
-        <h4 className="product-name">{product.Product_Name}</h4>
-        <p className="product-price-old">
-          {numberWithCommas(parseInt(product.Product_OldPrice) + 5000)}
-        </p>
-        <p className="product-price">
-          {numberWithCommas(parseInt(product.Product_NewPrice))}
-        </p>
+        <div className="featured__item__text">
+
+          <h5 className="product-name">{product.Product_Name}</h5>
+
+          <h6 className="product-price">
+            {numberWithCommas(parseInt(product.Product_NewPrice))}
+          </h6>
+
+          <p className="product-price-old">
+            {numberWithCommas(parseInt(product.Product_OldPrice) + 5000)}
+          </p>
+        </div>
+
         {/* <Counter
           productQuantity={quantity}
           updateQuantity={this.props.updateQuantity}
           resetQuantity={this.resetQuantity}
         /> */}
-        <div className="product-action">
+
+        {/* <div className="product-action">
           <button
             className="add-to-cart"
             type="button"
@@ -51,7 +75,7 @@ const Product = ({ product, openModal, handleAdd }) => {
           >
             Add to cart
           </button>
-        </div>
+        </div> */}
       </div>
 
       <Modal
@@ -60,7 +84,7 @@ const Product = ({ product, openModal, handleAdd }) => {
         onCancel={handleCancel}
         okText="Chọn món"
         cancelText="Huỷ"
-        onOk={() => {addCart(product);handleCancel();}}
+        onOk={() => { addCart(product); handleCancel(); }}
         cancelButtonProps={{ disabled: true }}
       >
         <div className="quick-view">

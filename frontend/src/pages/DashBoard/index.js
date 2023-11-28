@@ -11,7 +11,7 @@ const { RangePicker } = DatePicker;
 
 const Dashboard = () => {
   const [data, setData] = useState({ infor: [], chartData: [], topItemsData: [] });
-  const [dates, setDates] = useState({ fromDate: dayjs("2020-12-01"), toDate: dayjs() });
+  const [dates, setDates] = useState({ fromDate: dayjs("2022-12-01"), toDate: dayjs() });
 
   useEffect(() => {
     let url = `http://localhost:4000/api/dashboard?fromDate=${formatDate(dates.fromDate)}&toDate=${formatDate(dates.toDate.add(1, 'days'))}`;

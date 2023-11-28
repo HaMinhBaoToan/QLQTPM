@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import CardProduct from "./CardProduct";
-import { Row } from "antd";
+import { Row, Col } from "antd";
 import axios from "axios";
 import { InputSearch } from "../../../components/Input";
 
@@ -34,19 +34,28 @@ const Products = ({ handleAdd }) => {
   };
   return (
     <Row>
-      <div className="w-100 search" style={{margin:"16px"}}>
+      <div className="w-100 search" style={{ margin: "16px" }}>
         <InputSearch
           placeholder="Mã sản phẩm, tên sản phẩm"
           onChange={(e) => txt_Changed(e)}
         />
       </div>
-      {productsTemp.map((product) => (
-        <CardProduct
-          key={product.Product_ID}
-          product={product}
-          handleAdd={handleAdd}
-        />
-      ))}
+      <Row
+        gutter={{
+          xs: 8, sm: 16, md: 24, lg: 32 
+        }}
+      >
+        {productsTemp.map((product) => (
+          <Col xs={12} lg={8} xl={6} >
+            <CardProduct
+              key={product.Product_ID}
+              product={product}
+              handleAdd={handleAdd}
+            />
+          </Col>
+        ))}
+      </Row>
+
     </Row>
   );
 };
